@@ -3,178 +3,912 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Приключенията на Супер-Мира — Дигитална книга</title>
+<title>Приключенията на Супер-Мира — Книга с истории</title>
 <style>
-  @page { size: A5; margin: 0; }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: 'Georgia', 'Times New Roman', serif;
-    color: #1e1b4b;
-    line-height: 1.8;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #fdfaf3;
-  }
-  .cover {
-    background: linear-gradient(135deg, #7c3aed, #5b21b6, #f97316);
-    color: white;
-    padding: 60px 30px;
-    text-align: center;
-    border-radius: 20px;
-    margin-bottom: 30px;
-    page-break-after: always;
-  }
-  .cover h1 { font-size: 28px; font-weight: bold; margin: 16px 0; }
-  .cover .emoji { font-size: 64px; }
-  .cover .author { font-size: 14px; opacity: 0.9; margin-top: 24px; }
-  .story {
-    background: white;
-    border-radius: 16px;
-    padding: 30px 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-    page-break-after: always;
-  }
-  .story h2 { font-size: 22px; color: #7c3aed; margin-bottom: 16px; text-align: center; }
-  .story .chapter { font-size: 12px; color: #f97316; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-bottom: 16px; font-weight: bold; }
-  .story p { font-size: 15px; margin-bottom: 14px; text-indent: 1.5em; }
-  .story .highlight { background: #fef3c7; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-  .story .mission-box {
-    background: #ede9fe;
-    border-left: 4px solid #7c3aed;
-    padding: 14px 16px;
-    border-radius: 0 12px 12px 0;
-    margin: 16px 0;
-    font-size: 14px;
-  }
-  .story .mission-box strong { display: block; margin-bottom: 4px; color: #5b21b6; }
-  .story .illustration { text-align: center; font-size: 48px; margin: 20px 0; }
-  .last-page {
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #fef3c7, #ede9fe);
-    border-radius: 20px;
-  }
-  .last-page h3 { font-size: 20px; color: #5b21b6; margin-bottom: 16px; }
-  @media print {
-    body { background: white; }
-    .story { box-shadow: none; border: 1px solid #e5e7eb; }
-  }
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+  --purple: #7c3aed;
+  --purple-dark: #5b21b6;
+  --orange: #f97316;
+  --orange-light: #fed7aa;
+  --gold: #f59e0b;
+  --cream: #fff7ed;
+  --dark: #1e1b4b;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #0f0a1e;
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+/* Cover styling */
+.cover {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a0a2e 0%, #2d1b69 30%, #4c1d95 60%, #7c3aed 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 70%, rgba(249,115,22,0.2) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(124,58,237,0.3) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(245,158,11,0.15) 0%, transparent 40%);
+  animation: coverGlow 8s ease-in-out infinite;
+}
+
+@keyframes coverGlow {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  33% { transform: rotate(1deg) scale(1.05); }
+  66% { transform: rotate(-1deg) scale(1.03); }
+}
+
+.cover > * { position: relative; z-index: 1; }
+
+.cover-stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+.cover-badge {
+  background: linear-gradient(135deg, var(--orange), #ea580c);
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(249,115,22,0.4);
+}
+
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  color: white;
+  text-shadow: 0 0 40px rgba(124,58,237,0.6), 0 4px 8px rgba(0,0,0,0.3);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.cover h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--orange-light);
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+.cover-illustration {
+  width: min(300px, 70vw);
+  height: min(300px, 70vw);
+  margin: 1rem 0;
+}
+
+.cover .value-badge {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  color: var(--orange-light);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* Page styling */
+.chapter {
+  min-height: 100vh;
+  padding: 4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.chapter:nth-child(even) { background: #120822; }
+.chapter:nth-child(odd) { background: #0f0a1e; }
+
+.chapter-inner {
+  max-width: 700px;
+  width: 100%;
+  position: relative;
+}
+
+.chapter-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  color: var(--purple);
+  opacity: 0.3;
+  position: absolute;
+  top: -2rem;
+  left: -1rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.chapter h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+}
+
+.chapter p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+  color: #cbd5e1;
+}
+
+.chapter .highlight {
+  color: var(--orange-light);
+  font-weight: 700;
+}
+
+.chapter .lesson-box {
+  background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(124,58,237,0.05));
+  border-left: 4px solid var(--purple);
+  padding: 1.2rem;
+  border-radius: 0 12px 12px 0;
+  margin: 2rem 0;
+  font-style: italic;
+  color: #c4b5fd;
+}
+
+.illustration {
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+}
+
+.illustration svg {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+}
+
+/* Page navigation */
+.chapter-nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.chapter-nav button {
+  background: rgba(124,58,237,0.3);
+  border: 1px solid rgba(124,58,237,0.5);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.chapter-nav button:hover {
+  background: var(--purple);
+  box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+}
+
+/* Back cover */
+.back-cover {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2d1b69, #4c1d95, #7c3aed);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.back-cover h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.back-cover p {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+.back-cover .cta-box {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 450px;
+}
+
+.back-cover .cta-box h3 {
+  color: var(--orange-light);
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.back-cover .cta-box .price {
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  margin: 1rem 0;
+}
+
+.back-cover .cta-box .original-price {
+  text-decoration: line-through;
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+/* Table of contents */
+.toc {
+  min-height: 100vh;
+  background: #120822;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.toc h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--orange);
+  margin-bottom: 2rem;
+}
+
+.toc-list {
+  list-style: none;
+  max-width: 500px;
+}
+
+.toc-list li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(124,58,237,0.2);
+  color: #cbd5e1;
+  font-size: 1rem;
+}
+
+.toc-list .toc-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--purple);
+  font-weight: 900;
+  min-width: 2rem;
+}
+
+/* Floating navigation */
+.floating-nav {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+}
+
+.floating-nav button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--purple);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(124,58,237,0.5);
+  transition: transform 0.2s;
+}
+
+.floating-nav button:active { transform: scale(0.9); }
+
+/* Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .chapter { padding: 3rem 1rem; }
+  .chapter p { font-size: 1rem; line-height: 1.7; }
+}
 </style>
 </head>
 <body>
 
-<div class="cover">
-  <div class="emoji">🦸‍♀️</div>
+<!-- COVER -->
+<section class="cover">
+  <div id="starContainer" class="cover-stars"></div>
+  <div class="cover-badge">📖 ДЕТСКА КНИГА</div>
   <h1>Приключенията<br>на Супер-Мира</h1>
-  <p style="font-size:16px">5 истории за деца, които превръщат телефона в суперсила</p>
-  <div class="author">Бонус книга към Premium пакета<br>"30 дни Суперсила"</div>
-</div>
-
-<!-- Story 1 -->
-<div class="story">
-  <div class="chapter">История №1</div>
-  <h2>Мисия "Изчезналият домат"</h2>
-  <div class="illustration">🍅🔍</div>
-  <p>Мира беше на 8 години и обичаше да гледа видеа на телефона на мама. Всеки ден — същото: скрол, скрол, скрол. Докато един ден мама не каза нещо странно:</p>
-  <p>"Мира, имаме <span class="highlight">спешна мисия</span>. Някой е откраднал доматите от хладилника!"</p>
-  <p>Мира остави телефона. "Кой би откраднал домати?"</p>
-  <p>"Трябва да разследваме. Ще използваш телефона си като <span class="highlight">детективска камера</span>. Снимай всички червени предмети вкъщи — може би крадецът е оставил следа!"</p>
-  <div class="mission-box">
-    <strong>🦸 Суперсилата:</strong>
-    Телефонът се превърна от играчка в ИНСТРУМЕНТ. Мира вече не скролваше — тя търсеше, мислеше, сравняваше.
+  <h2>Как малкото момиче превърна<br>телефона в суперсила</h2>
+  <div class="cover-illustration">
+    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="glow1"><stop offset="0%" stop-color="#f97316" stop-opacity="0.4"/><stop offset="100%" stop-color="#f97316" stop-opacity="0"/></radialGradient>
+        <radialGradient id="glow2"><stop offset="0%" stop-color="#7c3aed" stop-opacity="0.4"/><stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="150" cy="150" r="120" fill="url(#glow1)"/>
+      <circle cx="100" cy="120" r="80" fill="url(#glow2)"/>
+      <!-- Cape -->
+      <path d="M150 100 Q180 160 210 220 Q160 200 150 210 Q140 200 90 220 Q120 160 150 100Z" fill="#7c3aed" opacity="0.9"/>
+      <!-- Body -->
+      <circle cx="150" cy="95" r="30" fill="#fed7aa"/>
+      <!-- Hair -->
+      <ellipse cx="150" cy="78" rx="35" ry="18" fill="#1e1b4b"/>
+      <path d="M115 85 Q110 120 120 140" stroke="#1e1b4b" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M185 85 Q190 120 180 140" stroke="#1e1b4b" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <!-- Eyes -->
+      <circle cx="140" cy="93" r="4" fill="#1e1b4b"/>
+      <circle cx="160" cy="93" r="4" fill="#1e1b4b"/>
+      <!-- Smile -->
+      <path d="M142 102 Q150 110 158 102" stroke="#1e1b4b" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- Phone in hand -->
+      <rect x="170" y="110" width="20" height="35" rx="3" fill="#1e1b4b"/>
+      <rect x="173" y="115" width="14" height="22" rx="1" fill="#7c3aed"/>
+      <!-- Stars around -->
+      <text x="60" y="50" font-size="20">⭐</text>
+      <text x="220" y="60" font-size="15">✨</text>
+      <text x="40" y="180" font-size="18">🦸</text>
+      <text x="230" y="200" font-size="14">💜</text>
+      <text x="130" y="240" font-size="22">📱</text>
+    </svg>
   </div>
-  <p>Мира снима червената тениска на тати, червената книга на рафта, червената ябълка на масата... "Мамо, намерих 7 червени неща, но няма домати!"</p>
-  <p>Мама се усмихна. "Браво, детектив Мира! Доматите бяха в купата на масата през цялото време. Но ти свърши страхотна работа!"</p>
-  <p>Мира погледна телефона. За първи път не ѝ се искаше да гледа видеа. Искаше ѝ се <span class="highlight">нова мисия</span>.</p>
-</div>
-
-<!-- Story 2 -->
-<div class="story">
-  <div class="chapter">История №2</div>
-  <h2>Интервюто с дядо</h2>
-  <div class="illustration">🎤👴</div>
-  <p>Следващата сутрин Мира се събуди и веднага попита: "Мамо, каква е днешната мисия?"</p>
-  <p>Мама ѝ подаде телефона. "Днес си <span class="highlight">журналист</span>. Трябва да интервюираш дядо."</p>
-  <p>"Дядо? Но той дори не знае как се пуска видео на телефона!"</p>
-  <p>"Точно затова. Използвай телефона като микрофон. Задай му тези въпроси: Коя беше любимата ти игра като малък? Имаше ли телефон? Как се забавлявахте без технологии?"</p>
-  <div class="mission-box">
-    <strong>🦸 Суперсилата:</strong>
-    Телефонът не изолира — той СВЪРЗВА поколенията. Мира научи нещо, което никое видео в интернет не можеше да ѝ покаже.
+  <p style="color:#cbd5e1;max-width:400px;font-size:1rem;">История за смелост, приятелство и дигитална магия — за малки супергерои на възраст 6-12 години</p>
+  <div class="value-badge">🎁 Стойност 19,90 €</div>
+  <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+    <button onclick="document.querySelector('.toc').scrollIntoView({behavior:'smooth'})" style="background:var(--orange);color:white;border:none;padding:0.8rem 2rem;border-radius:50px;font-weight:700;font-size:1rem;cursor:pointer;font-family:'Nunito',sans-serif;">📖 Започни да четеш</button>
   </div>
-  <p>Мира се обади на дядо. Той се зарадва много. "Игри ли? Нямахме телефони, Мира. Играехме на 'дама' с камъчета, на 'криеница' в махалата, на 'народна топка' с парцалена топка."</p>
-  <p>Мира беше изумена. "Без телефон?! Как си оцелял, дядо?"</p>
-  <p>Дядо се засмя. "А ти как оцеляваш без игри навън, Мира? Ела утре да те науча на 'дама'!"</p>
-  <p>Мира записа целия разговор. Вечерта го пусна на семейството. Всички се смяха. Телефонът беше на масата, изключен. Никой не му обърна внимание.</p>
-</div>
+</section>
 
-<!-- Story 3 -->
-<div class="story">
-  <div class="chapter">История №3</div>
-  <h2>Ресторант "При Мира"</h2>
-  <div class="illustration">🍳👩‍🍳</div>
-  <p>В събота мама каза: "Днес отваряш собствен ресторант. Ти си главният готвач. Телефонът е твоят помощник."</p>
-  <p>Мира беше объркана. "Как телефонът ще ми помогне да готвя?"</p>
-  <p>"Ще намериш рецепта, ще я прочетеш и ще ръководиш процеса. Аз съм твоят помощник-готвач. Ти командваш."</p>
-  <div class="mission-box">
-    <strong>🦸 Суперсилата:</strong>
-    Телефонът стана УЧЕБНИК. Мира четеше, измерваше, планираше. Това не беше игра — беше истинска работа с истински резултат.
+<!-- TABLE OF CONTENTS -->
+<section class="toc">
+  <h2>📚 Съдържание</h2>
+  <ul class="toc-list">
+    <li><span class="toc-num">1</span> Тайната на стария телефон</li>
+    <li><span class="toc-num">2</span> Първата мисия: Ловец на усмивки</li>
+    <li><span class="toc-num">3</span> Кухнята на чудесата</li>
+    <li><span class="toc-num">4</span> Детектив Мира и изчезналият ключ</li>
+    <li><span class="toc-num">5</span> Семейната експедиция</li>
+    <li><span class="toc-num">6</span> Лабораторията в хола</li>
+    <li><span class="toc-num">7</span> Рисувай с вятъра</li>
+    <li><span class="toc-num">8</span> Мисия: Баба</li>
+    <li><span class="toc-num">9</span> Последното предизвикателство</li>
+    <li><span class="toc-num">10</span> Суперсилата, която остава</li>
+  </ul>
+</section>
+
+<!-- CHAPTER 1 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">01</div>
+    <h2>Тайната на стария телефон</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#1a0a2e" rx="15"/>
+        <!-- Room -->
+        <rect x="50" y="100" width="300" height="100" fill="#2d1b69" rx="5"/>
+        <rect x="30" y="80" width="40" height="120" fill="#3b1f8a" rx="3"/>
+        <rect x="330" y="80" width="40" height="120" fill="#3b1f8a" rx="3"/>
+        <!-- Window -->
+        <rect x="280" y="20" width="80" height="70" fill="#1e3a5f" rx="5" stroke="#4c1d95" stroke-width="2"/>
+        <line x1="320" y1="20" x2="320" y2="90" stroke="#4c1d95" stroke-width="2"/>
+        <line x1="280" y1="55" x2="360" y2="55" stroke="#4c1d95" stroke-width="2"/>
+        <!-- Moon -->
+        <circle cx="340" cy="45" r="10" fill="#f59e0b"/>
+        <!-- Girl on bed -->
+        <ellipse cx="140" cy="130" rx="25" ry="30" fill="#fed7aa"/>
+        <circle cx="140" cy="95" r="18" fill="#fed7aa"/>
+        <ellipse cx="140" cy="80" rx="20" ry="10" fill="#1e1b4b"/>
+        <!-- Phone glowing -->
+        <rect x="180" y="115" width="30" height="50" rx="4" fill="#1e1b4b"/>
+        <rect x="184" y="120" width="22" height="32" rx="2" fill="#7c3aed"/>
+        <circle cx="195" cy="145" r="8" fill="#f97316" opacity="0.5"/>
+        <!-- Glow rays -->
+        <line x1="195" y1="137" x2="195" y2="120" stroke="#f97316" stroke-width="1" opacity="0.3"/>
+        <line x1="203" y1="145" x2="220" y2="145" stroke="#f97316" stroke-width="1" opacity="0.3"/>
+        <line x1="187" y1="145" x2="170" y2="145" stroke="#f97316" stroke-width="1" opacity="0.3"/>
+      </svg>
+    </div>
+    <p>Мира беше на <span class="highlight">осем години</span> и като всички деца на нейната възраст — обичаше телефона си. Но напоследък нещо се беше променило. Мама и тати винаги ѝ казваха: <span class="highlight">"Мира, остави телефона! Стига си скролвала!"</span></p>
+    <p>Една вечер, когато Мира тъжно гледаше стария телефон на тати — онзи, който стоеше забравен в чекмеджето — се случи нещо странно. Екранът <span class="highlight">светна в лилаво</span> и на него се появи съобщение:</p>
+    <div class="lesson-box">🦸 "Здравей, Супер-Миро! Аз съм Суперсила — програма, която превръща телефоните в магия. Искаш ли да станеш мой помощник? Ще ти давам мисии всеки ден. Готова ли си?"</div>
+    <p>Мира се намръщи, после се усмихна. <span class="highlight">"Супер-Мира?"</span> — прошепна тя. Това звучеше много по-добре от "остави телефона!"</p>
+    <p>Тя докосна екрана с пръст и натисна големия бутон: <span class="highlight">"ПРИЕМАМ МИСИЯ!"</span></p>
+    <div class="chapter-nav">
+      <button onclick="document.querySelector('.toc').scrollIntoView({behavior:'smooth'})">📚 Съдържание</button>
+      <button onclick="document.querySelectorAll('.chapter')[1].scrollIntoView({behavior:'smooth'})">Следваща глава →</button>
+    </div>
   </div>
-  <p>Мира потърси "лесни палачинки" в интернет. Намери рецепта с 5 съставки. Извади брашното, яйцата, млякото. Сложи си престилка.</p>
-  <p>"Мамо, дръж купата! Аз ще разбивам яйцата!"</p>
-  <p>Първата палачинка се разкъса. Втората също. Третата беше... почти кръгла.</p>
-  <p>"Няма значение", каза мама. "Това са най-вкусните палачинки, защото ти ги направи. Снимай ги за менюто на ресторанта!"</p>
-  <p>Мира снима палачинките. После ги поля с мед и ги сервира на семейството. Ресторант "При Мира" получи 5 звезди.</p>
-</div>
+</section>
 
-<!-- Story 4 -->
-<div class="story">
-  <div class="chapter">История №4</div>
-  <h2>Тайният супергерой</h2>
-  <div class="illustration">🦸‍♀️💝</div>
-  <p>Мира вече чакаше всяка сутрин с нетърпение. "Мамо, каква е мисията днес?"</p>
-  <p>"Днешната мисия е специална. Трябва да направиш нещо хубаво за някого вкъщи... <span class="highlight">без никой да разбере</span>, че си ти."</p>
-  <p>"Без никой да разбере?! Това е невъзможно!"</p>
-  <div class="mission-box">
-    <strong>🦸 Суперсилата:</strong>
-    Истинските супергерои не се хвалят. Те помагат тихо. Мира научи, че добрината не се нуждае от аплодисменти.
+<!-- CHAPTER 2 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">02</div>
+    <h2>Първата мисия: Ловец на усмивки</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#120822" rx="15"/>
+        <!-- Park scene -->
+        <rect x="0" y="140" width="400" height="60" fill="#1a3a1a" rx="5"/>
+        <circle cx="350" cy="40" r="25" fill="#f59e0b"/>
+        <!-- Trees -->
+        <rect x="30" y="90" width="10" height="50" fill="#3d2b1f"/>
+        <circle cx="35" cy="80" r="25" fill="#1a4a1a"/>
+        <rect x="340" y="90" width="10" height="50" fill="#3d2b1f"/>
+        <circle cx="345" cy="80" r="25" fill="#1a4a1a"/>
+        <!-- Girl with phone -->
+        <circle cx="200" cy="100" r="15" fill="#fed7aa"/>
+        <ellipse cx="200" cy="125" rx="12" ry="15" fill="#7c3aed"/>
+        <rect x="220" y="110" width="15" height="25" rx="2" fill="#1e1b4b"/>
+        <rect x="222" y="113" width="11" height="16" rx="1" fill="#f97316"/>
+        <!-- Smiling people -->
+        <circle cx="80" cy="130" r="10" fill="#fed7aa"/>
+        <path d="M75 132 Q80 137 85 132" stroke="#1e1b4b" stroke-width="1.5" fill="none"/>
+        <circle cx="130" cy="135" r="8" fill="#fed7aa"/>
+        <path d="M126 137 Q130 141 134 137" stroke="#1e1b4b" stroke-width="1.5" fill="none"/>
+        <!-- Sparkles -->
+        <text x="160" y="90" font-size="12">✨</text>
+        <text x="240" y="95" font-size="14">📸</text>
+      </svg>
+    </div>
+    <p>На следващата сутрин телефонът иззвъня в <span class="highlight">точно 9:00 часа</span>. На екрана светеше първата мисия:</p>
+    <div class="lesson-box">📸 <strong>Мисия #1: Ловец на усмивки</strong><br>Снимай 5 неща, които те карат да се усмихнеш. Имаш 20 минути. После покажи снимките на някого и го накарай да се усмихне!</div>
+    <p>Мира грабна телефона и се втурна из къщата. Снима <span class="highlight">котето Пухчо</span>, което спеше на дивана. Снима любимата си книга с дракони. Снима <span class="highlight">ягодовия сладолед</span>, който мама беше направила. Снима тати, който правеше смешни физиономии. И накрая... снима себе си в огледалото, правейки най-голямата си усмивка!</p>
+    <p>Когато показа снимките на мама, тя се <span class="highlight">засмя на глас</span>. Не беше повтаряла "остави телефона" нито веднъж. Всъщност, тя каза: <span class="highlight">"Покажи ми още!"</span></p>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[0].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelectorAll('.chapter')[2].scrollIntoView({behavior:'smooth'})">Следваща глава →</button>
+    </div>
   </div>
-  <p>Мира се замисли. После се промъкна в стаята на тати и подреди обувките му. След това остави бележка "Ти си супер" под възглавницата на мама. Накрая напълни купичката на котката с вода.</p>
-  <p>На вечеря тати каза: "Някой е подредил обувките ми. Странно."</p>
-  <p>Мама добави: "И аз намерих бележка под възглавницата."</p>
-  <p>Мира се усмихна, без да каже нищо. Беше истински супергерой. И телефонът ѝ стоеше на масата, изключен. Вече не ѝ трябваше.</p>
-</div>
+</section>
 
-<!-- Story 5 -->
-<div class="story">
-  <div class="chapter">История №5</div>
-  <h2>Писмо до бъдещето</h2>
-  <div class="illustration">🚀💌</div>
-  <p>Беше ден 30 от предизвикателството. Мира дори не помнеше кога за последно беше скролвала безцелно.</p>
-  <p>"Днес е последната мисия", каза мама. "Искам да запишеш видео писмо до себе си след 1 година."</p>
-  <p>"Какво да кажа?"</p>
-  <p>"Каквото искаш да си спомниш от този месец. Какво научи. Как се промени."</p>
-  <div class="mission-box">
-    <strong>🦸 Суперсилата:</strong>
-    Мира разбра, че телефонът не е враг. Той е ИНСТРУМЕНТ. Въпросът не е дали да го използваш, а КАК.
+<!-- CHAPTER 3 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">03</div>
+    <h2>Кухнята на чудесата</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#1a0a2e" rx="15"/>
+        <!-- Kitchen -->
+        <rect x="0" y="100" width="400" height="100" fill="#2d1b69"/>
+        <!-- Counter -->
+        <rect x="20" y="80" width="360" height="20" fill="#4a3728" rx="3"/>
+        <!-- Bowl -->
+        <ellipse cx="120" cy="78" rx="25" ry="10" fill="#7c3aed"/>
+        <ellipse cx="120" cy="70" rx="20" ry="8" fill="#fed7aa"/>
+        <!-- Mixer -->
+        <rect x="220" y="50" width="20" height="30" fill="#94a3b8" rx="3"/>
+        <rect x="215" y="45" width="30" height="10" fill="#64748b" rx="2"/>
+        <!-- Girl -->
+        <circle cx="300" cy="65" r="14" fill="#fed7aa"/>
+        <ellipse cx="300" cy="85" rx="10" ry="12" fill="#f97316"/>
+        <!-- Phone on stand -->
+        <rect x="350" y="50" width="12" height="18" rx="2" fill="#1e1b4b" transform="rotate(-15,356,59)"/>
+        <rect x="352" y="52" width="8" height="11" rx="1" fill="#7c3aed" transform="rotate(-15,356,57)"/>
+        <!-- Flour explosion -->
+        <circle cx="140" cy="55" r="3" fill="white" opacity="0.6"/>
+        <circle cx="160" cy="45" r="2" fill="white" opacity="0.5"/>
+        <circle cx="100" cy="50" r="2.5" fill="white" opacity="0.4"/>
+        <text x="170" y="35" font-size="16">🍪</text>
+      </svg>
+    </div>
+    <p>На третия ден мисията беше различна. На екрана пишеше:</p>
+    <div class="lesson-box">👨‍🍳 <strong>Мисия #3: Кухнята на чудесата</strong><br>Сготви нещо заедно с мама или тати. Използвай телефона да запишеш 1-минутно видео на процеса. После го гледайте заедно!</div>
+    <p>Мира изтича при мама и ѝ показа екрана. Мама се усмихна: <span class="highlight">"Хайде да направим бисквитки с шоколад!"</span></p>
+    <p>Мира постави телефона на масата и натисна запис. Мама сипа брашно, Мира добави яйцата, захарта, маслото. Двете се <span class="highlight">изцапаха с брашно</span> и се смяха. После Мира взе телефона и засне как разточват тестото, как режат формички — звездички, сърчица, динозаври!</p>
+    <p>Когато гледаха видеото заедно, докато ядяха бисквитките, мама прегърна Мира и каза: <span class="highlight">"Това е най-хубавото нещо, което сме правили заедно от много време."</span></p>
+    <p>Мира разбра: телефонът не беше враг. Той беше <span class="highlight">машина за спомени</span>.</p>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[1].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelectorAll('.chapter')[3].scrollIntoView({behavior:'smooth'})">Следваща глава →</button>
+    </div>
   </div>
-  <p>Мира включи камерата. "Здравей, бъдеща Мира. Искам да ти кажа нещо важно. Телефонът не е играчка. Телефонът е твоята суперсила. Използвай го да учиш, да твориш, да помагаш, да общуваш с хората, които обичаш. Не го използвай, за да бягаш от тях."</p>
-  <p>Мама гледаше от вратата и се усмихваше. Не беше чувала Мира да говори така никога.</p>
-  <p>"И още нещо", добави Мира. "Баба и дядо имат най-яките истории. Питай ги! И палачинките стават по-добри с практика. Това е. Чао, бъдеща Мира!"</p>
-  <p>Мира изключи телефона и го остави на масата. После изтича при мама и я прегърна.</p>
-  <p>"Мамо, благодаря ти за мисиите. Вече знам коя е моята суперсила."</p>
-  <p>"Каква е тя, Мира?"</p>
-  <p>"Да превръщам обикновените неща в приключения."</p>
+</section>
+
+<!-- CHAPTER 4 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">04</div>
+    <h2>Детектив Мира и изчезналият ключ</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#120822" rx="15"/>
+        <!-- Living room -->
+        <rect x="0" y="100" width="400" height="100" fill="#1a1a2e"/>
+        <!-- Sofa -->
+        <rect x="50" y="90" width="120" height="40" fill="#3d2b1f" rx="8"/>
+        <rect x="55" y="85" width="110" height="20" fill="#4a3728" rx="5"/>
+        <!-- Table -->
+        <rect x="250" y="105" width="80" height="5" fill="#5c3d2e"/>
+        <rect x="285" y="110" width="10" height="30" fill="#5c3d2e"/>
+        <!-- Magnifying glass -->
+        <circle cx="320" cy="70" r="15" fill="none" stroke="#f97316" stroke-width="3"/>
+        <line x1="330" y1="80" x2="345" y2="95" stroke="#f97316" stroke-width="3"/>
+        <!-- Girl detective -->
+        <circle cx="180" cy="80" r="14" fill="#fed7aa"/>
+        <ellipse cx="180" cy="100" rx="10" ry="14" fill="#4c1d95"/>
+        <!-- Detective hat -->
+        <ellipse cx="180" cy="68" rx="18" ry="5" fill="#1e1b4b"/>
+        <rect x="170" y="55" width="20" height="15" fill="#1e1b4b" rx="3"/>
+        <!-- Phone as flashlight -->
+        <rect x="200" y="85" width="18" height="28" rx="2" fill="#1e1b4b"/>
+        <polygon points="218,95 240,85 240,105" fill="#f59e0b" opacity="0.3"/>
+        <!-- Key hidden -->
+        <rect x="310" y="92" width="3" height="15" fill="#f59e0b" rx="1"/>
+        <circle cx="311.5" cy="92" r="3" fill="none" stroke="#f59e0b" stroke-width="1"/>
+      </svg>
+    </div>
+    <p>Мисия #4 пристигна с тайнствен звук "мистерия" от телефона:</p>
+    <div class="lesson-box">🔍 <strong>Мисия #4: Детектив Мира</strong><br>Някой е скрил нещо в къщата. Използвай камерата на телефона да търсиш улики. Снимай 5 следи. Реши загадката!</div>
+    <p><span class="highlight">"Детектив Мира!"</span> — възкликна тя. Извади от чекмеджето стара лупа на дядо и я сложи пред камерата на телефона. Стана супер-увеличение!</p>
+    <p>Мира откри <span class="highlight">странни трохи</span> до дивана. Снима ги. Намери <span class="highlight">малко листче</span> с нарисувана стрелка под масата. Снима го. На вратата на хладилника имаше <span class="highlight">залепено стикерче</span> с усмивка — снима и него!</p>
+    <p>Следите я отведоха до... <span class="highlight">гардероба в нейната стая!</span> Вътре намери кутия, а в нея — шоколадови монети и бележка от тати: "Браво, детективе! Намери съкровището!"</p>
+    <p>Татко беше подготвил целия лов на съкровища, докато Мира спеше. Тя се затича да го прегърне. <span class="highlight">Телефонът беше нейният детективски инструмент</span>, а тя — истински супергерой!</p>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[2].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelectorAll('.chapter')[4].scrollIntoView({behavior:'smooth'})">Следваща глава →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 5 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">05</div>
+    <h2>Семейната експедиция</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#1a0a2e" rx="15"/>
+        <!-- Park/outdoors -->
+        <rect x="0" y="130" width="400" height="70" fill="#1a3a1a"/>
+        <!-- Sky gradient -->
+        <rect x="0" y="0" width="400" height="130" fill="#1e3a5f" opacity="0.5"/>
+        <!-- Sun -->
+        <circle cx="350" cy="40" r="22" fill="#f59e0b"/>
+        <!-- Trees -->
+        <circle cx="50" cy="100" r="30" fill="#1a4a1a"/>
+        <circle cx="350" cy="100" r="25" fill="#1a4a1a"/>
+        <!-- Family walking -->
+        <circle cx="100" cy="110" r="10" fill="#fed7aa"/>
+        <ellipse cx="100" cy="125" rx="8" ry="12" fill="#4c1d95"/>
+        <rect x="112" y="115" width="10" height="18" rx="2" fill="#1e1b4b"/>
+        <circle cx="160" cy="105" r="8" fill="#fed7aa"/>
+        <ellipse cx="160" cy="118" rx="7" ry="10" fill="#7c3aed"/>
+        <circle cx="220" cy="108" r="9" fill="#fed7aa"/>
+        <ellipse cx="220" cy="122" rx="7" ry="11" fill="#3b82f6"/>
+        <circle cx="270" cy="112" r="10" fill="#fed7aa"/>
+        <ellipse cx="270" cy="127" rx="8" ry="12" fill="#f97316"/>
+        <!-- Map -->
+        <rect x="130" y="88" width="25" height="18" fill="#fed7aa" rx="2"/>
+        <line x1="135" y1="92" x2="150" y2="96" stroke="#1e1b4b" stroke-width="0.5"/>
+        <text x="300" y="60" font-size="14">🗺️</text>
+      </svg>
+    </div>
+    <p>През уикенда мисията беше специална:</p>
+    <div class="lesson-box">🗺️ <strong>Мисия #5: Семейна експедиция</strong><br>Цялото семейство излиза на разходка. Всеки снима по 3 неща, които никога не е забелязвал преди. После сравнете находките си!</div>
+    <p>Мира, мама, тати и малкият ѝ брат Петьо тръгнаха към парка. Всеки носеше телефон или таблет. <span class="highlight">"Състезание!"</span> — извика Мира. — "Кой ще намери най-интересното нещо?"</p>
+    <p>Татко снима стар дънер с <span class="highlight">мъх във формата на сърце</span>. Мама снима <span class="highlight">малко птиче</span>, което се къпеше в локва. Петьо снима <span class="highlight">бръмбар-рогач</span> на едно дърво. А Мира... Мира снима <span class="highlight">дъга в капка вода</span> върху листо!</p>
+    <p>Вечерта, у дома, показаха снимките си на голям екран. <span class="highlight">Всички бяха изненадани</span> колко много красота има в един обикновен парк — неща, които никога не бяха забелязвали, защото винаги бързаха.</p>
+    <p><span class="highlight">"Телефонът ни помогна да видим повече, не по-малко"</span> — каза татко. И Мира знаеше, че е точно така.</p>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[3].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelectorAll('.chapter')[5].scrollIntoView({behavior:'smooth'})">Следваща глава →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 6 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">06</div>
+    <h2>Лабораторията в хола</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#120822" rx="15"/>
+        <!-- Table -->
+        <rect x="40" y="120" width="320" height="10" fill="#4a3728" rx="2"/>
+        <rect x="60" y="130" width="8" height="40" fill="#4a3728"/>
+        <rect x="332" y="130" width="8" height="40" fill="#4a3728"/>
+        <!-- Beaker -->
+        <rect x="100" y="70" width="20" height="50" fill="none" stroke="#7c3aed" stroke-width="2" rx="3"/>
+        <rect x="100" y="80" width="20" height="30" fill="#7c3aed" opacity="0.3" rx="3"/>
+        <!-- Volcano -->
+        <polygon points="200,120 180,90 220,90" fill="#4a3728"/>
+        <polygon points="195,95 200,75 205,95" fill="#f97316" opacity="0.8"/>
+        <circle cx="195" cy="80" r="3" fill="#f59e0b" opacity="0.6"/>
+        <circle cx="205" cy="78" r="2" fill="#f59e0b" opacity="0.5"/>
+        <!-- Girl -->
+        <circle cx="300" cy="75" r="12" fill="#fed7aa"/>
+        <ellipse cx="300" cy="92" rx="8" ry="12" fill="#ec4899"/>
+        <!-- Phone recording -->
+        <rect x="340" y="80" width="12" height="18" rx="2" fill="#1e1b4b"/>
+        <circle cx="346" cy="87" r="2" fill="#ef4444"/>
+      </svg>
+    </div>
+    <p>Мисия #6 беше за истински учени:</p>
+    <div class="lesson-box">🔬 <strong>Мисия #6: Лабораторията в хола</strong><br>Направи научен експеримент у дома. Заснеми го с телефона от начало до край. Обясни какво се случва като истински учен!</div>
+    <p>Мира реши да направи <span class="highlight">вулкан от сода и оцет</span>. С помощта на татко направиха конус от глина около малка бутилка. После сипаха сода бикарбонат вътре, добавиха червена боя... и Мира наля оцета!</p>
+    <p><span class="highlight">ФШШШШШ!</span> — червена "лава" потече от върха на вулкана! Мира държеше телефона и записваше всичко, докато обясняваше: <span class="highlight">"Когато оцетът срещне содата, се получава химическа реакция и се отделя газ!"</span></p>
+    <p>После гледаха видеото отново и отново. Мира го показа и на баба по видеовръзка. Баба беше <span class="highlight">толкова впечатлена</span>, че поиска Мира да ѝ покаже още експерименти следващия път!</p>
+    <p>Мира се почувства като <span class="highlight">истински професор</span>. Телефонът беше нейният микроскоп, нейният бележник и нейният свидетел — всичко в едно.</p>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[4].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelectorAll('.chapter')[6].scrollIntoView({behavior:'smooth'})">Следваща глава →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 7 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">07</div>
+    <h2>Рисувай с вятъра</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#1a0a2e" rx="15"/>
+        <!-- Easel -->
+        <line x1="180" y1="50" x2="180" y2="150" stroke="#4a3728" stroke-width="4"/>
+        <line x1="150" y1="55" x2="210" y2="55" stroke="#4a3728" stroke-width="3"/>
+        <rect x="150" y="55" width="60" height="40" fill="white" rx="2"/>
+        <!-- Color splashes on canvas -->
+        <circle cx="165" cy="70" r="6" fill="#7c3aed" opacity="0.7"/>
+        <circle cx="185" cy="65" r="5" fill="#f97316" opacity="0.7"/>
+        <circle cx="175" cy="80" r="4" fill="#ec4899" opacity="0.7"/>
+        <circle cx="195" cy="78" r="7" fill="#f59e0b" opacity="0.7"/>
+        <!-- Girl painting -->
+        <circle cx="260" cy="90" r="12" fill="#fed7aa"/>
+        <ellipse cx="260" cy="105" rx="8" ry="12" fill="#10b981"/>
+        <!-- Brush -->
+        <line x1="272" y1="88" x2="210" y2="75" stroke="#4a3728" stroke-width="2"/>
+        <!-- Wind swirls -->
+        <path d="M70 100 Q100 85 120 100 Q140 115 160 100" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <path d="M50 120 Q80 105 100 120 Q120 135 140 120" stroke="#94a3b8" stroke-width="1" fill="none" opacity="0.3"/>
+        <!-- Phone taking photo -->
+        <rect x="310" y="80" width="14" height="20" rx="2" fill="#1e1b4b"/>
+      </svg>
+    </div>
+    <p>Мисия #7 беше най-цветната досега:</p>
+    <div class="lesson-box">🎨 <strong>Мисия #7: Рисувай с вятъра</strong><br>Създай картина, вдъхновена от нещо, което виждаш през прозореца. Използвай поне 4 цвята. Заснеми процеса!</div>
+    <p>Мира погледна през прозореца. Вятърът люлееше <span class="highlight">листата на старото дърво</span> в двора. Тя реши да нарисува точно това — не само дървото, но и вятъра!</p>
+    <p>Тя постави телефона да записва на малка стойка. После извади <span class="highlight">лилаво, оранжево, зелено и златно</span>. Започна да рисува — листата не бяха просто зелени, а се преливаха в жълто и оранжево, сякаш вятърът ги раздвижваше.</p>
+    <p>Когато свърши, изгледа видеото. Видя как ръката ѝ се движи, как цветовете се смесват, как <span class="highlight">нищо не е перфектно, но всичко е красиво</span>. Точно като истинския вятър.</p>
+    <p>Мама закачи картината на хладилника и каза: <span class="highlight">"Това е най-хубавото нещо, което си рисувала."</span> А Мира си помисли: видеото показа на мама не само картината, а целия процес — <span class="highlight">и това го правеше специално</span>.</p>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[5].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelectorAll('.chapter')[7].scrollIntoView({behavior:'smooth'})">Следваща глава →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 8 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">08</div>
+    <h2>Мисия: Баба</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#120822" rx="15"/>
+        <!-- Phone screen showing video call -->
+        <rect x="100" y="30" width="200" height="140" fill="#1e1b4b" rx="15" stroke="#7c3aed" stroke-width="3"/>
+        <!-- Grandma on screen -->
+        <circle cx="200" cy="85" r="25" fill="#fed7aa"/>
+        <ellipse cx="200" cy="75" rx="30" ry="12" fill="#cbd5e1"/>
+        <!-- Glasses -->
+        <circle cx="188" cy="82" r="7" fill="none" stroke="#64748b" stroke-width="2"/>
+        <circle cx="212" cy="82" r="7" fill="none" stroke="#64748b" stroke-width="2"/>
+        <line x1="195" y1="82" x2="205" y2="82" stroke="#64748b" stroke-width="2"/>
+        <!-- Smile -->
+        <path d="M188 95 Q200 108 212 95" stroke="#1e1b4b" stroke-width="2" fill="none"/>
+        <!-- Girl holding phone -->
+        <circle cx="75" cy="130" r="10" fill="#fed7aa"/>
+        <rect x="68" y="112" width="14" height="22" rx="2" fill="#1e1b4b"/>
+        <!-- Hearts -->
+        <text x="300" y="50" font-size="16">❤️</text>
+        <text x="320" y="80" font-size="12">💕</text>
+        <text x="280" y="140" font-size="14">💜</text>
+      </svg>
+    </div>
+    <p>Мисия #8 трогна Мира повече от всички останали:</p>
+    <div class="lesson-box">💜 <strong>Мисия #8: Мисия Баба</strong><br>Обади се на баба или дядо по видеоразговор. Задай им 5 въпроса за тяхното детство. Запиши разговора (с тяхно разрешение).</div>
+    <p>Мира веднага се обади на баба. Когато бабиното лице се появи на екрана, Мира извади списъка с въпросите си:</p>
+    <p><span class="highlight">"Бабо, на какво си играла като малка? Имала ли си домашен любимец? Коя беше първата ти книга? Помниш ли най-щастливия си ден? И... как се запозна с дядо?"</span></p>
+    <p>Баба се усмихна широко. Започна да разказва за <span class="highlight">старата люлка на черешата</span>, за кучето Шаро, за първата си книга "Патиланско царство", за сватбата си в селската църква...</p>
+    <p>Мира слушаше <span class="highlight">с отворена уста</span>. Никога не беше чувала тези истории! А баба говореше с такъв плам, сякаш беше на 8 години отново.</p>
+    <p>Когато разговорът свърши, Мира погледна записа. <span class="highlight">Имаше съкровище в телефона си</span> — истории, които един ден щеше да покаже на собствените си деца. Телефонът не беше просто играчка. Беше <span class="highlight">машина на времето</span>.</p>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[6].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelectorAll('.chapter')[8].scrollIntoView({behavior:'smooth'})">Следваща глава →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 9 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">09</div>
+    <h2>Последното предизвикателство</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#1a0a2e" rx="15"/>
+        <!-- Trophy -->
+        <rect x="185" y="120" width="30" height="40" fill="#f59e0b" rx="3"/>
+        <rect x="175" y="115" width="50" height="10" fill="#f59e0b" rx="2"/>
+        <ellipse cx="200" cy="90" rx="20" ry="25" fill="#f59e0b"/>
+        <ellipse cx="200" cy="90" rx="12" ry="18" fill="#fbbf24"/>
+        <!-- Star on trophy -->
+        <polygon points="200,65 205,80 220,80 208,90 213,105 200,95 187,105 192,90 180,80 195,80" fill="#f97316"/>
+        <!-- Girl superhero pose -->
+        <circle cx="100" cy="110" r="14" fill="#fed7aa"/>
+        <ellipse cx="100" cy="130" rx="10" ry="15" fill="#7c3aed"/>
+        <!-- Cape -->
+        <path d="M100 115 Q130 150 150 180 Q120 165 100 170 Q80 165 50 180 Q70 150 100 115Z" fill="#7c3aed" opacity="0.6"/>
+        <!-- Confetti -->
+        <rect x="50" y="40" width="6" height="3" fill="#f97316" rx="1" transform="rotate(45,53,41)"/>
+        <rect x="300" y="30" width="6" height="3" fill="#7c3aed" rx="1" transform="rotate(-30,303,31)"/>
+        <rect x="330" y="100" width="6" height="3" fill="#ec4899" rx="1" transform="rotate(60,333,101)"/>
+        <rect x="40" y="150" width="6" height="3" fill="#f59e0b" rx="1" transform="rotate(20,43,151)"/>
+      </svg>
+    </div>
+    <p>Стигна се до последната мисия. Телефонът показа специално съобщение:</p>
+    <div class="lesson-box">🏆 <strong>Мисия #10: Супергероят в теб</strong><br>Погледни назад към всички мисии, които изпълни. Коя беше любимата ти? Сега създай СВОЯ мисия — нещо, което ти искаш да направиш с телефона си. Изненадай семейството си!</div>
+    <p>Мира се замисли. Беше снимала, готвила, разследвала, рисувала, правила експерименти, разхождала се, разговаряла с баба... Толкова много неща бяха научили заедно!</p>
+    <p>И тогава ѝ хрумна. Тя събра всички <span class="highlight">снимки и видеа от 30-те дни</span> и направи малък филм. Добави музика, написа заглавие: <span class="highlight">"30-те суперсили на нашето семейство"</span>.</p>
+    <p>Вечерта покани всички в хола. Изключи лампите, пусна филма на големия екран. <span class="highlight">Мама се разплака. Тати я прегърна. Дори малкият Петьо ръкопляскаше.</span></p>
+    <div class="lesson-box">💡 "Това е твоята суперсила, Мира. Ти не просто използваш телефона — ти вдъхновяваш другите чрез него."</div>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[7].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelectorAll('.chapter')[9].scrollIntoView({behavior:'smooth'})">Последна глава →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 10 -->
+<section class="chapter">
+  <div class="chapter-inner fade-in">
+    <div class="chapter-number">10</div>
+    <h2>Суперсилата, която остава</h2>
+    <div class="illustration">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#120822" rx="15"/>
+        <!-- Family group hug -->
+        <circle cx="130" cy="100" r="15" fill="#fed7aa"/>
+        <ellipse cx="130" cy="120" rx="10" ry="14" fill="#7c3aed"/>
+        <circle cx="200" cy="90" r="18" fill="#fed7aa"/>
+        <ellipse cx="200" cy="115" rx="12" ry="18" fill="#f97316"/>
+        <circle cx="270" cy="100" r="15" fill="#fed7aa"/>
+        <ellipse cx="270" cy="120" rx="10" ry="14" fill="#3b82f6"/>
+        <!-- Arms around each other -->
+        <path d="M140 115 Q170 100 190 115" stroke="#fed7aa" stroke-width="4" fill="none"/>
+        <path d="M210 115 Q240 100 260 115" stroke="#fed7aa" stroke-width="4" fill="none"/>
+        <!-- Hearts above -->
+        <text x="100" y="50" font-size="20">💜</text>
+        <text x="200" y="35" font-size="25">❤️</text>
+        <text x="280" y="55" font-size="18">🧡</text>
+        <!-- Phone on table, screen glowing -->
+        <rect x="320" y="130" width="30" height="45" rx="3" fill="#1e1b4b"/>
+        <rect x="324" y="135" width="22" height="30" rx="1" fill="#7c3aed" opacity="0.8"/>
+        <text x="330" y="155" font-size="10" fill="white">🦸</text>
+      </svg>
+    </div>
+    <p>Минаха 30 дни. Мира седеше в стаята си и гледаше стария телефон — този, от който всичко започна. Той вече не беше просто екран. Беше <span class="highlight">портал към приключения</span>.</p>
+    <p>Мама влезе в стаята и седна до нея. <span class="highlight">"Знаеш ли, Мира, вече не ти казвам 'остави телефона'."</span></p>
+    <p>Мира се усмихна. <span class="highlight">"Знам, мамо. Защото телефонът вече не е моят враг. Той е моят помощник."</span></p>
+    <div class="lesson-box">🦸 <strong>Голямата тайна на Суперсилата:</strong><br>Не телефонът е проблемът. Начинът, по който го използваш — това е магията. Когато имаш МИСИЯ, екранът става прозорец. А прозорецът води към приключения, които чакат точно пред вратата ти.</div>
+    <p>И от този ден нататък, всеки път когато някое дете в квартала чуеше <span class="highlight">"Стига с тоя телефон!"</span>, Мира отиваше при него и му показваше своя телефон. На него светеше една дума...</p>
+    <p style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--orange);text-align:center;margin:1.5rem 0;">МИСИЯ.</p>
+    <p style="text-align:center;color:#cbd5e1;">И новото приключение започваше.</p>
+    <div style="text-align:center;font-size:2rem;margin:1rem 0;">✨ 🦸 📱 ✨</div>
+    <div class="chapter-nav">
+      <button onclick="document.querySelectorAll('.chapter')[8].scrollIntoView({behavior:'smooth'})">← Предишна</button>
+      <button onclick="document.querySelector('.back-cover').scrollIntoView({behavior:'smooth'})">Епилог ↓</button>
+    </div>
+  </div>
+</section>
+
+<!-- BACK COVER -->
+<section class="back-cover">
+  <div style="position:relative;z-index:1;text-align:center;">
+    <div class="cover-badge" style="display:inline-block;">📖 КРАЙ НА КНИГАТА</div>
+    <h2 style="margin-top:1rem;">Хареса ли ти?</h2>
+    <p>Това е само една история. Всяко дете може да бъде Супер-Мира или Супер-Герой със своите собствени мисии.</p>
+    <div class="cta-box">
+      <h3>🎁 Пълният пакет "30 дни Суперсила"</h3>
+      <p style="color:#cbd5e1;font-size:0.95rem;">30 дигитални мисии за деца + още 5 книги с истории + мисии за различни възрасти</p>
+      <div class="original-price">19,90 €</div>
+      <div class="price">БЕЗПЛАТНО</div>
+      <p style="color:#cbd5e1;font-size:0.9rem;">30-дневен безплатен достъп</p>
+      <button onclick="window.location.href='index.html'" style="background:var(--orange);color:white;border:none;padding:1rem 2rem;border-radius:50px;font-weight:700;font-size:1.1rem;cursor:pointer;font-family:'Nunito',sans-serif;width:100%;margin-top:1rem;">🚀 Започни безплатно</button>
+    </div>
+    <p style="margin-top:2rem;color:#94a3b8;font-size:0.85rem;">Книгата се предоставя като безплатен подарък при споделяне на мисия в Reels или Stories.</p>
+    <p style="color:#f97316;font-weight:700;margin-top:0.5rem;">📲 Сподели + вземи своя подарък — безплатна PDF книга (стойност 19,90 €)</p>
+  </div>
+</section>
+
+<!-- Floating nav -->
+<div class="floating-nav">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Нагоре">↑</button>
 </div>
 
-<div class="last-page">
-  <div style="font-size:48px">🦸‍♀️</div>
-  <h3>Това е само началото</h3>
-  <p style="margin-bottom:16px;font-size:15px">Всяко дете има суперсила. Понякога просто има нужда от правилната мисия, за да я открие.</p>
-  <p style="font-size:14px;color:#6b7280">Продължи приключението с Premium пакета:<br>нови мисии, нови истории, нови суперсили.</p>
-  <p style="font-weight:bold;color:#7c3aed;margin-top:12px;font-size:16px">🦸 30 дни Суперсила</p>
-</div>
+<script>
+// Generate stars for cover
+const starContainer = document.getElementById('starContainer');
+for (let i = 0; i < 60; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.width = (Math.random() * 3 + 1) + 'px';
+  star.style.height = star.style.width;
+  star.style.animationDelay = Math.random() * 2 + 's';
+  star.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+  starContainer.appendChild(star);
+}
 
+// Fade-in animation on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
