@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>30 дни Суперсила — Безплатно предизвикателство</title>
+<style>
+:root {
+  --purple: #7c3aed; --purple-dark: #5b21b6; --purple-light: #ede9fe;
+  --orange: #f97316; --orange-light: #fff7ed; --yellow: #fbbf24;
+  --green: #22c55e; --red: #ef4444; --blue: #3b82f6; --pink: #ec4899;
+  --bg: #fafafa; --card: #fff; --text: #1e1b4b; --muted: #6b7280;
+  --radius: 20px; --shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width:480px; margin:0 auto; padding:20px; min-height:100vh; }
+.screen { display:none; }
+.screen.active { display:block; }
+
+/* ===== LANDING ===== */
+.hero { text-align:center; padding:30px 0 10px; }
+.hero .logo { font-size:56px; animation: bounce 2s infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.hero h1 { font-size:30px; font-weight:800; background:linear-gradient(135deg,var(--purple),var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin:8px 0; line-height:1.2; }
+.hero .sub { font-size:16px; color:var(--muted); }
+.pain-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:20px 0; }
+.pain-chip { background:#fee2e2; color:#dc2626; padding:6px 14px; border-radius:50px; font-size:13px; font-weight:600; }
+.big-promise { background:linear-gradient(135deg,var(--purple-light),#fef3c7); border-radius:var(--radius); padding:24px; text-align:center; margin:20px 0; border:2px solid var(--purple-light); }
+.big-promise h3 { font-size:20px; color:var(--purple-dark); margin-bottom:8px; }
+.big-promise .free-badge { display:inline-block; background:var(--green); color:white; padding:6px 18px; border-radius:50px; font-size:14px; font-weight:800; margin-top:8px; }
+
+.themes { margin:20px 0; }
+.themes h4 { font-size:16px; margin-bottom:12px; text-align:center; }
+.theme-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+.theme-chip { padding:8px 14px; border-radius:50px; font-size:13px; font-weight:600; background:white; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+
+.signup-card { background:linear-gradient(135deg,var(--purple),var(--purple-dark)); border-radius:var(--radius); padding:32px 24px; color:white; text-align:center; margin:20px 0; box-shadow:0 8px 32px rgba(124,58,237,0.3); }
+.signup-card h2 { font-size:22px; margin-bottom:6px; }
+.signup-card p { opacity:0.9; font-size:14px; margin-bottom:20px; }
+.signup-card input { width:100%; padding:14px 18px; border:none; border-radius:50px; font-size:16px; outline:none; background:rgba(255,255,255,0.95); color:var(--text); margin-bottom:12px; }
+.btn { padding:14px 28px; border:none; border-radius:50px; font-size:16px; font-weight:700; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:8px; justify-content:center; }
+.btn:active { transform:scale(0.96); }
+.btn-primary { background:var(--orange); color:white; box-shadow:0 4px 16px rgba(249,115,22,0.4); width:100%; }
+.btn-outline { background:rgba(255,255,255,0.2); color:white; backdrop-filter:blur(4px); font-size:13px; }
+.social-proof { text-align:center; padding:16px; font-size:14px; color:var(--muted); }
+.social-proof .count { font-size:28px; font-weight:800; color:var(--purple); display:block; }
+
+/* ===== APP ===== */
+.app-header { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #e5e7eb; margin-bottom:16px; }
+.app-logo { font-weight:800; font-size:17px; color:var(--purple); display:flex; align-items:center; gap:6px; }
+.streak-badge { background:var(--orange-light); color:var(--orange); padding:5px 12px; border-radius:50px; font-size:12px; font-weight:700; }
+
+.day-number { font-size:44px; font-weight:800; text-align:center; color:var(--purple); line-height:1; }
+.day-label { text-align:center; font-size:12px; color:var(--muted); margin-bottom:8px; }
+.day-theme { text-align:center; font-size:12px; color:var(--purple); font-weight:600; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px; }
+
+.progress-bar-outer { height:8px; background:#e5e7eb; border-radius:50px; margin-bottom:20px; overflow:hidden; }
+.progress-bar-inner { height:100%; background:linear-gradient(90deg,var(--purple),var(--orange)); border-radius:50px; transition:width 0.5s ease; }
+
+.mission-card { background:var(--card); border-radius:var(--radius); padding:24px 20px; box-shadow:var(--shadow); text-align:center; margin-bottom:16px; position:relative; overflow:hidden; border-top:4px solid var(--purple); }
+.mission-emoji { font-size:56px; display:block; margin-bottom:12px; }
+.mission-title { font-size:21px; font-weight:800; margin-bottom:6px; }
+.mission-desc { font-size:14px; color:var(--muted); margin-bottom:16px; line-height:1.5; }
+.mission-tip { background:#fffbeb; border-radius:12px; padding:10px 14px; font-size:13px; color:#92400e; margin-bottom:16px; display:flex; align-items:flex-start; gap:8px; }
+
+.btn-done { width:100%; padding:16px; background:var(--green); color:white; border:none; border-radius:50px; font-size:17px; font-weight:700; cursor:pointer; box-shadow:0 4px 16px rgba(34,197,94,0.3); transition:all 0.2s; }
+.btn-done:active { transform:scale(0.97); }
+.btn-done.completed { background:#d1d5db; box-shadow:none; }
+
+/* Celebration */
+.celebration { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:100; animation:fadeIn 0.3s; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.celebration-card { background:white; border-radius:24px; padding:28px 20px; text-align:center; max-width:340px; margin:20px; animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+@keyframes popIn { from{transform:scale(0.8);opacity:0} to{transform:scale(1);opacity:1} }
+.celebration-emoji { font-size:64px; display:block; margin-bottom:10px; }
+.celebration-card h3 { font-size:22px; color:var(--purple); margin-bottom:6px; }
+.share-image { background:linear-gradient(135deg,#7c3aed,#f97316); border-radius:16px; padding:20px; color:white; margin:14px 0; }
+.share-image .mission-name { font-size:18px; font-weight:800; }
+.btn-share { background:linear-gradient(135deg,#f97316,#ef4444); color:white; font-size:14px; padding:10px 20px; width:100%; }
+.btn-close { background:var(--purple-light); color:var(--purple-dark); width:100%; margin-top:8px; }
+
+/* Referral */
+.ref-card { background:var(--card); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow); margin-top:16px; text-align:center; border:2px dashed #e5e7eb; }
+.ref-card h4 { margin-bottom:6px; color:var(--purple); font-size:15px; }
+.ref-link { background:#f3f4f6; padding:8px; border-radius:10px; font-size:12px; word-break:break-all; margin:10px 0; color:var(--muted); user-select:all; }
+
+/* Completed */
+.completed-list { margin-top:16px; }
+.completed-list h4 { font-size:14px; margin-bottom:10px; color:var(--muted); }
+.completed-chip { display:inline-flex; align-items:center; gap:4px; background:#f0fdf4; color:var(--green); padding:5px 10px; border-radius:50px; font-size:12px; font-weight:600; margin:3px; }
+
+/* Premium Upsell */
+.upsell-free { background:linear-gradient(135deg,#fef3c7,#fde68a); border-radius:var(--radius); padding:20px; margin-top:16px; text-align:center; border:2px solid var(--yellow); }
+.upsell-free h4 { font-size:17px; margin-bottom:4px; }
+.upsell-free .price { font-size:28px; font-weight:800; color:var(--purple-dark); }
+.upsell-free .perk { font-size:12px; color:var(--muted); margin:4px 0; }
+.btn-upgrade { background:var(--purple-dark); color:white; width:100%; margin-top:10px; }
+
+/* Premium Full */
+.premium-full { background:var(--card); border-radius:var(--radius); padding:20px; margin-top:20px; box-shadow:var(--shadow); text-align:center; border:3px solid var(--yellow); position:relative; }
+.premium-full::before { content:'⭐ НАЙ-ДОБРАТА ОФЕРТА'; position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--yellow); color:#1e1b4b; padding:4px 18px; border-radius:50px; font-size:11px; font-weight:800; }
+.premium-full h4 { font-size:20px; color:var(--purple-dark); margin:8px 0 4px; }
+.premium-full .gift { background:#fef3c7; padding:10px; border-radius:12px; margin:12px 0; font-size:13px; font-weight:600; }
+.age-tabs { display:flex; gap:6px; justify-content:center; margin:12px 0; }
+.age-tab { padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:#f3f4f6; border:none; cursor:pointer; }
+.age-tab.active { background:var(--purple); color:white; }
+
+/* Toast */
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#1e1b4b; color:white; padding:12px 24px; border-radius:50px; font-size:14px; font-weight:600; z-index:200; animation:slideUp 0.3s ease; }
+@keyframes slideUp { from{transform:translateX(-50%) translateY(20px);opacity:0} to{transform:translateX(-50%) translateY(0);opacity:1} }
+
+/* Confetti */
+.confetti-container { position:fixed; inset:0; pointer-events:none; z-index:150; }
+.confetti-piece { position:absolute; width:10px; height:10px; border-radius:3px; animation:confettiFall 1.5s ease-out forwards; }
+@keyframes confettiFall { 0%{transform:translateY(-100px) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+
+.hidden { display:none !important; }
+</style>
+</head>
+<body>
+
+<!-- ============ SCREEN: LANDING ============ -->
+<div class="screen active" id="screen-landing">
+  <div class="container">
+    <div class="hero">
+      <div class="logo">🦸</div>
+      <h1>30 дни Суперсила</h1>
+      <p class="sub">Не бори телефона. Дай на детето мисия.</p>
+    </div>
+
+    <div class="pain-chips">
+      <span class="pain-chip">😤 Скандали за телефона</span>
+      <span class="pain-chip">😔 Чувство за вина</span>
+      <span class="pain-chip">😰 3 часа скролване</span>
+      <span class="pain-chip">😩 Безсилие</span>
+    </div>
+
+    <div class="big-promise">
+      <h3>📱 Телефонът може да е решението</h3>
+      <p style="font-size:14px;color:var(--muted)">Вместо "Спри тоя телефон!" → дай на детето <strong>реална мисия</strong>, която го кара да твори, мисли и общува.</p>
+      <span class="free-badge">🏆 30 ДНИ НАПЪЛНО БЕЗПЛАТНО</span>
+    </div>
+
+    <div class="themes">
+      <h4>🎯 Какви мисии ще откриете:</h4>
+      <div class="theme-chips">
+        <span class="theme-chip">🍳 Готвене с мама</span>
+        <span class="theme-chip">📸 Фото лов</span>
+        <span class="theme-chip">🔬 Научни експерименти</span>
+        <span class="theme-chip">🎤 Интервюта</span>
+        <span class="theme-chip">🎨 Творчество</span>
+        <span class="theme-chip">🌿 Природа</span>
+        <span class="theme-chip">🎬 Филмче с играчки</span>
+        <span class="theme-chip">🤝 Добри дела</span>
+        <span class="theme-chip">🧩 Логически задачи</span>
+        <span class="theme-chip">📖 Истории</span>
+        <span class="theme-chip">🎵 Музика</span>
+        <span class="theme-chip">🏗️ Строене</span>
+      </div>
+    </div>
+
+    <div class="signup-card">
+      <h2>🚀 Започни безплатно</h2>
+      <p>30 дни. По 1 мисия на ден. Без пароли. Без инсталации.</p>
+      <input type="email" id="email-input" placeholder="Твоят имейл..." autocomplete="email">
+      <button class="btn btn-primary" onclick="startChallenge()">✨ ЗАПОЧНИ 30-ТЕ ДНИ</button>
+    </div>
+
+    <div class="social-proof">
+      <span class="count" id="total-families">312</span> семейства вече приемат предизвикателството
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCREEN: APP ============ -->
+<div class="screen" id="screen-app">
+  <div class="container">
+    <div class="app-header">
+      <div class="app-logo"><span>🦸</span> Суперсила</div>
+      <div class="streak-badge">🔥 <span id="streak-count">0</span> дни</div>
+    </div>
+
+    <div class="day-number" id="current-day">1</div>
+    <div class="day-label">от 30 дни</div>
+    <div class="day-theme" id="day-theme">🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ</div>
+
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progress-bar" style="width:3%"></div>
+    </div>
+
+    <div class="mission-card" id="mission-card">
+      <span class="mission-emoji" id="mission-emoji">🍳</span>
+      <div class="mission-title" id="mission-title">Готвач с мама</div>
+      <div class="mission-desc" id="mission-desc">Заедно с мама или тати намерете лесна рецепта онлайн и пригответе нещо вкусно. Детето чете рецептата и ръководи процеса!</div>
+      <div class="mission-tip"><span>💡</span> <span id="mission-tip">Потърсете "лесни палачинки за деца" в YouTube — 5 минути подготовка, 100% забавление!</span></div>
+      <button class="btn-done" id="btn-done" onclick="completeMission()">✅ ГОТОВО — МИСИЯТА Е ИЗПЪЛНЕНА!</button>
+    </div>
+
+    <!-- Referral -->
+    <div class="ref-card" id="ref-card">
+      <h4>🎁 Покани приятел → безплатна книга</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:8px">Сподели линка с друг родител. Когато се регистрира, получаваш <strong>дигиталната книга "Приключенията на Супер-Мира"</strong> — 5 истории за деца.</p>
+      <div class="ref-link" id="ref-link" onclick="copyRefLink()">misiyasupersila.com/ref/...</div>
+      <button class="btn btn-outline" style="color:var(--purple);border:2px solid var(--purple-light);background:white;width:100%" onclick="copyRefLink()">📋 Копирай линка</button>
+      <div style="font-size:13px;color:var(--green);font-weight:600;margin-top:6px" id="ref-count">Поканил си 0 семейства</div>
+      <div style="font-size:13px;color:var(--purple);font-weight:600;margin-top:4px;display:flex;align-items:center;gap:4px;justify-content:center" id="books-earned-mini">
+        <span>📖</span> <span id="books-count">0</span> книги спечелени
+      </div>
+      <div class="hidden" id="book-unlocked" style="margin-top:12px;padding:14px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac">
+        <span style="font-size:28px">📖</span>
+        <p style="font-weight:700;color:#166534;margin:4px 0">Книгата е отключена! 🎉</p>
+        <button class="btn" style="background:#22c55e;color:white;padding:10px 20px;font-size:14px;width:100%" onclick="openBook()">📖 Чети "Приключенията на Супер-Мира"</button>
+      </div>
+    </div>
+
+    <!-- Completed -->
+    <div class="completed-list">
+      <h4>✅ Изпълнени мисии</h4>
+      <div id="completed-chips"></div>
+    </div>
+
+    <!-- Free upsell after day 5 -->
+    <div class="upsell-free hidden" id="upsell-free-card">
+      <h4>⭐ Харесва ли ти досега?</h4>
+      <p style="font-size:14px;color:var(--muted)">Това са само първите дни. Истинската магия започва с Premium.</p>
+      <button class="btn btn-upgrade" onclick="showPremiumInfo()">🔓 Виж Premium</button>
+    </div>
+
+    <!-- Premium Full Info -->
+    <div class="premium-full hidden" id="premium-full-card">
+      <h4>🚀 Premium "Вълшебно хапче"</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:8px">За родители, които искат повече от просто мисии</p>
+
+      <div class="age-tabs">
+        <button class="age-tab active" onclick="selectAge(this,'4-6')">4-6 г.</button>
+        <button class="age-tab" onclick="selectAge(this,'7-10')">7-10 г.</button>
+        <button class="age-tab" onclick="selectAge(this,'11-14')">11-14 г.</button>
+      </div>
+
+      <ul style="text-align:left;list-style:none;font-size:13px;margin:12px 0;line-height:2">
+        <li>🎯 30+ мисии според възрастта на детето</li>
+        <li>🧩 Тематични седмици (Наука, Изкуство, Спорт)</li>
+        <li>📊 Персонален прогрес тракер</li>
+        <li>👥 Достъп до затворена родителска група</li>
+        <li>💬 Седмични съвети на имейл</li>
+        <li>🏅 Сертификат за завършване</li>
+      </ul>
+
+      <div class="gift">
+        🎁 БОНУС ПОДАРЪК: Дигитална книга "Приключенията на Супер-Мира" — 5 истории за деца, които превръщат телефона в суперсила!
+      </div>
+
+      <div style="font-size:20px;font-weight:800;margin:10px 0"><span style="text-decoration:line-through;color:var(--muted);font-size:14px">39 лв/мес</span> <span style="color:var(--purple-dark)">19 лв/мес</span></div>
+      <p style="font-size:11px;color:var(--muted)">Можеш да се откажеш по всяко време</p>
+      <button class="btn btn-primary" style="margin-top:8px" onclick="buyPremium()">🔓 Стани Premium</button>
+    </div>
+  </div>
+</div>
+
+<!-- Celebration Overlay -->
+<div class="celebration hidden" id="celebration-overlay">
+  <div class="celebration-card">
+    <span class="celebration-emoji">🎉</span>
+    <h3>Браво! Мисията е изпълнена!</h3>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:4px">Сподели успеха на детето си в Reels или Stories и</p>
+    <p style="color:#22c55e;font-weight:700;font-size:16px;margin-bottom:6px">🎁 вземи своя подарък напълно безплатно</p>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:14px">PDF Книга с истории на стойност <span style="text-decoration:line-through;color:#ef4444">19.90€</span> <span style="color:#22c55e;font-weight:700">0€</span></p>
+    <div class="share-image" id="share-card-visual">
+      <div style="font-size:13px;opacity:0.9">🦸 30 дни Суперсила</div>
+      <div class="mission-name" id="share-mission-name">Мисия #1</div>
+      <div style="font-size:12px;opacity:0.9">"Преобразихме телефона в суперсила!"</div>
+    </div>
+    <button class="btn btn-share" onclick="shareAndEarnBook()">📲 Сподели и вземи своя подарък 🎁</button>
+    <button class="btn btn-close" onclick="closeCelebration()">По-късно</button>
+    <div class="hidden" id="book-earned-notice" style="margin-top:14px;padding:14px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac">
+      <span style="font-size:28px">📖</span>
+      <p style="font-weight:700;color:#166534;margin:4px 0">Книгата е твоя! 🎉</p>
+      <p style="font-size:12px;color:#166534">Стойност <span style="text-decoration:line-through">19.90€</span> — твоя безплатно</p>
+      <button class="btn" style="background:#22c55e;color:white;padding:10px 20px;font-size:14px;width:100%;margin-top:8px" onclick="openBook()">📖 Чети "Приключенията на Супер-Мира"</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<div class="confetti-container hidden" id="confetti"></div>
+
+<script>
+// ===== 30 DIVERSE MISSIONS =====
+const MISSIONS = [
+  // Week 1: ВКУСНИ ПРИКЛЮЧЕНИЯ (🍳)
+  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🍳", title:"Готвач с мама", desc:"Заедно с мама или тати намерете лесна рецепта онлайн и пригответе нещо вкусно. Детето чете рецептата и ръководи процеса!", tip:"Потърсете 'лесни палачинки за деца' в YouTube — 5 минути подготовка, 100% забавление!" },
+  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🥗", title:"Семеен ресторант", desc:"Детето прави меню за вечеря (3 неща), записва го на телефона и помага да се подреди масата като в ресторант.", tip:"Нека детето нарисува меню на лист и го снима — после сервирайте заедно!" },
+  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🍕", title:"Пицария у дома", desc:"Направете домашна пица. Детето избира продуктите, подрежда ги и снима крайния резултат за 'менюто на ресторанта'.", tip:"Готово тесто от магазина = 15 минути подготовка. Останалото е творчество!" },
+  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🍪", title:"Сладкарски шедьовър", desc:"Намерете рецепта за бисквити или мъфини. Детето мери продуктите с помощта на телефона (калкулатор/таймер).", tip:"Снимайте процеса стъпка по стъпка — после направете 'готварска книга' от снимките!" },
+  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🥤", title:"Смути лаборатория", desc:"Детето измисля свое смути — избира 3 плода, прави го само (с блендер под надзор) и му дава име.", tip:"Нека запише 'рецептата' с гласово съобщение — после я споделете с баба!" },
+
+  // Week 2: ДЕТЕКТИВИ И ИЗСЛЕДОВАТЕЛИ (🔍)
+  { theme:"🔍 ДЕТЕКТИВИ", emoji:"📸", title:"Фото-ловец", desc:"Намери и снимай 5 предмета вкъщи, които са кръгли. Покажи ги на мама или тати!", tip:"Започни с часовника на стената — той е най-лесният! После чиния, монета, капачка..." },
+  { theme:"🔍 ДЕТЕКТИВИ", emoji:"🔺", title:"Търсач на форми", desc:"Излез навън и намери 3 предмета във формата на ТРИЪГЪЛНИК, 3 КВАДРАТА и 3 КРЪГА. Снимай ги!", tip:"Покрив = триъгълник, прозорец = квадрат, гума на кола = кръг!" },
+  { theme:"🔍 ДЕТЕКТИВИ", emoji:"🌈", title:"Цветна експедиция", desc:"Намери и подреди предмети в 7-те цвята на дъгата. Снимай ги всички заедно.", tip:"Използвай дрехи, играчки, книги, плодове — цялата къща е твоята палитра!" },
+  { theme:"🔍 ДЕТЕКТИВИ", emoji:"🐾", title:"Следите на природата", desc:"Излез в парка или градината. Намери следи от животни, птичи пера, охлюви. Снимай 3 открития.", tip:"След дъжд е най-доброто време — следите са по-ясни!" },
+  { theme:"🔍 ДЕТЕКТИВИ", emoji:"🧩", title:"Ловец на букви", desc:"Намери предмети, започващи с буквите С-У-П-Е-Р. Снимай ги и ги подреди!", tip:"С=стол, У=учебник, П=портокал, Е=електрическа крушка, Р=раница. Какво още?" },
+
+  // Week 3: ТВОРЦИ И АРТИСТИ (🎨)
+  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"🎬", title:"Режисьор на играчки", desc:"Заснеми 30-секунден филм с любимите си играчки. Ти си режисьорът — измисли история!", tip:"Подреди играчките на маса, сложи лампа за светлина. 3 играчки са достатъчни за начало." },
+  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"🎨", title:"Дигитален художник", desc:"Нарисувай картина на хартия, снимай я. После с безплатно приложение добави ефекти.", tip:"Попитай родител за приложение за рисуване — виж как хартията оживява дигитално!" },
+  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"🎭", title:"Театър на сенките", desc:"Изключи лампите. Включи фенерче. Направи животни с ръцете си на стената. Заснеми го!", tip:"Заек, куче, птица, паяк — научи 3 форми и направи мини представление." },
+  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"🎵", title:"Звуков детектив", desc:"Запиши 3 различни звука вкъщи (врата, вода, звънец). Пусни ги на семейството да познаят!", tip:"Сложи телефона близо до източника. Не казвай какво записваш — нека познаят!" },
+  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"📖", title:"Автор на приказка", desc:"Запиши своя приказка с гласово съобщение (2-3 минути). Измисли герои с имена!", tip:"Започни с 'Имало едно време...' Остави въображението да те води. После я пуснете на вечеря." },
+
+  // Week 4: СЕМЕЙНИ МИСИИ (❤️)
+  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"🎤", title:"Интервю с баба", desc:"Обади се на баба или дядо. Попитай: 'Коя беше любимата ти игра като малка?' Запиши отговора.", tip:"Бабите и дядовците ОБИЧАТ да разказват истории. Ще се изненадаш колко различно са играли!" },
+  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"🤝", title:"Мост между поколения", desc:"Научи баба или дядо на 1 нова функция на телефона (видеобаждане, снимка, емоджита).", tip:"Бъди търпелив учител — те са учили много неща в живота, сега е твой ред да върнеш жеста." },
+  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"🎁", title:"Тайна мисия на доброто", desc:"Направи нещо хубаво за някого вкъщи, без да те разберат. Без да се хвалиш. Истински супергерои помагат тайно.", tip:"Подреди обувките, остави бележка 'Обичам те' под възглавницата, напълни чаша вода..." },
+  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"🎵", title:"Семеен плейлист", desc:"Попитай всеки вкъщи за любимата му песен. Направи плейлист с всички песни и ги пуснете на вечеря.", tip:"Наречете го 'Семеен микс 2026' — слушайте докато вечеряте и познайте чия песен е!" },
+  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"📊", title:"Семеен статистик", desc:"Направи анкета вкъщи: 'Любим цвят?', 'Любим филм?', 'Любима храна?'. Запиши резултатите.", tip:"После направи 'Класация на семейството' и я покажи на вечеря. Кой цвят печели?" },
+
+  // Week 5: НАУКА И ОТКРИТИЯ (🔬)
+  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"🧪", title:"Домашен учен", desc:"Намери лесен експеримент онлайн (вулкан от сода и оцет, лава лампа с олио). Направи го!", tip:"Потърси 'лесен експеримент за деца' в YouTube. Оцет + сода = изригване!" },
+  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"🌍", title:"Глобус изследовател", desc:"Отвори Google Earth. 'Посети' 3 държави, които не познаваш. Научи 1 забавен факт за всяка.", tip:"Започни от най-далечната точка от България — Нова Зеландия, Япония или Бразилия!" },
+  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"🌿", title:"Ботаник за един ден", desc:"Намери 3 различни листа отвън. Използвай Google Lens, за да разбереш от кое дърво са.", tip:"Насочи камерата към листото и Google Lens ще ти покаже името му. Стани експерт по дървета!" },
+  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"⏰", title:"Машина на времето", desc:"Попитай родителите: 'Как си представяше бъдещето, когато беше дете?' Запиши отговора.", tip:"Сравни техния отговор със света днес. Какво се сбъдна? Какво не? Изненадващо е!" },
+  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"🏗️", title:"Млад архитект", desc:"Построи нещо от подръчни материали (кашони, кутии, легенчета). Снимай го от 3 ъгъла.", tip:"Кула, замък, космически кораб или мост — ти решаваш! Покажи го отпред, отгоре и отстрани." },
+
+  // Week 6: СУПЕРСИЛА ФИНАЛ (🏆)
+  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🧹", title:"Таймер за герои", desc:"Нагласи таймер за 10 минути. Подреди стаята си преди да изтече. Снимай ПРЕДИ и СЛЕД.", tip:"Пусни любима песен докато подреждаш — става състезание с времето!" },
+  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🗺️", title:"Карта на съкровища", desc:"Нарисувай карта на стаята/двора като пиратска карта. Скрий 'съкровище' и отбележи с X.", tip:"След това дай картата на братче/сестриче/родител да търси съкровището!" },
+  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🦸", title:"Супергеройски профил", desc:"Създай свой супергерой: име, суперсила, костюм, скривалище, враг. Нарисувай го и го снимай.", tip:"Колкото повече детайли измислиш, толкова по-готин става героят. Добави и страничен помощник!" },
+  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🏆", title:"Ретроспектива на супергероя", desc:"Прегледай снимките от всички мисии. Избери 3-те си любими. Разкажи на семейството защо.", tip:"Виж колко много си постигнал за 30 дни! Това е твоята истинска суперсила." },
+  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🚀", title:"Писмо до бъдещето", desc:"Запиши видео писмо до себе си след 1 година. Какво искаш да си спомниш?", tip:"Запазете видеото и си го пуснете след година. Ще бъдеш изненадан/а колко си пораснал/а!" }
+];
+
+// ===== STATE =====
+const STORAGE_KEY = 'supersila_v2';
+let state = { email:'', startedAt:'', completedDays:[], referralCode:'', referrals:0, streak:0 };
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function load() { const s=localStorage.getItem(STORAGE_KEY); if(s) state=JSON.parse(s); }
+function genRef() { return 'ref_'+Math.random().toString(36).substring(2,10); }
+
+// ===== NAVIGATION =====
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ===== LANDING =====
+function startChallenge() {
+  const email = document.getElementById('email-input').value.trim();
+  if(!email.includes('@')||!email.includes('.')) { showToast('Моля, въведи валиден имейл 📧'); return; }
+  state.email=email; state.startedAt=new Date().toISOString();
+  state.referralCode=genRef(); state.streak=1; save();
+  showScreen('screen-app'); renderApp(); updateFamilies();
+}
+
+// ===== APP =====
+function getDay() { return Math.min(state.completedDays.length+1, 30); }
+
+function renderApp() {
+  const d=getDay(); const m=MISSIONS[d-1];
+  document.getElementById('current-day').textContent=d;
+  document.getElementById('day-theme').textContent=m.theme;
+  document.getElementById('streak-count').textContent=state.completedDays.length;
+  document.getElementById('progress-bar').style.width=((d-1)/30*100)+'%';
+  document.getElementById('mission-emoji').textContent=m.emoji;
+  document.getElementById('mission-title').textContent=m.title;
+  document.getElementById('mission-desc').textContent=m.desc;
+  document.getElementById('mission-tip').textContent=m.tip;
+
+  const btn=document.getElementById('btn-done');
+  if(state.completedDays.includes(d)) { btn.textContent='✅ ИЗПЪЛНЕНА'; btn.classList.add('completed'); btn.disabled=true; }
+  else { btn.textContent='✅ ГОТОВО — МИСИЯТА Е ИЗПЪЛНЕНА!'; btn.classList.remove('completed'); btn.disabled=false; }
+
+  document.getElementById('ref-link').textContent='misiyasupersila.com/ref/'+state.referralCode;
+  document.getElementById('ref-count').textContent='Поканил си '+state.referrals+' семейства';
+
+  document.getElementById('completed-chips').innerHTML=state.completedDays.map(d=>'<span class="completed-chip">✅ Ден '+d+'</span>').join('')||'<span style="color:#9ca3af;font-size:12px">Още няма изпълнени мисии</span>';
+
+  if(d>=5) document.getElementById('upsell-free-card').classList.remove('hidden');
+  
+  document.getElementById('books-count').textContent = (state.booksEarned || 0);
+
+  updateStreak();
+}
+
+function completeMission() {
+  const d=getDay();
+  if(state.completedDays.includes(d)||d>30) return;
+  state.completedDays.push(d); state.streak=state.completedDays.length; save();
+  launchConfetti(); showCelebration(d);
+  setTimeout(()=>renderApp(),200);
+}
+
+function showCelebration(day) {
+  const m=MISSIONS[day-1];
+  document.getElementById('share-mission-name').textContent='Мисия #'+day+': '+m.title;
+  document.getElementById('celebration-overlay').classList.remove('hidden');
+}
+function closeCelebration() { 
+  document.getElementById('celebration-overlay').classList.add('hidden');
+  // Reset celebration UI for next time
+  setTimeout(() => {
+    document.getElementById('book-earned-notice').classList.add('hidden');
+    document.getElementById('share-card-visual').classList.remove('hidden');
+    const shareBtn = document.querySelector('.btn-share');
+    if(shareBtn) shareBtn.classList.remove('hidden');
+  }, 500);
+}
+
+function shareAndEarnBook() {
+  const d=getDay()-1; const m=MISSIONS[Math.max(0,d-1)];
+  const text='🦸 Изпълнихме Мисия #'+Math.max(1,d)+' от "30 дни Суперсила"!\n\n"'+m.title+'" — '+m.desc.substring(0,70)+'...\n\nА твоето дете? Започни безплатно: misiyasupersila.com\n\n#30дниСуперсила #родителство';
+  
+  // Track that user shared
+  state.hasShared = true;
+  state.booksEarned = (state.booksEarned || 0) + 1;
+  save();
+  
+  // Show book earned
+  document.getElementById('book-earned-notice').classList.remove('hidden');
+  document.getElementById('share-card-visual').classList.add('hidden');
+  document.querySelector('.btn-share').classList.add('hidden');
+  
+  // Try native share
+  if(navigator.share) {
+    navigator.share({title:'30 дни Суперсила',text}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(text).then(()=>showToast('📲 Копирано! Сподели в Reels/Stories → книгата е твоя!'));
+  }
+  
+  launchConfetti();
+}
+
+function copyRefLink() {
+  navigator.clipboard.writeText('misiyasupersila.com/ref/'+state.referralCode).then(()=>showToast('Линкът е копиран! 📋'));
+}
+
+function showPremiumInfo() {
+  document.getElementById('premium-full-card').classList.toggle('hidden');
+}
+
+function selectAge(btn, age) {
+  document.querySelectorAll('.age-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function buyPremium() { showToast('Скоро! Пиши ни за ранен достъп 🚀'); }
+
+function updateStreak() {
+  const refKey='ref_count_'+state.referralCode;
+  state.referrals=parseInt(localStorage.getItem(refKey)||'0');
+  save();
+  document.getElementById('ref-count').textContent='Поканил си '+state.referrals+' семейства';
+  if(state.referrals >= 1) {
+    document.getElementById('book-unlocked').classList.remove('hidden');
+  }
+}
+
+function updateFamilies() {
+  document.getElementById('total-families').textContent=312+Math.floor(Math.random()*5);
+}
+
+// ===== CONFETTI =====
+function launchConfetti() {
+  const c=document.getElementById('confetti'); c.classList.remove('hidden'); c.innerHTML='';
+  const colors=['#7c3aed','#f97316','#fbbf24','#22c55e','#ef4444','#3b82f6','#ec4899'];
+  for(let i=0;i<50;i++) {
+    const p=document.createElement('div'); p.className='confetti-piece';
+    p.style.left=Math.random()*100+'%';
+    p.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDelay=Math.random()*0.8+'s';
+    p.style.animationDuration=(Math.random()*1.5+1)+'s';
+    c.appendChild(p);
+  }
+  setTimeout(()=>{c.classList.add('hidden');c.innerHTML='';},2500);
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+  document.getElementById('toast-container').appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2500);
+}
+
+function openBook() {
+  window.open('storybook.html', '_blank');
+}
+
+// ===== INIT =====
+// ===== INIT =====
+load();
+if(state.email&&state.startedAt) { showScreen('screen-app'); renderApp(); }
+else { showScreen('screen-landing'); }
+updateFamilies();
+setInterval(updateStreak,5000);
+setInterval(updateFamilies,15000);
+setInterval(()=>{if(state.email)renderApp();},60000);
+</script>
+</body>
+</html>

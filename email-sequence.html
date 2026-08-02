@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30-дневна имейл последователност</title>
+<style>
+  :root {
+    --purple: #7c3aed;
+    --orange: #f97316;
+    --bg: #fafafa;
+    --card: #fff;
+    --text: #1e1b4b;
+    --muted: #6b7280;
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    margin: 20px 0;
+    background: linear-gradient(135deg, var(--purple), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 30px;
+    font-size: 15px;
+  }
+  .email-block {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--purple);
+  }
+  .email-block.automation { border-left-color: #22c55e; }
+  .email-block.engagement { border-left-color: #3b82f6; }
+  .email-block.upsell { border-left-color: var(--orange); }
+  .email-block.testimonial { border-left-color: #ec4899; }
+  .email-block.final { border-left-color: #fbbf24; }
+  
+  .email-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .day-badge {
+    background: var(--purple);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .day-badge.automation { background: #22c55e; }
+  .day-badge.engagement { background: #3b82f6; }
+  .day-badge.upsell { background: var(--orange); }
+  .day-badge.testimonial { background: #ec4899; }
+  .day-badge.final { background: #fbbf24; color: #1e1b4b; }
+  
+  .email-type {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .email-subject {
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .email-body {
+    font-size: 14px;
+    color: var(--muted);
+    white-space: pre-line;
+    background: #f9fafb;
+    padding: 16px;
+    border-radius: 12px;
+    line-height: 1.7;
+  }
+  .email-cta {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 12px;
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-size: 13px;
+  }
+  .legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .copy-all {
+    text-align: center;
+    margin: 30px 0;
+  }
+  .btn-copy {
+    background: var(--purple);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>📧 30-дневна имейл последователност</h1>
+<p class="subtitle">Автоматични писма след регистрация — копирай и настрой в SendGrid, Mailchimp или подобен</p>
+
+<div class="legend">
+  <span><span class="dot" style="background:#22c55e"></span> Автоматизация</span>
+  <span><span class="dot" style="background:#3b82f6"></span> Ангажиране</span>
+  <span><span class="dot" style="background:#f97316"></span> Ъпсел</span>
+  <span><span class="dot" style="background:#ec4899"></span> Социално доказателство</span>
+  <span><span class="dot" style="background:#fbbf24"></span> Финал</span>
+</div>
+
+<!-- Ден 0 -->
+<div class="email-block automation">
+  <div class="email-header">
+    <span class="day-badge automation">Ден 0</span>
+    <span class="email-type">🔄 Автоматизация — изпраща се веднага</span>
+  </div>
+  <div class="email-subject">🦸 Добре дошъл в 30 дни Суперсила!</div>
+  <div class="email-body">Здравей, родителю!
+
+Благодаря, че се присъедини! 🎉
+
+Току-що направи първата крачка към трансформацията — да превърнеш телефона от враг в суперсила за детето си.
+
+📱 Ето линкът към твоето приключение:
+[ЛИНК КЪМ ПРИЛОЖЕНИЕТО]
+
+🔐 Запази този имейл — това е твоят ключ към 30-те мисии.
+
+🎯 Твоята първа мисия те чака:
+"Фото-ловец" — детето трябва да намери и снима 5 кръгли предмета вкъщи.
+
+💡 Съвет: Не му казвай "отиди да направиш мисията". Кажи: "Хайде да играем на детективи! Телефонът ти е лупата. Намери 5 кръгли неща за 10 минути!"
+
+Утре те чака нова мисия.
+
+До скоро,
+[Твоето име]
+🦸 30 дни Суперсила</div>
+</div>
+
+<!-- Ден 1 -->
+<div class="email-block engagement">
+  <div class="email-header">
+    <span class="day-badge engagement">Ден 1</span>
+    <span class="email-type">🎯 Ангажиране</span>
+  </div>
+  <div class="email-subject">Как мина първата мисия? 🔍</div>
+  <div class="email-body">Здравей отново!
+
+Как мина вчерашната мисия "Фото-ловец"? Детето намери ли 5 кръгли предмета? 😊
+
+Ако не сте пробвали още — няма проблем. Ето линка отново: [ЛИНК]
+
+📌 Днешната мисия е "Интервю с баба" — детето ще използва телефона като микрофон, за да запише истории от баба или дядо.
+
+💡 Съвет: "Обади се на баба и я попитай: Коя беше любимата ти игра, когато беше малка? Запиши отговора!"
+
+Защо работи: Детето не скролва — то общува. И бабата ще бъде толкова щастлива, че ще ти звънне после да ти благодари. 😄
+
+Сподели резултата! 📸
+
+[Твоето име]</div>
+</div>
+
+<!-- Ден 3 -->
+<div class="email-block engagement">
+  <div class="email-header">
+    <span class="day-badge engagement">Ден 3</span>
+    <span class="email-type">🎯 Ангажиране</span>
+  </div>
+  <div class="email-subject">3 дни. Забелязваш ли разликата? 👀</div>
+  <div class="email-body">Здравей!
+
+3 дни зад гърба. 3 мисии. Забелязваш ли нещо различно?
+
+Може би по-малко скандали?
+Може би детето очаква следващата мисия с нетърпение?
+Може би... тишина? 😅
+
+Ето какво се случва в мозъка на детето:
+🧠 Вместо допамин от скролване → допамин от постижение
+🎨 Вместо пасивен консуматор → активен създател
+👨‍👩‍👧 Вместо изолация → контакт със семейството
+
+Днешната мисия: "Дигитален главен готвач" 🍳 — детето намира рецепта онлайн и помага в кухнята.
+
+Продължавай! Най-доброто тепърва предстои.
+
+[Твоето име]</div>
+</div>
+
+<!-- Ден 5 -->
+<div class="email-block engagement">
+  <div class="email-header">
+    <span class="day-badge engagement">Ден 5</span>
+    <span class="email-type">🎯 Ангажиране</span>
+  </div>
+  <div class="email-subject">Тайната на детския мозък 🧠</div>
+  <div class="email-body">Знаеш ли защо "забраните" не работят?
+
+Когато кажеш на детето "Спри телефона!", мозъкът му чува:
+"Забраняват ти нещо, което ти дава удоволствие."
+
+Реакцията? Съпротива. Бунт. Скандал.
+
+А сега какво правим ние? Ние не забраняваме. Ние ЗАМЕСТВАМЕ.
+
+Вместо "спри да скролваш" → "изпълни тази мисия"
+Вместо празнота след забраната → постижение след мисията
+Вместо скандал → сътрудничество
+
+Днешната мисия: "Ловец на букви" 🔤 — детето търси предмети, започващи с буквите С-У-П-Е-Р.
+
+Обичаш ли вече резултатите? Сподели ги! 📲
+
+[Твоето име]</div>
+</div>
+
+<!-- Ден 7 -->
+<div class="email-block upsell">
+  <div class="email-header">
+    <span class="day-badge upsell">Ден 7</span>
+    <span class="email-type">💰 Първи ъпсел</span>
+  </div>
+  <div class="email-subject">7 дни. Истината за оставащите 23. ⭐</div>
+  <div class="email-body">Една седмица зад гърба! 🎉
+
+Как се чувстваш? А детето?
+
+Досега получи:
+✅ 7 мисии
+✅ Истински моменти с детето
+✅ По-малко скандали
+✅ Телефон, който работи ЗА теб, а не срещу теб
+
+Но това са само 7 от 30. Остават 23.
+
+Искам да ти предложа нещо:
+
+🚀 PREMIUM пакет "30 дни Суперсила"
+— Още 30 уникални мисии (тематични седмици)
+— Сертификат за завършване за детето
+— Достъп до затворена Facebook група за родители
+— Бонус: 5 уикенд предизвикателства
+
+💰 29 лв (еднократно, без абонамент)
+
+[БУТОН: Отключи Premium]
+
+Няма натиск. Безплатните 30 дни продължават. Но ако искаш повече — вратата е отворена. 🚪
+
+[Твоето име]</div>
+  <div class="email-cta">Отключи Premium → 29 лв</div>
+</div>
+
+<!-- Ден 10 -->
+<div class="email-block testimonial">
+  <div class="email-header">
+    <span class="day-badge testimonial">Ден 10</span>
+    <span class="email-type">💬 Социално доказателство</span>
+  </div>
+  <div class="email-subject">"За първи път детето ми само прибра телефона" 💬</div>
+  <div class="email-body">Искам да ти разкажа за Мария.
+
+Майка на 8-годишен Алекс. Всеки ден — битка за телефона. Скандали, викове, чувство за вина.
+
+Тя пробва 30-дневното предизвикателство.
+
+Нейните думи след 10 дни:
+
+"За първи път Алекс сам остави телефона след 30 минути. Не защото му крещях. А защото изпълни мисията и беше доволен. Това е магия."
+
+Магия? Не. Просто правилният подход.
+
+А ти? Как върви твоето приключение? Отговори на този имейл — искам да чуя твоята история.
+
+[Твоето име]</div>
+</div>
+
+<!-- Ден 14 -->
+<div class="email-block upsell">
+  <div class="email-header">
+    <span class="day-badge upsell">Ден 14</span>
+    <span class="email-type">💰 Втори ъпсел (VIP)</span>
+  </div>
+  <div class="email-subject">2 седмици. Вече си експерт. Ето следващото ниво. 🌟</div>
+  <div class="email-body">2 седмици. 14 мисии. Вече знаеш, че работи.
+
+Детето ти:
+🦸 Използва телефона с цел
+🎨 Създава, не консумира
+👨‍👩‍👧 Общува повече със семейството
+
+Сега искам да ти предложа нещо специално:
+
+🌟 VIP ПАКЕТ "Персонална суперсила"
+— Анализ на интересите на твоето дете (кои мисии го вдъхновяват най-много)
+— Персонализиран 30-дневен план според възрастта
+— 1 час онлайн консултация с мен
+— Приоритетен достъп до всички бъдещи мисии
+
+💰 49 лв (еднократно)
+
+[БУТОН: Искам VIP пакет]
+
+Само 10 места месечно — за да мога да обърна внимание на всяко семейство.
+
+[Твоето име]</div>
+  <div class="email-cta">VIP Пакет → 49 лв</div>
+</div>
+
+<!-- Ден 21 -->
+<div class="email-block testimonial">
+  <div class="email-header">
+    <span class="day-badge testimonial">Ден 21</span>
+    <span class="email-type">💬 Мотивация</span>
+  </div>
+  <div class="email-subject">21 дни. Навикът е изграден. 🏆</div>
+  <div class="email-body">Казват, че са нужни 21 дни, за да се изгради навик.
+
+Днес е ден 21.
+
+Помниш ли как се чувстваше в ден 0? Уморена, безсилна, притеснена?
+
+А днес? Детето ти очаква мисията. Ти си спокойна. Телефонът не е враг.
+
+Това вече не е "предизвикателство". Това е новият ви начин на живот.
+
+Остават 9 дни. Ето какво предстои:
+🌟 Най-креативните мисии тепърва идват
+🎥 Специална финална мисия — видео писмо до бъдещето
+🏅 Сертификат за детето
+
+Не спирай сега. Финалът е най-важен.
+
+[Твоето име]</div>
+</div>
+
+<!-- Ден 28 -->
+<div class="email-block final">
+  <div class="email-header">
+    <span class="day-badge final">Ден 28</span>
+    <span class="email-type">⭐ Финал</span>
+  </div>
+  <div class="email-subject">28 дни. Предпоследна мисия. Какво постигнахте? 🎖️</div>
+  <div class="email-body">28 дни.
+
+Нека го кажа направо: ти си невероятен родител.
+
+Не защото си перфектен. А защото пробва нещо ново. Защото инвестира време. Защото избра да дадеш на детето си суперсила, вместо да водиш война.
+
+Ето какво постигнахте заедно:
+✅ 28 мисии
+✅ Безброй моменти на смях и свързване
+✅ Дете, което използва технологията с цел
+✅ Дом без скандали за телефона
+
+Последните 2 дни са специални. Утре — ретроспектива. На 30-ия ден — видео писмо до бъдещето.
+
+Искам да споделиш вашата история. Отговори на този имейл с 2-3 изречения — какво се промени? Ще включа най-добрите в общността ни (анонимно, ако предпочиташ).
+
+[Твоето име]</div>
+</div>
+
+<!-- Ден 30 -->
+<div class="email-block final">
+  <div class="email-header">
+    <span class="day-badge final">Ден 30</span>
+    <span class="email-type">🏆 Финал + реферал</span>
+  </div>
+  <div class="email-subject">🏆 30 дни. Ти успя. Ето какво следва.</div>
+  <div class="email-body">30 дни. 🎉
+
+Ти започна със страх и безсилие.
+Завърши с увереност и резултати.
+
+Детето ти вече знае: телефонът е инструмент, не бягство.
+
+🏅 Ето го твоят сертификат за завършване:
+[ЛИНК КЪМ СЕРТИФИКАТ]
+
+🎁 Искаш ли да споделиш суперсилата с други родители?
+
+Покани приятел → получи БОНУС пакет с 5 специални мисии
+[ТВОЙ УНИКАЛЕН РЕФЕРАЛЕН ЛИНК]
+
+Благодаря ти, че ми се довери. Това не е край — това е началото на новия ви начин на живот с технологиите.
+
+Ако искаш Premium пакета с още 30 мисии:
+[ЛИНК КЪМ PREMIUM]
+
+До нови приключения,
+[Твоето име]
+🦸 30 дни Суперсила</div>
+</div>
+
+<div class="copy-all">
+  <p style="margin-bottom:12px;color:var(--muted)">💡 Използвай тези текстове в твоя имейл маркетинг (Mailchimp, SendGrid, ConvertKit)</p>
+  <p style="font-size:14px;color:var(--muted)">Това са 10 имейла за 30 дни. Стратегия: изпращай през 2-3 дни, а не всеки ден.</p>
+</div>
+
+</body>
+</html>

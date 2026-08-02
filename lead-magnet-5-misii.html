@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<title>5 дигитални мисии — 30 дни Суперсила</title>
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Segoe UI', -apple-system, system-ui, sans-serif;
+    color: #1e1b4b;
+    line-height: 1.6;
+    background: white;
+  }
+  
+  .cover {
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 40%, #f97316 100%);
+    color: white;
+    padding: 60px 40px;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    page-break-after: always;
+  }
+  
+  .cover-emoji {
+    font-size: 80px;
+    margin-bottom: 24px;
+  }
+  
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  
+  .cover .subtitle {
+    font-size: 20px;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    max-width: 500px;
+  }
+  
+  .cover .badge {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  /* Mission pages */
+  .mission-page {
+    padding: 50px 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    page-break-after: always;
+    border-top: 8px solid #7c3aed;
+  }
+  
+  .mission-page:nth-child(2) { border-top-color: #7c3aed; }
+  .mission-page:nth-child(3) { border-top-color: #f97316; }
+  .mission-page:nth-child(4) { border-top-color: #22c55e; }
+  .mission-page:nth-child(5) { border-top-color: #3b82f6; }
+  .mission-page:nth-child(6) { border-top-color: #ec4899; }
+  
+  .mission-number {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #7c3aed;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  
+  .mission-page:nth-child(2) .mission-number { color: #7c3aed; }
+  .mission-page:nth-child(3) .mission-number { color: #f97316; }
+  .mission-page:nth-child(4) .mission-number { color: #22c55e; }
+  .mission-page:nth-child(5) .mission-number { color: #3b82f6; }
+  .mission-page:nth-child(6) .mission-number { color: #ec4899; }
+  
+  .mission-emoji {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+  
+  .mission-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  
+  .mission-desc {
+    font-size: 18px;
+    color: #4b5563;
+    margin-bottom: 24px;
+    line-height: 1.7;
+    max-width: 550px;
+  }
+  
+  .mission-tip {
+    background: #fffbeb;
+    border-left: 4px solid #fbbf24;
+    padding: 16px 20px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 24px;
+    font-size: 15px;
+    color: #92400e;
+    max-width: 550px;
+  }
+  
+  .mission-tip strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  .checklist {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+  
+  .checklist li {
+    padding: 8px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .checklist li::before {
+    content: '☐';
+    font-size: 22px;
+    color: #7c3aed;
+  }
+  
+  .result-box {
+    background: #f0fdf4;
+    border: 2px dashed #86efac;
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #166534;
+    max-width: 550px;
+  }
+  
+  /* Final CTA page */
+  .cta-page {
+    background: linear-gradient(135deg, #1e1b4b, #312e81);
+    color: white;
+    padding: 60px 40px;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    page-break-after: always;
+  }
+  
+  .cta-page h2 {
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  
+  .cta-page p {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 32px;
+    max-width: 450px;
+  }
+  
+  .cta-box {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 32px;
+    max-width: 450px;
+    width: 100%;
+  }
+  
+  .cta-box h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  
+  .cta-box .price {
+    font-size: 48px;
+    font-weight: 800;
+    color: #fbbf24;
+    margin-bottom: 4px;
+  }
+  
+  .cta-box .price-old {
+    text-decoration: line-through;
+    opacity: 0.5;
+    font-size: 20px;
+  }
+  
+  .cta-box ul {
+    list-style: none;
+    text-align: left;
+    margin: 20px 0;
+  }
+  
+  .cta-box ul li {
+    padding: 6px 0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .cta-box ul li::before {
+    content: '✅';
+  }
+  
+  .cta-btn {
+    display: inline-block;
+    background: #f97316;
+    color: white;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 8px;
+  }
+  
+  .footer-note {
+    margin-top: 24px;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+  
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cover, .cta-page, .mission-page { min-height: 100vh; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-emoji">🦸</div>
+  <h1>5 дигитални мисии<br>за твоето дете</h1>
+  <p class="subtitle">Превърни телефона от враг в суперсила.<br>Без скандали, без викове, без чувство за вина.</p>
+  <div class="badge">📱 Безплатно ръководство за родители</div>
+</div>
+
+<!-- MISSION 1 -->
+<div class="mission-page">
+  <div class="mission-number">Мисия 1 от 5</div>
+  <div class="mission-emoji">📸</div>
+  <div class="mission-title">Фото-ловец на съкровища</div>
+  <p class="mission-desc">Дайте на детето задачата да намери и снима <strong>5 предмета, които са кръгли</strong> — вкъщи или навън. Вместо да скролва безцелно, то използва камерата с конкретна цел.</p>
+  
+  <div class="mission-tip">
+    <strong>💡 Съвет за родителя:</strong>
+    Кажете: "Хайде да играем на детективи! Телефонът ти е лупата. Намери 5 кръгли неща и ги снимай, преди да изтекат 10 минути!"
+  </div>
+  
+  <ul class="checklist">
+    <li>Часовник на стената</li>
+    <li>Чиния в кухнята</li>
+    <li>Монета</li>
+    <li>Капачка на бутилка</li>
+    <li>Копче на дреха</li>
+  </ul>
+  
+  <div class="result-box">
+    <strong>🎯 Какво печели детето:</strong> Развива наблюдателност, учи форми, използва телефона като инструмент, а не като пасивен екран.
+  </div>
+</div>
+
+<!-- MISSION 2 -->
+<div class="mission-page">
+  <div class="mission-number">Мисия 2 от 5</div>
+  <div class="mission-emoji">🎤</div>
+  <div class="mission-title">Интервю с баба и дядо</div>
+  <p class="mission-desc">Детето използва телефона като <strong>микрофон и записващо устройство</strong>. Задачата: да се обади на баба или дядо и да им зададе 3 въпроса за тяхното детство.</p>
+  
+  <div class="mission-tip">
+    <strong>💡 Съвет за родителя:</strong>
+    "Баба ти има толкова интересни истории! Вземи телефона, обади ѝ се и я попитай тези 3 въпроса. Запиши отговорите — после ще ги слушаме заедно!"
+  </div>
+  
+  <ul class="checklist">
+    <li>Коя беше любимата ти игра като малка?</li>
+    <li>Имаше ли телефон, когато беше на моята възраст?</li>
+    <li>Кой беше най-смешният ти спомен от училище?</li>
+  </ul>
+  
+  <div class="result-box">
+    <strong>🎯 Какво печели детето:</strong> Сближава се с баба и дядо, развива комуникационни умения, учи история от първа ръка, използва телефона за реална връзка.
+  </div>
+</div>
+
+<!-- MISSION 3 -->
+<div class="mission-page">
+  <div class="mission-number">Мисия 3 от 5</div>
+  <div class="mission-emoji">🧹</div>
+  <div class="mission-title">Таймер за супергерои</div>
+  <p class="mission-desc">Детето наглася таймер на телефона за <strong>10 минути</strong> и за това време подрежда стаята си. Прави снимка ПРЕДИ и СЛЕД. Това превръща скучната задача в състезание с времето.</p>
+  
+  <div class="mission-tip">
+    <strong>💡 Съвет за родителя:</strong>
+    "Обзалагам се, че не можеш да подредиш стаята за 10 минути! Хайде, пускам ти таймера. Снимай я преди и след — искам да видя разликата!"
+  </div>
+  
+  <ul class="checklist">
+    <li>Пусни таймер за 10 минути</li>
+    <li>Снимай стаята ПРЕДИ</li>
+    <li>Подреди всичко по местата</li>
+    <li>Снимай стаята СЛЕД</li>
+    <li>Сравни двете снимки с мама/тати</li>
+  </ul>
+  
+  <div class="result-box">
+    <strong>🎯 Какво печели детето:</strong> Учи се на дисциплина чрез игра, развива чувство за време, вижда конкретния резултат от усилията си.
+  </div>
+</div>
+
+<!-- MISSION 4 -->
+<div class="mission-page">
+  <div class="mission-number">Мисия 4 от 5</div>
+  <div class="mission-emoji">🎬</div>
+  <div class="mission-title">Режисьор на играчки</div>
+  <p class="mission-desc">Детето става режисьор: избира 3 любими играчки и заснема <strong>30-секунден филм</strong> с тях. Само измисля историята, подрежда "сцената" и снима с телефона.</p>
+  
+  <div class="mission-tip">
+    <strong>💡 Съвет за родителя:</strong>
+    "Холивудски режисьори, внимавайте! Имаме нов талант у дома. Дай на играчките си роли и направи филм. После ще го гледаме на голям екран (телевизора)!"
+  </div>
+  
+  <ul class="checklist">
+    <li>Избери 3 играчки за актьори</li>
+    <li>Измисли проста история (начало, среда, край)</li>
+    <li>Подреди "сцената" (маса, диван, под)</li>
+    <li>Заснеми 30 секунди</li>
+    <li>Покажи премиерата на семейството</li>
+  </ul>
+  
+  <div class="result-box">
+    <strong>🎯 Какво печели детето:</strong> Развива креативност и разказвачески умения, учи основи на сторителинг, използва телефона като инструмент за създаване, а не консумиране.
+  </div>
+</div>
+
+<!-- MISSION 5 -->
+<div class="mission-page">
+  <div class="mission-number">Мисия 5 от 5</div>
+  <div class="mission-emoji">🌈</div>
+  <div class="mission-title">Цветна експедиция</div>
+  <p class="mission-desc">Детето трябва да намери и подреди <strong>7 предмета в цветовете на дъгата</strong>. После ги снима всички заедно. Това е игра, която може да се играе навсякъде.</p>
+  
+  <div class="mission-tip">
+    <strong>💡 Съвет за родителя:</strong>
+    "Мисията е почти невъзможна! Трябват ти 7 предмета — по един за всеки цвят на дъгата. Мислиш ли, че можеш да ги намериш за 15 минути? Снимай ги като trophy!"
+  </div>
+  
+  <ul class="checklist">
+    <li>🔴 Червено — домат, тениска, книга</li>
+    <li>🟠 Оранжево — портокал, молив, играчка</li>
+    <li>🟡 Жълто — лимон, чаша, бележка</li>
+    <li>🟢 Зелено — растение, чорап, ябълка</li>
+    <li>🔵 Синьо — химикал, купа, капачка</li>
+    <li>🟣 Лилаво — грозде, шал, тефтер</li>
+    <li>🌸 Розово — ластик, бонбон, възглавница</li>
+  </ul>
+  
+  <div class="result-box">
+    <strong>🎯 Какво печели детето:</strong> Учи цветове, развива организационни умения, тренира търпение и систематичност, забавлява се с лов на предмети.
+  </div>
+</div>
+
+<!-- CTA PAGE -->
+<div class="cta-page">
+  <h2>🚀 Готови за пълното приключение?</h2>
+  <p>Това бяха само 5 мисии. Пълната програма включва 30 дни — по една нова мисия всеки ден.</p>
+  
+  <div class="cta-box">
+    <h3>30 дни Суперсила</h3>
+    <div class="price-old">59 лв</div>
+    <div class="price">29 лв</div>
+    <p style="font-size:14px;opacity:0.8;margin-bottom:16px">Еднократно плащане, без абонамент</p>
+    <ul>
+      <li>30 уникални дигитални мисии</li>
+      <li>Достъп през телефон — без изтегляне</li>
+      <li>Прогрес тракер за детето</li>
+      <li>Сертификат за завършване</li>
+      <li>Бонус: тематични уикенд мисии</li>
+    </ul>
+    <p style="font-size:18px;font-weight:700;margin-top:16px">Започни на: <strong>misiyasupersila.com</strong></p>
+  </div>
+  
+  <p class="footer-note">📩 Пиши "МИСИЯ" на лично съобщение за безплатния стартов пакет!</p>
+</div>
+
+</body>
+</html>
