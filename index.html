@@ -255,3 +255,278 @@ body {
       <button class="btn btn-primary" onclick="buyPremium()" style="margin-top:10px;">🎁 ВЗЕМИ ПОДАРЪКА — 15 €</button>
       <p style="font-size:11px;color:var(--muted);margin-top:6px;">Това не е лъжа. Истинска оферта за истински родители.</p>
     
+<script>
+// ===== APP STATE =====
+const MISSIONS = [
+  {emoji:'🍳',title:'Готвач с мама',tip:'Потърсете "лесни палачинки за деца" в YouTube — 5 минути подготовка, 100% забавление!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Заедно с мама или тати намерете лесна рецепта онлайн и пригответе нещо вкусно. Детето чете рецептата и ръководи процеса!'},
+  {emoji:'📸',title:'Ловец на усмивки',tip:'Обиколете квартала заедно — свеж въздух + мисия!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Снимай 5 неща, които те карат да се усмихнеш. Може да са хора, животни, предмети — всичко!'},
+  {emoji:'🥪',title:'Магията на сандвича',tip:'Оставете детето да избере съставките само — ще се изненадате!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Измисли своя уникален сандвич! Комбинирай съставки, които никой не е пробвал. Снимай го преди да го изядеш.'},
+  {emoji:'🍪',title:'Тайната бисквитка',tip:'Скрийте една бисквитка за изненада утре 😉',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Намери рецепта за бисквитки онлайн и ги изпечи. Украси ги със захарни пръчици или шоколад. Сподели с приятел!'},
+  {emoji:'🎂',title:'Рожден ден всеки ден',tip:'Не е нужно да е истински рожден ден — важното е забавлението!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Организирай мини парти за някого у дома. Направи картичка на телефона, поднеси изненада!'},
+  {emoji:'🔍',title:'Детектив вкъщи',tip:'Може да скриеш предмет и да даваш улики — като истински детектив!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Родител крие 3 предмета из дома. Детето получава 3 улики и тръгва да ги търси с телефона като фенерче!'},
+  {emoji:'🗺️',title:'Карта на съкровището',tip:'Използвайте Google Maps и компас за повече реализъм!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Нарисувай карта на дома с "X" маркиращо съкровището. Води родител по картата. Заснеми откритието!'},
+  {emoji:'🎤',title:'Интервю с баба',tip:'Запишете разговора — след 10 години ще е безценен спомен!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Обади се на баба/дядо по видеоразговор. Подготви 5 въпроса за детството им. Запиши най-интересния отговор.'},
+  {emoji:'📏',title:'Ловец на форми',tip:'Предизвикайте детето да намери предмет, който вие не виждате!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Намери и снимай: 5 кръгли предмета, 3 квадратни, 1 триъгълен и нещо със странна форма. Направи колаж.'},
+  {emoji:'🧩',title:'Мистерията на изчезналото',tip:'Разкажете предистория — "Някой е взел дистанционното! Кой е престъпникът?"',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Нещо е изчезнало у дома! Детето разпитва "заподозрени" от семейството (на живо или по телефона) и разгадава случая.'},
+  {emoji:'🎨',title:'Рисувай без четка',tip:'Покажете на детето примери в Pinterest преди да започне.',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Създай картина БЕЗ четка! Използвай памук, гъба, листа, пръсти — всичко, което не е четка. Снимай процеса и резултата.'},
+  {emoji:'📖',title:'Моята история',tip:'Помогнете с първото изречение: "Имало едно време... едно телефоне..."',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Измисли кратка история (5 изречения) и я "илюстрирай" — снимай предмети от дома, които представят героите. Прочети я на семейството.'},
+  {emoji:'🎬',title:'Режисьор за 30 сек',tip:'Използвайте безплатното приложение CapCut за монтаж.',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Направи 30-секунден филм с играчки. Напиши "сценарий" (начало, среда, край). Снимай, монтирай, покажи на семейството!'},
+  {emoji:'🧵',title:'От боклук в съкровище',tip:'Преди да изхвърлите нещо — попитайте: "Може ли да стане на нещо готино?"',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Намери нещо за изхвърляне (кутия, шише, капачка). Превърни го в изкуство! Снимай го преди и след. Направи мини изложба.'},
+  {emoji:'🎵',title:'Домашен оркестър',tip:'Запишете изпълнението и го пратете на роднини — ще ги развеселите!',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Създай музикален инструмент от предмети вкъщи (тенджера = барабан, чаши = ксилофон). Направи концерт и го запиши.'},
+  {emoji:'💌',title:'Писмо до бъдещето',tip:'Запазете го и го отворете след 1 година — ще се просълзите!',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Напиши писмо до себе си след 1 година на телефона. Какво искаш да помниш? Какво искаш да си постигнал? Запази го в бележките.'},
+  {emoji:'📞',title:'Обади се без повод',tip:'Попитай детето: "За какво никога не си питал баба?" — ще излязат невероятни неща!',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Обади се на роднина, с когото не си говорил скоро. БЕЗ повод. Просто да кажеш "Здрасти, как си?". Усети топлината.'},
+  {emoji:'🏠',title:'Музей на семейството',tip:'Сложете "експонатите" на масата и направете истинска изложба за 1 вечер.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Събери 5 предмета от дома, които имат семейна история. Снимай ги, попитай родител за всеки, напиши "етикет" като в музей.'},
+  {emoji:'🧹',title:'Супергерой за ден',tip:'Дори 10 минути помощ са достатъчни. Малките жестове = големите промени.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Направи нещо добро за някой у дома БЕЗ да го казваш. Изненадай го. Когато те попитат защо, кажи: "Просто така." ❤️'},
+  {emoji:'📸',title:'Семеен албум 2.0',tip:'Използвайте Google Photos за безплатно неограничено съхранение.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Създай дигитален албум на семейството! Снимай всеки член, добави любима песен към всяка снимка. Покажи го на вечеря.'},
+  {emoji:'🔬',title:'Домашна лаборатория',tip:'Всички съставки ги имате у дома — оцет, сода, боички.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Направи научен експеримент с кухненски материали! Вулкан от оцет и сода, мляко + бои, или друго. Снимай "ЕКСПЛОЗИЯТА"!'},
+  {emoji:'🌱',title:'Мисия Кълн',tip:'Снимайте растежа всеки ден в продължение на 5 дни — stop-motion ефект!',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Засади бобче или леща във влажен памук. Снимай го всеки ден. Направи time-lapse видео на растежа. Науката оживява!'},
+  {emoji:'🌤️',title:'Метеоролог за ден',tip:'Използвайте Windy.app или Weather.com за прогнозата.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Провери прогнозата за времето на телефона. Запиши 3 факта: температура, вятър, облаци. Направи "репортаж от терасата" и сравни.'},
+  {emoji:'🧲',title:'Магнитна магия',tip:'Пуснете Google търсене за "magnet experiments for kids" и избери заедно с детето.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Намери магнит (от хладилника) и тествай: какво привлича, какво не? Направи списък със снимки. Изненадай се от резултатите!'},
+  {emoji:'🪐',title:'Космическа разходка',tip:'Използвайте безплатното приложение SkyView или просто NASA Kids.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Отвори NASA Kids или астрономическо приложение на телефона. Научи 3 нови факта за Космоса. Разкажи ги на семейството като истински астронавт.'},
+  {emoji:'🏆',title:'Моето портфолио',tip:'Това е страхотен повод да празнувате с торта/сладолед!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Събери най-добрите снимки от всички мисии в 1 колаж. Покажи ги на семейството. Ти си истински супергерой! 🦸'},
+  {emoji:'🎬',title:'Филм "Моите 30 дни"',tip:'Използвайте CapCut или InShot на телефона.',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Направи кратко видео с най-добрите моменти от предизвикателството. Добави музика. Покажи го на всички. Това е твоят Оскар!'},
+  {emoji:'📜',title:'Супергеройски сертификат',tip:'Закачете сертификата на стената — напомняне за силата на детето!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Създай свой сертификат на телефона: "Аз, [име], завърших 30 дни Суперсила!" Украси го, разпечатай го (или го запази дигитално).'},
+  {emoji:'💌',title:'Писмо до родителите',tip:'Родители — пригответе кърпички. Това ще ви разплаче (в хубавия смисъл).',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Напиши писмо на мама и тати. Какво ти хареса най-много? Как се чувстваш? Благодари им за нещо конкретно. Прочети го на глас.'},
+  {emoji:'🎉',title:'Парти на супергероите!',tip:'Поканете приятел или двама. Покажете им как работи предизвикателството — може и те да започнат!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Организирай малък празник! Украса, музика, танци. Празнувайте, че детето завърши 30 дни Суперсила. Това е ГОЛЯМО постижение! 🎊'}
+];
+
+const TOTAL_DAYS = 30;
+const THEMES = ['🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ','🔍 ДЕТЕКТИВСКИ МИСТЕРИИ','🎨 ТВОРЧЕСКА РАБОТИЛНИЦА','❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ','🔬 НАУЧНА ЛАБОРАТОРИЯ','🏆 СУПЕРГЕРОЙСКИ ФИНАЛ'];
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('supersila_state');
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return { email: '', currentDay: 0, completedDays: [], streak: 0, referrals: 0, booksEarned: 0, shareUnlocked: false, lastCompletedDate: null };
+}
+
+function saveState(state) {
+  localStorage.setItem('supersila_state', JSON.stringify(state));
+  localStorage.setItem('supersila_email', state.email);
+}
+
+let state = loadState();
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+
+function showLanding() { showScreen('screen-landing'); }
+function showApp() { showScreen('screen-app'); }
+
+function startChallenge() {
+  const input = document.getElementById('signupEmail');
+  const email = input ? input.value.trim() : '';
+  if (!email || !email.includes('@')) {
+    showToast('Моля, въведи валиден имейл ✉️');
+    return;
+  }
+  state.email = email;
+  if (state.currentDay === 0) state.currentDay = 1;
+  saveState(state);
+  showApp();
+  renderApp();
+}
+
+function showToast(msg) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+function renderApp() {
+  if (state.currentDay === 0) state.currentDay = 1;
+  const day = Math.min(state.currentDay, TOTAL_DAYS);
+  const mission = MISSIONS[day - 1];
+  const themeIdx = Math.floor((day - 1) / 5);
+  
+  document.getElementById('day-number').textContent = day;
+  document.getElementById('day-theme').textContent = THEMES[themeIdx] || '';
+  document.getElementById('streak-count').textContent = state.streak;
+  document.getElementById('ref-count').textContent = 'Поканил си ' + state.referrals + ' семейства';
+  document.getElementById('books-count').textContent = state.booksEarned;
+  
+  document.getElementById('mission-emoji').textContent = mission.emoji;
+  document.getElementById('mission-title').textContent = mission.title;
+  document.getElementById('mission-desc').textContent = mission.desc;
+  document.getElementById('mission-tip').textContent = mission.tip;
+  
+  const pct = ((day - 1) / TOTAL_DAYS) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  
+  const btn = document.getElementById('btn-done');
+  if (state.completedDays.includes(day)) {
+    btn.textContent = '✅ МИСИЯТА Е ИЗПЪЛНЕНА';
+    btn.classList.add('completed');
+    btn.disabled = true;
+  } else {
+    btn.textContent = '✅ ГОТОВО — МИСИЯТА Е ИЗПЪЛНЕНА!';
+    btn.classList.remove('completed');
+    btn.disabled = false;
+  }
+  
+  // Book unlocked
+  if (state.booksEarned > 0 || state.shareUnlocked) {
+    document.getElementById('book-unlocked').classList.remove('hidden');
+  }
+  
+  // Completed chips
+  const chipsContainer = document.getElementById('completed-chips');
+  chipsContainer.innerHTML = '';
+  state.completedDays.forEach(d => {
+    const chip = document.createElement('span');
+    chip.className = 'completed-chip';
+    chip.textContent = '✅ Ден ' + d;
+    chipsContainer.appendChild(chip);
+  });
+  
+  // Upsell after day 5
+  if (day > 5) {
+    document.getElementById('upsell-free-card').classList.remove('hidden');
+  }
+}
+
+function completeMission() {
+  const day = state.currentDay;
+  if (state.completedDays.includes(day)) return;
+  
+  state.completedDays.push(day);
+  if (!state.completedDays.includes(day)) state.completedDays = [...new Set(state.completedDays)];
+  
+  // Streak
+  const today = new Date().toDateString();
+  if (state.lastCompletedDate) {
+    const last = new Date(state.lastCompletedDate);
+    const diff = Math.floor((new Date(today) - last) / (1000 * 60 * 60 * 24));
+    if (diff === 1) state.streak++;
+    else if (diff > 1) state.streak = 1;
+  } else {
+    state.streak = 1;
+  }
+  state.lastCompletedDate = today;
+  
+  // Next day
+  if (state.currentDay < TOTAL_DAYS) state.currentDay++;
+  
+  saveState(state);
+  renderApp();
+  showCelebration(day);
+}
+
+function showCelebration(day) {
+  const mission = MISSIONS[day - 1];
+  const overlay = document.createElement('div');
+  overlay.className = 'celebration';
+  overlay.innerHTML = `
+    <div class="celebration-card">
+      <span class="celebration-emoji">🎉</span>
+      <h3>Мисия #${day} е изпълнена!</h3>
+      <p style="color:var(--muted);margin:8px 0">${mission.emoji} ${mission.title}</p>
+      
+      <div class="share-image" style="margin:16px 0">
+        <p style="font-size:12px;opacity:0.85;margin-bottom:6px">Сподели успеха на детето си в Reels или Stories<br>📖 и веднага получи безплатната книга "Приключенията на Супер-Мира"!</p>
+        <p class="mission-name">${mission.emoji} ${mission.title}</p>
+        <p style="font-size:10px;opacity:0.7">Ден ${day} от 30 | #30дниСуперсила</p>
+      </div>
+      
+      <button class="btn btn-share" onclick="shareAndUnlock(${day}, this)">
+        📲 Сподели и вземи своя подарък напълно безплатно — PDF Книга с истории на стойност 19.90€
+      </button>
+      <button class="btn btn-close" onclick="this.closest('.celebration').remove()">Затвори</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.remove();
+  });
+  spawnConfetti();
+}
+
+function shareAndUnlock(day, btn) {
+  const mission = MISSIONS[day - 1];
+  const shareText = `🦸 ${mission.emoji} ${mission.title} — Ден ${day} от 30 дни Суперсила!\n\nВместо да скролва, детето ми ${mission.desc.toLowerCase().substring(0,50)}...\n\nПробвайте и вие безплатно: https://tvb1990.github.io/30-dni-supersila/\n\n#30дниСуперсила #родителство #дигиталнимисии`;
+  
+  if (navigator.share) {
+    navigator.share({ title: '30 дни Суперсила', text: shareText })
+      .then(() => unlockBook(btn))
+      .catch(() => unlockBook(btn));
+  } else {
+    navigator.clipboard.writeText(shareText).then(() => {
+      showToast('📋 Копирано! Сподели в Stories/Reels и книгата е твоя.');
+      unlockBook(btn);
+    });
+  }
+}
+
+function unlockBook(btn) {
+  state.booksEarned++;
+  state.shareUnlocked = true;
+  saveState(state);
+  if (btn) {
+    btn.textContent = '✅ Книгата е отключена!';
+    btn.style.background = '#22c55e';
+    btn.disabled = true;
+  }
+  document.getElementById('book-unlocked').classList.remove('hidden');
+  document.getElementById('books-count').textContent = state.booksEarned;
+  document.getElementById('books-earned-mini').classList.remove('hidden');
+  setTimeout(() => { window.open('https://tvb1990.github.io/30-dni-supersila/storybook.html', '_blank'); }, 800);
+}
+
+function openBook() {
+  window.open('https://tvb1990.github.io/30-dni-supersila/storybook.html', '_blank');
+}
+
+function copyRefLink() {
+  const refLink = 'https://tvb1990.github.io/30-dni-supersila/?ref=' + (state.email || 'user').replace(/[^a-zA-Z0-9]/g,'_');
+  document.getElementById('ref-link').textContent = refLink;
+  navigator.clipboard.writeText(refLink).then(() => showToast('📋 Линкът е копиран! Сподели го с приятел.'));
+}
+
+function showPremiumInfo() {
+  document.getElementById('premium-full-card').classList.toggle('hidden');
+}
+
+function buyPremium() {
+  showToast('🎉 Благодаря! Ще получиш достъп веднага след плащане.');
+}
+
+function spawnConfetti() {
+  const container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+  const colors = ['#7c3aed','#f97316','#22c55e','#ec4899','#fbbf24','#3b82f6'];
+  for (let i = 0; i < 60; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.top = -(Math.random() * 100) + 'px';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = Math.random() * 0.8 + 's';
+    piece.style.animationDuration = (1 + Math.random() * 2) + 's';
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 2500);
+}
+
+// Init
+(function() {
+  if (state.email && state.currentDay > 0) {
+    showApp();
+    renderApp();
+  } else {
+    showLanding();
+  }
+  if (state.shareUnlocked || state.booksEarned > 0) {
+    document.getElementById('books-earned-mini').classList.remove('hidden');
+  }
+})();
+</script>
+</body>
+</html>
