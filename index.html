@@ -320,7 +320,7 @@ function showApp() { showScreen('screen-app'); }
 function startChallenge() {
   const input = document.getElementById('signupEmail');
   const email = input ? input.value.trim() : '';
-  if (!email || !email.includes('@')) {
+  if (!email || email.trim().length === 0) {
     showToast('Моля, въведи валиден имейл ✉️');
     return;
   }
