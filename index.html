@@ -205,16 +205,13 @@ body {
     <!-- Referral -->
     <div class="ref-card" id="ref-card">
       <h4>🎁 Сподели с приятел → вземи подарък</h4>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:8px">Сподели линка с друг родител. Когато се регистрира, получаваш <strong>специалната ни персонализирана книга</strong> като подарък. 🎁</p>
-      <div class="ref-link" id="ref-link" onclick="copyRefLink()">misiyasupersila.com/ref/...</div>
-      <button class="btn btn-outline" style="color:var(--purple);border:2px solid var(--purple-light);background:white;width:100%" onclick="copyRefLink()">📋 Копирай линка</button>
-      <div style="font-size:13px;color:var(--green);font-weight:600;margin-top:6px" id="ref-count">Поканил си 0 семейства</div>
-      <div style="font-size:13px;color:var(--purple);font-weight:600;margin-top:4px;display:flex;align-items:center;gap:4px;justify-content:center" id="books-earned-mini">
-        <span>📖</span> <span id="books-count">0</span> подаръка получени
-      </div>
-      <div class="hidden" id="book-unlocked" style="margin-top:12px;padding:14px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac">
-        <span style="font-size:28px">📖</span>
-        <p style="font-weight:700;color:#166534;margin:4px 0">Подаръкът е твой! 🎉</p>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:14px">Сподели с друг родител и получи <strong>специалната ни персонализирана книга</strong> като подарък.</p>
+      <button class="btn btn-primary" style="background:linear-gradient(135deg,#f97316,#ef4444);color:white;width:100%;font-size:15px;padding:16px;box-shadow:0 4px 16px rgba(249,115,22,0.4)" onclick="shareAndUnlock(0, this)">
+        📲 Сподели с приятел и вземи подарък — специалната ни персонализирана книга 🎁
+      </button>
+      <div class="hidden" id="book-unlocked" style="margin-top:14px;padding:16px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac">
+        <span style="font-size:32px">🎁</span>
+        <p style="font-weight:700;color:#166534;margin:6px 0;font-size:17px">Подаръкът е твой!</p>
         <button class="btn" style="background:#22c55e;color:white;padding:10px 20px;font-size:14px;width:100%" onclick="openBook()">📖 Отвори специалната книга</button>
       </div>
     </div>
@@ -359,8 +356,7 @@ function renderApp() {
   document.getElementById('day-number').textContent = day;
   document.getElementById('day-theme').textContent = THEMES[themeIdx] || '';
   document.getElementById('streak-count').textContent = state.streak;
-  document.getElementById('ref-count').textContent = 'Поканил си ' + state.referrals + ' семейства';
-  document.getElementById('books-count').textContent = state.booksEarned;
+  // ref stats simplified
   
   document.getElementById('mission-emoji').textContent = mission.emoji;
   document.getElementById('mission-title').textContent = mission.title;
@@ -459,8 +455,13 @@ function showCelebration(day) {
 }
 
 function shareAndUnlock(day, btn) {
-  const mission = MISSIONS[day - 1];
-  const shareText = `🦸 ${mission.emoji} ${mission.title} — Ден ${day} от 30 дни Суперсила!\n\nВместо да скролва, детето ми ${mission.desc.toLowerCase().substring(0,50)}...\n\nПробвайте и вие безплатно: https://tvb1990.github.io/30-dni-supersila/\n\n#30дниСуперсила #родителство #дигиталнимисии`;
+  var shareText;
+  if (day === 0) {
+    shareText = '🦸 30 дни Суперсила!\n\nПревърнахме телефона от враг в суперсила за 30 дни с дигитални мисии.\n\nПробвайте и вие безплатно: https://tvb1990.github.io/30-dni-supersila/\n\n#30дниСуперсила #родителство';
+  } else {
+    const mission = MISSIONS[day - 1];
+    shareText = '🦸 ' + mission.emoji + ' ' + mission.title + ' — Ден ' + day + ' от 30 дни Суперсила!\n\nВместо да скролва, детето ми ' + mission.desc.toLowerCase().substring(0,50) + '...\n\nПробвайте и вие безплатно: https://tvb1990.github.io/30-dni-supersila/\n\n#30дниСуперсила #родителство #дигиталнимисии';
+  }
   
   if (navigator.share) {
     navigator.share({ title: '30 дни Суперсила', text: shareText })
@@ -534,10 +535,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       showLanding();
     }
-    if (state.shareUnlocked || state.booksEarned > 0) {
-      var mini = document.getElementById('books-earned-mini');
-      if (mini) mini.classList.remove('hidden');
-    }
+    // share state loaded
   } catch(e) {
     console.error('Init error:', e);
   }
