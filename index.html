@@ -121,6 +121,7 @@ body {
 
 .hidden { display:none !important; }
 </style>
+<!-- v3 -->
 </head>
 <body>
 
@@ -309,9 +310,18 @@ function saveState(state) {
 let state = loadState();
 
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById(id);
-  if (el) el.classList.add('active');
+  document.querySelectorAll('.screen').forEach(function(s) {
+    s.classList.remove('active');
+    s.style.display = 'none';
+  });
+  var el = document.getElementById(id);
+  if (el) {
+    el.classList.add('active');
+    el.style.display = 'block';
+    console.log('Switched to:', id);
+  } else {
+    console.error('Screen not found:', id);
+  }
 }
 
 function showLanding() { showScreen('screen-landing'); }
@@ -515,18 +525,47 @@ function spawnConfetti() {
   setTimeout(() => container.remove(), 2500);
 }
 
-// Init
-(function() {
-  if (state.email && state.currentDay > 0) {
-    showApp();
-    renderApp();
-  } else {
-    showLanding();
+// Init - wait for DOM
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    if (state.email && state.currentDay > 0) {
+      showApp();
+      renderApp();
+    } else {
+      showLanding();
+    }
+    if (state.shareUnlocked || state.booksEarned > 0) {
+      var mini = document.getElementById('books-earned-mini');
+      if (mini) mini.classList.remove('hidden');
+    }
+  } catch(e) {
+    console.error('Init error:', e);
   }
-  if (state.shareUnlocked || state.booksEarned > 0) {
-    document.getElementById('books-earned-mini').classList.remove('hidden');
+});
+
+// Fallback if DOM already loaded
+if (document.readyState !== 'loading') {
+  try {
+    if (state.email && state.currentDay > 0) {
+      showApp();
+      renderApp();
+    } else {
+      showLanding();
+    }
+  } catch(e) {}
+}
+
+
+// Backup: add event listener to start button
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.querySelector('button[onclick*="startChallenge"]');
+  if (btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      startChallenge();
+    });
   }
-})();
+});
 </script>
 </body>
 </html>
