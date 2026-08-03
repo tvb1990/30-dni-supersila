@@ -3,235 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium — 30 дни Суперсила</title>
+<title>Специална оферта — 30 дни Суперсила</title>
 <style>
-  :root {
-    --purple: #7c3aed; --purple-dark: #5b21b6; --purple-light: #ede9fe;
-    --orange: #f97316; --orange-light: #fff7ed; --yellow: #fbbf24;
-    --green: #22c55e; --bg: #fafafa; --card: #fff;
-    --text: #1e1b4b; --muted: #6b7280; --radius: 20px;
-    --shadow: 0 4px 24px rgba(0,0,0,0.06);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg); color: var(--text); line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-  .hero {
-    text-align: center; padding: 30px 0 10px;
-  }
-  .hero h1 {
-    font-size: 30px; font-weight: 800;
-    background: linear-gradient(135deg, var(--purple), var(--orange));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; margin-bottom: 8px;
-  }
-  .hero p { color: var(--muted); font-size: 15px; }
+:root {
+  --purple: #7c3aed; --purple-dark: #5b21b6; --purple-light: #ede9fe;
+  --orange: #f97316; --orange-light: #fff7ed; --gold: #f59e0b;
+  --bg: #fafafa; --card: #fff; --text: #1e1b4b; --muted: #6b7280;
+  --radius: 20px;
+}
 
-  .testimonial-mini {
-    background: var(--purple-light); border-radius: 12px;
-    padding: 16px; margin: 16px 0; font-size: 14px; text-align: center;
-    color: var(--purple-dark); font-style: italic;
-  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 480px; margin: 0 auto; padding: 16px; }
 
-  .pricing-card {
-    background: var(--card); border-radius: var(--radius);
-    padding: 32px 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-    text-align: center; margin: 20px 0;
-    border: 3px solid var(--yellow); position: relative;
-  }
-  .pricing-card.featured::before {
-    content: '⭐ НАЙ-ПОПУЛЯРЕН'; position: absolute; top: -14px;
-    left: 50%; transform: translateX(-50%); background: var(--yellow);
-    color: #1e1b4b; padding: 4px 18px; border-radius: 50px;
-    font-size: 12px; font-weight: 800; letter-spacing: 0.5px;
-  }
-  .old-price { text-decoration: line-through; color: var(--muted); font-size: 20px; }
-  .new-price { font-size: 56px; font-weight: 800; color: var(--purple-dark); line-height: 1; }
-  .price-label { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+/* Hero */
+.hero { text-align: center; padding: 20px 0; }
+.hero .emoji { font-size: 48px; display: block; margin-bottom: 8px; }
+.hero h1 { font-size: 26px; font-weight: 900; color: var(--purple-dark); line-height: 1.2; }
+.hero .sub { font-size: 15px; color: var(--muted); margin-top: 6px; }
 
-  .feature-list { text-align: left; margin: 20px 0; list-style: none; }
-  .feature-list li {
-    padding: 10px 0; font-size: 15px; display: flex; align-items: flex-start;
-    gap: 10px; border-bottom: 1px solid #f3f4f6;
-  }
-  .feature-list li:last-child { border-bottom: none; }
-  .feature-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+/* Special badge */
+.special-badge {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: white; padding: 10px 20px; border-radius: 50px;
+  font-weight: 800; font-size: 14px; text-align: center;
+  margin: 16px 0; animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
 
-  .btn-buy {
-    width: 100%; padding: 18px; background: var(--orange); color: white;
-    border: none; border-radius: 50px; font-size: 18px; font-weight: 700;
-    cursor: pointer; box-shadow: 0 4px 16px rgba(249,115,22,0.4);
-    margin-top: 8px; transition: transform 0.15s;
-  }
-  .btn-buy:active { transform: scale(0.97); }
+/* Value stack card */
+.value-stack {
+  background: var(--card); border-radius: var(--radius);
+  padding: 24px 20px; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  margin: 16px 0;
+}
+.value-stack h3 { font-size: 19px; color: var(--purple-dark); margin-bottom: 16px; text-align: center; }
 
-  .guarantee {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 12px; font-size: 13px; color: var(--muted);
-  }
+.gift-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px; margin-bottom: 10px;
+  background: #f8f7ff; border-radius: 14px;
+  border-left: 4px solid var(--purple);
+}
+.gift-item .icon { font-size: 28px; flex-shrink: 0; }
+.gift-item .info h4 { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+.gift-item .info p { font-size: 13px; color: var(--muted); }
+.gift-item .info .val { font-size: 12px; font-weight: 700; color: var(--purple); margin-top: 2px; }
 
-  .faq { margin-top: 30px; }
-  .faq h3 { font-size: 20px; margin-bottom: 16px; }
-  .faq-item {
-    background: var(--card); border-radius: 14px; padding: 18px;
-    margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    cursor: pointer;
-  }
-  .faq-q { font-weight: 700; font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
-  .faq-a { font-size: 14px; color: var(--muted); margin-top: 8px; display: none; line-height: 1.6; }
-  .faq-item.open .faq-a { display: block; }
+.total-value {
+  text-align: center; padding: 14px;
+  background: #fef3c7; border-radius: 14px;
+  margin-top: 14px; border: 2px dashed var(--gold);
+}
+.total-value .old { font-size: 14px; color: var(--muted); text-decoration: line-through; }
+.total-value .new { font-size: 20px; font-weight: 800; color: var(--purple-dark); }
 
-  .comparison { margin-top: 30px; }
-  .comparison h3 { font-size: 20px; margin-bottom: 16px; }
-  .comp-table {
-    background: var(--card); border-radius: var(--radius);
-    overflow: hidden; box-shadow: var(--shadow);
-  }
-  .comp-row {
-    display: flex; padding: 14px 18px; align-items: center;
-    border-bottom: 1px solid #f3f4f6; font-size: 14px;
-  }
-  .comp-row:last-child { border-bottom: none; }
-  .comp-feature { flex: 1; }
-  .comp-free, .comp-premium { width: 70px; text-align: center; font-weight: 600; }
-  .comp-free { color: var(--muted); }
-  .comp-premium { color: var(--purple); }
+/* Price card */
+.price-card {
+  background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+  border-radius: var(--radius); padding: 28px 24px;
+  color: white; text-align: center;
+  box-shadow: 0 8px 32px rgba(124,58,237,0.3); margin: 16px 0;
+  position: relative; overflow: hidden;
+}
+.price-card::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  background: rgba(255,255,255,0.08); border-radius: 50%;
+}
+.price-card .label { font-size: 13px; opacity: 0.8; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px; }
+.price-card .amount { font-size: 48px; font-weight: 900; margin: 8px 0; line-height: 1; }
+.price-card .amount small { font-size: 20px; font-weight: 600; }
+.price-card .one-time { font-size: 13px; opacity: 0.85; margin-bottom: 12px; }
+.price-card .guarantee { font-size: 12px; background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 50px; display: inline-block; }
 
-  .footer-cta {
-    text-align: center; margin: 30px 0 40px; color: var(--muted);
-    font-size: 13px;
-  }
+.btn-buy {
+  width: 100%; padding: 16px;
+  background: var(--orange); color: white; border: none;
+  border-radius: 50px; font-size: 18px; font-weight: 800;
+  cursor: pointer; box-shadow: 0 4px 20px rgba(249,115,22,0.4);
+  margin-top: 12px; transition: transform 0.2s;
+  font-family: 'Nunito', sans-serif;
+}
+.btn-buy:active { transform: scale(0.96); }
+
+/* Testimonials */
+.testimonials { margin: 20px 0; }
+.testimonials h3 { font-size: 17px; margin-bottom: 12px; text-align: center; }
+.testimonial {
+  background: var(--card); border-radius: 14px;
+  padding: 16px; margin-bottom: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.testimonial .stars { color: var(--gold); font-size: 14px; }
+.testimonial .name { font-weight: 700; font-size: 14px; margin-top: 6px; }
+.testimonial .text { font-size: 13px; color: var(--muted); margin-top: 2px; font-style: italic; }
+
+/* FAQ */
+.faq { margin: 20px 0; }
+.faq h3 { font-size: 17px; margin-bottom: 12px; text-align: center; }
+.faq-item {
+  background: var(--card); border-radius: 12px;
+  padding: 14px; margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+}
+.faq-item .q { font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+.faq-item .a { font-size: 13px; color: var(--muted); margin-top: 8px; display: none; }
+.faq-item.open .a { display: block; }
+
+/* Scarcity */
+.scarcity { text-align: center; padding: 12px; color: #dc2626; font-weight: 700; font-size: 14px; }
+
+/* Footer */
+.footer { text-align: center; padding: 20px; color: var(--muted); font-size: 12px; }
 </style>
 </head>
 <body>
 <div class="container">
 
-<div class="hero">
-  <h1>⭐ Premium пакет</h1>
-  <p>За родители, които искат повече</p>
-</div>
-
-<div class="testimonial-mini">
-  "След безплатните 30 дни детето ми само питаше за следващата мисия. Premium пакетът беше естествената следваща стъпка." — Виктория, майка на 9-г. близнаци
-</div>
-
-<!-- Premium Card -->
-<div class="pricing-card featured">
-  <div class="old-price">59 лв</div>
-  <div class="new-price">29 лв</div>
-  <div class="price-label">Еднократно плащане · Без абонамент · Доживотен достъп</div>
-
-  <ul class="feature-list">
-    <li><span class="feature-icon">🎯</span> <span><strong>30 нови мисии</strong> — тематични седмици (Наука, Изкуство, Природа, Спорт)</span></li>
-    <li><span class="feature-icon">🏅</span> <span><strong>Сертификат за завършване</strong> — персонализиран, за печат, с името на детето</span></li>
-    <li><span class="feature-icon">👥</span> <span><strong>Затворена Facebook група</strong> — споделяне на резултати, съвети, взаимна подкрепа</span></li>
-    <li><span class="feature-icon">🎁</span> <span><strong>5 бонус уикенд предизвикателства</strong> — за цялото семейство</span></li>
-    <li><span class="feature-icon">📊</span> <span><strong>Прогрес тракер</strong> — детето вижда постиженията си визуално</span></li>
-    <li><span class="feature-icon">💬</span> <span><strong>Седмични съвети</strong> — кратки имейли с практически насоки</span></li>
-  </ul>
-
-  <button class="btn-buy" onclick="buyPremium()">🔓 Отключи Premium за 29 лв</button>
-
-  <div class="guarantee">
-    <span>🛡️</span> 14-дневна гаранция — ако не ви хареса, връщам парите
-  </div>
-</div>
-
-<!-- Comparison Table -->
-<div class="comparison">
-  <h3>Безплатно vs Premium</h3>
-  <div class="comp-table">
-    <div class="comp-row" style="background:#f9fafb;font-weight:700">
-      <div class="comp-feature">Какво получаваш</div>
-      <div class="comp-free">Безплатно</div>
-      <div class="comp-premium">Premium</div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-feature">30 базови мисии</div>
-      <div class="comp-free">✅</div>
-      <div class="comp-premium">✅</div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-feature">30 допълнителни мисии</div>
-      <div class="comp-free">❌</div>
-      <div class="comp-premium">✅</div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-feature">Прогрес тракер</div>
-      <div class="comp-free">✅</div>
-      <div class="comp-premium">✅</div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-feature">Тематични седмици</div>
-      <div class="comp-free">❌</div>
-      <div class="comp-premium">✅</div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-feature">Сертификат</div>
-      <div class="comp-free">❌</div>
-      <div class="comp-premium">✅</div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-feature">Facebook група</div>
-      <div class="comp-free">❌</div>
-      <div class="comp-premium">✅</div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-feature">Уикенд предизвикателства</div>
-      <div class="comp-free">❌</div>
-      <div class="comp-premium">✅</div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-feature">14-дневна гаранция</div>
-      <div class="comp-free">❌</div>
-      <div class="comp-premium">✅</div>
-    </div>
-  </div>
-</div>
-
-<!-- FAQ -->
-<div class="faq">
-  <h3>❓ Често задавани въпроси</h3>
-
-  <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-q">Какво се случва след плащане? <span>▼</span></div>
-    <div class="faq-a">Веднага получаваш имейл с линк към Premium версията на приложението. Достъпът е моментален и доживотен.</div>
+  <!-- Hero -->
+  <div class="hero">
+    <span class="emoji">🎁</span>
+    <h1>Специално за теб</h1>
+    <p class="sub">Подарък на стойност 30 евро — само за първите parents, които искат повече</p>
   </div>
 
-  <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-q">Трябва ли да свалям приложение? <span>▼</span></div>
-    <div class="faq-a">Не! Всичко работи през браузъра на телефона. Без App Store, без Google Play, без инсталации.</div>
+  <div class="special-badge">🔥 САМО ЗА ТЕБ — НЕ Е ПУБЛИЧНА ОФЕРТА</div>
+
+  <!-- What you get -->
+  <div class="value-stack">
+    <h3>✨ Какво получаваш</h3>
+
+    <div class="gift-item">
+      <span class="icon">📖</span>
+      <div class="info">
+        <h4>Най-новата ни книга — "Историите на Теа" (НЕИЗДАДЕНА)</h4>
+        <p>10 вълшебни истории за малкото момиче Теа, което открива суперсили във всяка мисия. Все още не е пусната публично!</p>
+        <span class="val">Стойност: 12 €</span>
+      </div>
+    </div>
+
+    <div class="gift-item">
+      <span class="icon">🎯</span>
+      <div class="info">
+        <h4>5 СПЕЦИАЛНИ персонализирани мисии</h4>
+        <p>Мисии, създадени специално за твоето дете — с неговото име, любими неща и суперсили. Не са част от стандартната програма.</p>
+        <span class="val">Стойност: 10 €</span>
+      </div>
+    </div>
+
+    <div class="gift-item">
+      <span class="icon">🚀</span>
+      <div class="info">
+        <h4>Новата ни програма (все още НЕИЗЛЯЗЛА)</h4>
+        <p>Следващото ниво: разширени мисии за различни възрасти (4-6 г., 7-10 г., 11-14 г.) + родителско ръководство. Достъп преди всички останали.</p>
+        <span class="val">Стойност: 8 €</span>
+      </div>
+    </div>
+
+    <div class="total-value">
+      <div class="old">Обща стойност: 30 €</div>
+      <div class="new">🎁 Специална цена за теб: 15 €</div>
+      <p style="font-size:12px;color:var(--muted);margin-top:4px;">Еднократно плащане. Завинаги твой.</p>
+    </div>
   </div>
 
-  <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-q">За каква възраст са мисиите? <span>▼</span></div>
-    <div class="faq-a">Основните мисии са проектирани за деца от 6 до 13 години. Premium пакетът включва варианти за по-малки (4-6) и по-големи (12-15) с различна сложност.</div>
+  <!-- Price -->
+  <div class="price-card">
+    <div class="label">Специална оферта</div>
+    <div class="amount"><small>€</small>15</div>
+    <div class="one-time">Еднократно · Без абонамент · Завинаги</div>
+    <div class="guarantee">🔒 30-дневна гаранция: ако не работи — връщам парите</div>
+    <button class="btn-buy" onclick="buyNow()">🎁 ВЗЕМИ ПОДАРЪКА СЕГА</button>
   </div>
 
-  <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-q">Ами ако не ми хареса? <span>▼</span></div>
-    <div class="faq-a">Имаш 14 дни да тестваш. Ако не си доволен/на, пиши ми имейл и връщам 100% от сумата. Без въпроси, без уловки.</div>
+  <div class="scarcity">⚠️ Само за първите 50 души, които са изпробвали безплатната версия</div>
+
+  <!-- Testimonials -->
+  <div class="testimonials">
+    <h3>💬 Какво казват родителите</h3>
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <div class="name">Мария, майка на Алекс (7 г.)</div>
+      <div class="text">"Мислех, че ще е поредното нещо, което пробваме и забравяме. Но детето ми ВСЕКИ ДЕН пита за новата мисия. Вече не се караме за телефона. Най-добрите 15 евро, които съм давала."</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <div class="name">Петър, баща на близнаци (6 г.)</div>
+      <div class="text">"Персонализираните мисии са злато. Децата ми се състезават кой пръв ще изпълни своята. Книгата на Теа я четем всяка вечер."</div>
+    </div>
   </div>
 
-  <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-q">Мога ли да го подаря на друг родител? <span>▼</span></div>
-    <div class="faq-a">Разбира се! След плащане получаваш линк, който можеш да препратиш. Идеален подарък за рожден ден или празник.</div>
+  <!-- FAQ -->
+  <div class="faq">
+    <h3>❓ Въпроси</h3>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="q">Наистина ли е еднократно плащане? <span>▾</span></div>
+      <div class="a">Да. 15 евро веднъж. Никакви скрити такси, никакъв абонамент. Плащаш и получаваш всичко завинаги.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="q">Какво точно е "неиздадената книга на Теа"? <span>▾</span></div>
+      <div class="a">Това е нова книга с 10 истории, която все още не е публично достъпна. Ти я получаваш първи/а, преди да излезе официално.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="q">Как работят персонализираните мисии? <span>▾</span></div>
+      <div class="a">Изпращаш ни името и възрастта на детето. Ние създаваме 5 уникални мисии, съобразени с неговите интереси. Не са шаблонни — всяка е различна.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="q">Ами ако не ми хареса? <span>▾</span></div>
+      <div class="a">Имаш 30 дни да решиш. Ако не виждаш резултат, пиши ми и връщам парите. Без въпроси, без уловки.</div>
+    </div>
   </div>
-</div>
 
-<div class="footer-cta">
-  🦸 30 дни Суперсила · Въпроси? Пиши на [твоят-имейл] · 14-дневна гаранция за връщане на парите
-</div>
+  <div class="footer">
+    © 2026 30 дни Суперсила · Всички права запазени<br>
+    Това не е лъжа. Това е истинска оферта за истински родители.
+  </div>
 
 </div>
 
 <script>
-function buyPremium() {
-  alert('🎉 В реалната версия тук ще има Stripe/PayPal интеграция. За MVP: препраща към плащане.');
+function buyNow() {
+  alert('🎉 Благодаря! За да завършиш поръчката, пиши на имейл: 30dnisupersila@gmail.com\n\nЩе получиш:\n📖 Книгата "Историите на Теа"\n🎯 5 персонализирани мисии\n🚀 Новата програма (pre-release)\n\nЦена: 15 € (еднократно)');
 }
 </script>
 </body>

@@ -226,279 +226,32 @@ body {
 
     <!-- Free upsell after day 5 -->
     <div class="upsell-free hidden" id="upsell-free-card">
-      <h4>⭐ Харесва ли ти досега?</h4>
-      <p style="font-size:14px;color:var(--muted)">Това са само първите дни. Истинската магия започва с Premium.</p>
-      <button class="btn btn-upgrade" onclick="showPremiumInfo()">🔓 Виж Premium</button>
+      <h4>🎁 Специален подарък за теб</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:6px;">Подарък на стойност <strong>30 €</strong> — само за теб</p>
+      <div style="text-align:left;font-size:12px;color:var(--text);margin:8px 0;">
+        <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">📖 <span>Най-новата ни книга <strong>"Историите на Теа"</strong> (НЕИЗДАДЕНА)</span></div>
+        <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">🎯 <span><strong>5 персонализирани</strong> мисии за твоето дете</span></div>
+        <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">🚀 <span>Новата ни програма — <strong>все още неизлязла</strong></span></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);text-decoration:line-through;margin:8px 0 0;">Стойност 30 €</p>
+      <p style="font-size:20px;font-weight:800;color:var(--purple-dark);">Само за 15 €</p>
+      <p style="font-size:11px;color:var(--muted);">Еднократно плащане · Без абонамент · Завинаги</p>
+      <button class="btn btn-upgrade" onclick="showPremiumInfo()">🎁 ВИЖ ПОДАРЪКА</button>
     </div>
-
-    <!-- Premium Full Info -->
     <div class="premium-full hidden" id="premium-full-card">
-      <h4>🚀 Premium "Вълшебно хапче"</h4>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:8px">За родители, които искат повече от просто мисии</p>
-
-      <div class="age-tabs">
-        <button class="age-tab active" onclick="selectAge(this,'4-6')">4-6 г.</button>
-        <button class="age-tab" onclick="selectAge(this,'7-10')">7-10 г.</button>
-        <button class="age-tab" onclick="selectAge(this,'11-14')">11-14 г.</button>
+      <h4>🎁 Твоят специален подарък</h4>
+      <p style="font-size:14px;color:var(--muted);">Подарък на стойност 30 €</p>
+      
+      <div class="gift" style="text-align:left;">
+        <p style="margin:4px 0;">📖 <strong>"Историите на Теа"</strong> — най-новата ни неиздадена книга с 10 вълшебни истории</p>
+        <p style="margin:4px 0;">🎯 <strong>5 персонализирани мисии</strong> — създадени за твоето дете с неговото име и интереси</p>
+        <p style="margin:4px 0;">🚀 <strong>Новата ни програма</strong> — разширени мисии за 3 възрастови групи (все още неизлязла публично)</p>
       </div>
 
-      <ul style="text-align:left;list-style:none;font-size:13px;margin:12px 0;line-height:2">
-        <li>🎯 30+ мисии според възрастта на детето</li>
-        <li>🧩 Тематични седмици (Наука, Изкуство, Спорт)</li>
-        <li>📊 Персонален прогрес тракер</li>
-        <li>👥 Достъп до затворена родителска група</li>
-        <li>💬 Седмични съвети на имейл</li>
-        <li>🏅 Сертификат за завършване</li>
-      </ul>
-
-      <div class="gift">
-        🎁 БОНУС ПОДАРЪК: Дигитална книга "Приключенията на Супер-Мира" — 5 истории за деца, които превръщат телефона в суперсила!
-      </div>
-
-      <div style="font-size:20px;font-weight:800;margin:10px 0"><span style="text-decoration:line-through;color:var(--muted);font-size:14px">39 лв/мес</span> <span style="color:var(--purple-dark)">19 лв/мес</span></div>
-      <p style="font-size:11px;color:var(--muted)">Можеш да се откажеш по всяко време</p>
-      <button class="btn btn-primary" style="margin-top:8px" onclick="buyPremium()">🔓 Стани Premium</button>
-    </div>
-  </div>
-</div>
-
-<!-- Celebration Overlay -->
-<div class="celebration hidden" id="celebration-overlay">
-  <div class="celebration-card">
-    <span class="celebration-emoji">🎉</span>
-    <h3>Браво! Мисията е изпълнена!</h3>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:4px">Сподели успеха на детето си в Reels или Stories и</p>
-    <p style="color:#22c55e;font-weight:700;font-size:16px;margin-bottom:6px">🎁 вземи своя подарък напълно безплатно</p>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:14px">PDF Книга с истории на стойност <span style="text-decoration:line-through;color:#ef4444">19.90€</span> <span style="color:#22c55e;font-weight:700">0€</span></p>
-    <div class="share-image" id="share-card-visual">
-      <div style="font-size:13px;opacity:0.9">🦸 30 дни Суперсила</div>
-      <div class="mission-name" id="share-mission-name">Мисия #1</div>
-      <div style="font-size:12px;opacity:0.9">"Преобразихме телефона в суперсила!"</div>
-    </div>
-    <button class="btn btn-share" onclick="shareAndEarnBook()">📲 Сподели и вземи своя подарък 🎁</button>
-    <button class="btn btn-close" onclick="closeCelebration()">По-късно</button>
-    <div class="hidden" id="book-earned-notice" style="margin-top:14px;padding:14px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac">
-      <span style="font-size:28px">📖</span>
-      <p style="font-weight:700;color:#166534;margin:4px 0">Книгата е твоя! 🎉</p>
-      <p style="font-size:12px;color:#166534">Стойност <span style="text-decoration:line-through">19.90€</span> — твоя безплатно</p>
-      <button class="btn" style="background:#22c55e;color:white;padding:10px 20px;font-size:14px;width:100%;margin-top:8px" onclick="openBook()">📖 Чети "Приключенията на Супер-Мира"</button>
-    </div>
-  </div>
-</div>
-
-<div id="toast-container"></div>
-<div class="confetti-container hidden" id="confetti"></div>
-
-<script>
-// ===== 30 DIVERSE MISSIONS =====
-const MISSIONS = [
-  // Week 1: ВКУСНИ ПРИКЛЮЧЕНИЯ (🍳)
-  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🍳", title:"Готвач с мама", desc:"Заедно с мама или тати намерете лесна рецепта онлайн и пригответе нещо вкусно. Детето чете рецептата и ръководи процеса!", tip:"Потърсете 'лесни палачинки за деца' в YouTube — 5 минути подготовка, 100% забавление!" },
-  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🥗", title:"Семеен ресторант", desc:"Детето прави меню за вечеря (3 неща), записва го на телефона и помага да се подреди масата като в ресторант.", tip:"Нека детето нарисува меню на лист и го снима — после сервирайте заедно!" },
-  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🍕", title:"Пицария у дома", desc:"Направете домашна пица. Детето избира продуктите, подрежда ги и снима крайния резултат за 'менюто на ресторанта'.", tip:"Готово тесто от магазина = 15 минути подготовка. Останалото е творчество!" },
-  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🍪", title:"Сладкарски шедьовър", desc:"Намерете рецепта за бисквити или мъфини. Детето мери продуктите с помощта на телефона (калкулатор/таймер).", tip:"Снимайте процеса стъпка по стъпка — после направете 'готварска книга' от снимките!" },
-  { theme:"🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ", emoji:"🥤", title:"Смути лаборатория", desc:"Детето измисля свое смути — избира 3 плода, прави го само (с блендер под надзор) и му дава име.", tip:"Нека запише 'рецептата' с гласово съобщение — после я споделете с баба!" },
-
-  // Week 2: ДЕТЕКТИВИ И ИЗСЛЕДОВАТЕЛИ (🔍)
-  { theme:"🔍 ДЕТЕКТИВИ", emoji:"📸", title:"Фото-ловец", desc:"Намери и снимай 5 предмета вкъщи, които са кръгли. Покажи ги на мама или тати!", tip:"Започни с часовника на стената — той е най-лесният! После чиния, монета, капачка..." },
-  { theme:"🔍 ДЕТЕКТИВИ", emoji:"🔺", title:"Търсач на форми", desc:"Излез навън и намери 3 предмета във формата на ТРИЪГЪЛНИК, 3 КВАДРАТА и 3 КРЪГА. Снимай ги!", tip:"Покрив = триъгълник, прозорец = квадрат, гума на кола = кръг!" },
-  { theme:"🔍 ДЕТЕКТИВИ", emoji:"🌈", title:"Цветна експедиция", desc:"Намери и подреди предмети в 7-те цвята на дъгата. Снимай ги всички заедно.", tip:"Използвай дрехи, играчки, книги, плодове — цялата къща е твоята палитра!" },
-  { theme:"🔍 ДЕТЕКТИВИ", emoji:"🐾", title:"Следите на природата", desc:"Излез в парка или градината. Намери следи от животни, птичи пера, охлюви. Снимай 3 открития.", tip:"След дъжд е най-доброто време — следите са по-ясни!" },
-  { theme:"🔍 ДЕТЕКТИВИ", emoji:"🧩", title:"Ловец на букви", desc:"Намери предмети, започващи с буквите С-У-П-Е-Р. Снимай ги и ги подреди!", tip:"С=стол, У=учебник, П=портокал, Е=електрическа крушка, Р=раница. Какво още?" },
-
-  // Week 3: ТВОРЦИ И АРТИСТИ (🎨)
-  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"🎬", title:"Режисьор на играчки", desc:"Заснеми 30-секунден филм с любимите си играчки. Ти си режисьорът — измисли история!", tip:"Подреди играчките на маса, сложи лампа за светлина. 3 играчки са достатъчни за начало." },
-  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"🎨", title:"Дигитален художник", desc:"Нарисувай картина на хартия, снимай я. После с безплатно приложение добави ефекти.", tip:"Попитай родител за приложение за рисуване — виж как хартията оживява дигитално!" },
-  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"🎭", title:"Театър на сенките", desc:"Изключи лампите. Включи фенерче. Направи животни с ръцете си на стената. Заснеми го!", tip:"Заек, куче, птица, паяк — научи 3 форми и направи мини представление." },
-  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"🎵", title:"Звуков детектив", desc:"Запиши 3 различни звука вкъщи (врата, вода, звънец). Пусни ги на семейството да познаят!", tip:"Сложи телефона близо до източника. Не казвай какво записваш — нека познаят!" },
-  { theme:"🎨 ТВОРЦИ И АРТИСТИ", emoji:"📖", title:"Автор на приказка", desc:"Запиши своя приказка с гласово съобщение (2-3 минути). Измисли герои с имена!", tip:"Започни с 'Имало едно време...' Остави въображението да те води. После я пуснете на вечеря." },
-
-  // Week 4: СЕМЕЙНИ МИСИИ (❤️)
-  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"🎤", title:"Интервю с баба", desc:"Обади се на баба или дядо. Попитай: 'Коя беше любимата ти игра като малка?' Запиши отговора.", tip:"Бабите и дядовците ОБИЧАТ да разказват истории. Ще се изненадаш колко различно са играли!" },
-  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"🤝", title:"Мост между поколения", desc:"Научи баба или дядо на 1 нова функция на телефона (видеобаждане, снимка, емоджита).", tip:"Бъди търпелив учител — те са учили много неща в живота, сега е твой ред да върнеш жеста." },
-  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"🎁", title:"Тайна мисия на доброто", desc:"Направи нещо хубаво за някого вкъщи, без да те разберат. Без да се хвалиш. Истински супергерои помагат тайно.", tip:"Подреди обувките, остави бележка 'Обичам те' под възглавницата, напълни чаша вода..." },
-  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"🎵", title:"Семеен плейлист", desc:"Попитай всеки вкъщи за любимата му песен. Направи плейлист с всички песни и ги пуснете на вечеря.", tip:"Наречете го 'Семеен микс 2026' — слушайте докато вечеряте и познайте чия песен е!" },
-  { theme:"❤️ СЕМЕЙНИ МИСИИ", emoji:"📊", title:"Семеен статистик", desc:"Направи анкета вкъщи: 'Любим цвят?', 'Любим филм?', 'Любима храна?'. Запиши резултатите.", tip:"После направи 'Класация на семейството' и я покажи на вечеря. Кой цвят печели?" },
-
-  // Week 5: НАУКА И ОТКРИТИЯ (🔬)
-  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"🧪", title:"Домашен учен", desc:"Намери лесен експеримент онлайн (вулкан от сода и оцет, лава лампа с олио). Направи го!", tip:"Потърси 'лесен експеримент за деца' в YouTube. Оцет + сода = изригване!" },
-  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"🌍", title:"Глобус изследовател", desc:"Отвори Google Earth. 'Посети' 3 държави, които не познаваш. Научи 1 забавен факт за всяка.", tip:"Започни от най-далечната точка от България — Нова Зеландия, Япония или Бразилия!" },
-  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"🌿", title:"Ботаник за един ден", desc:"Намери 3 различни листа отвън. Използвай Google Lens, за да разбереш от кое дърво са.", tip:"Насочи камерата към листото и Google Lens ще ти покаже името му. Стани експерт по дървета!" },
-  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"⏰", title:"Машина на времето", desc:"Попитай родителите: 'Как си представяше бъдещето, когато беше дете?' Запиши отговора.", tip:"Сравни техния отговор със света днес. Какво се сбъдна? Какво не? Изненадващо е!" },
-  { theme:"🔬 НАУКА И ОТКРИТИЯ", emoji:"🏗️", title:"Млад архитект", desc:"Построи нещо от подръчни материали (кашони, кутии, легенчета). Снимай го от 3 ъгъла.", tip:"Кула, замък, космически кораб или мост — ти решаваш! Покажи го отпред, отгоре и отстрани." },
-
-  // Week 6: СУПЕРСИЛА ФИНАЛ (🏆)
-  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🧹", title:"Таймер за герои", desc:"Нагласи таймер за 10 минути. Подреди стаята си преди да изтече. Снимай ПРЕДИ и СЛЕД.", tip:"Пусни любима песен докато подреждаш — става състезание с времето!" },
-  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🗺️", title:"Карта на съкровища", desc:"Нарисувай карта на стаята/двора като пиратска карта. Скрий 'съкровище' и отбележи с X.", tip:"След това дай картата на братче/сестриче/родител да търси съкровището!" },
-  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🦸", title:"Супергеройски профил", desc:"Създай свой супергерой: име, суперсила, костюм, скривалище, враг. Нарисувай го и го снимай.", tip:"Колкото повече детайли измислиш, толкова по-готин става героят. Добави и страничен помощник!" },
-  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🏆", title:"Ретроспектива на супергероя", desc:"Прегледай снимките от всички мисии. Избери 3-те си любими. Разкажи на семейството защо.", tip:"Виж колко много си постигнал за 30 дни! Това е твоята истинска суперсила." },
-  { theme:"🏆 СУПЕРСИЛА ФИНАЛ", emoji:"🚀", title:"Писмо до бъдещето", desc:"Запиши видео писмо до себе си след 1 година. Какво искаш да си спомниш?", tip:"Запазете видеото и си го пуснете след година. Ще бъдеш изненадан/а колко си пораснал/а!" }
-];
-
-// ===== STATE =====
-const STORAGE_KEY = 'supersila_v2';
-let state = { email:'', startedAt:'', completedDays:[], referralCode:'', referrals:0, streak:0 };
-function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-function load() { const s=localStorage.getItem(STORAGE_KEY); if(s) state=JSON.parse(s); }
-function genRef() { return 'ref_'+Math.random().toString(36).substring(2,10); }
-
-// ===== NAVIGATION =====
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-// ===== LANDING =====
-function startChallenge() {
-  const email = document.getElementById('email-input').value.trim();
-  if(!email.includes('@')||!email.includes('.')) { showToast('Моля, въведи валиден имейл 📧'); return; }
-  state.email=email; state.startedAt=new Date().toISOString();
-  state.referralCode=genRef(); state.streak=1; save();
-  showScreen('screen-app'); renderApp(); updateFamilies();
-}
-
-// ===== APP =====
-function getDay() { return Math.min(state.completedDays.length+1, 30); }
-
-function renderApp() {
-  const d=getDay(); const m=MISSIONS[d-1];
-  document.getElementById('current-day').textContent=d;
-  document.getElementById('day-theme').textContent=m.theme;
-  document.getElementById('streak-count').textContent=state.completedDays.length;
-  document.getElementById('progress-bar').style.width=((d-1)/30*100)+'%';
-  document.getElementById('mission-emoji').textContent=m.emoji;
-  document.getElementById('mission-title').textContent=m.title;
-  document.getElementById('mission-desc').textContent=m.desc;
-  document.getElementById('mission-tip').textContent=m.tip;
-
-  const btn=document.getElementById('btn-done');
-  if(state.completedDays.includes(d)) { btn.textContent='✅ ИЗПЪЛНЕНА'; btn.classList.add('completed'); btn.disabled=true; }
-  else { btn.textContent='✅ ГОТОВО — МИСИЯТА Е ИЗПЪЛНЕНА!'; btn.classList.remove('completed'); btn.disabled=false; }
-
-  document.getElementById('ref-link').textContent='misiyasupersila.com/ref/'+state.referralCode;
-  document.getElementById('ref-count').textContent='Поканил си '+state.referrals+' семейства';
-
-  document.getElementById('completed-chips').innerHTML=state.completedDays.map(d=>'<span class="completed-chip">✅ Ден '+d+'</span>').join('')||'<span style="color:#9ca3af;font-size:12px">Още няма изпълнени мисии</span>';
-
-  if(d>=5) document.getElementById('upsell-free-card').classList.remove('hidden');
-  
-  document.getElementById('books-count').textContent = (state.booksEarned || 0);
-
-  updateStreak();
-}
-
-function completeMission() {
-  const d=getDay();
-  if(state.completedDays.includes(d)||d>30) return;
-  state.completedDays.push(d); state.streak=state.completedDays.length; save();
-  launchConfetti(); showCelebration(d);
-  setTimeout(()=>renderApp(),200);
-}
-
-function showCelebration(day) {
-  const m=MISSIONS[day-1];
-  document.getElementById('share-mission-name').textContent='Мисия #'+day+': '+m.title;
-  document.getElementById('celebration-overlay').classList.remove('hidden');
-}
-function closeCelebration() { 
-  document.getElementById('celebration-overlay').classList.add('hidden');
-  // Reset celebration UI for next time
-  setTimeout(() => {
-    document.getElementById('book-earned-notice').classList.add('hidden');
-    document.getElementById('share-card-visual').classList.remove('hidden');
-    const shareBtn = document.querySelector('.btn-share');
-    if(shareBtn) shareBtn.classList.remove('hidden');
-  }, 500);
-}
-
-function shareAndEarnBook() {
-  const d=getDay()-1; const m=MISSIONS[Math.max(0,d-1)];
-  const text='🦸 Изпълнихме Мисия #'+Math.max(1,d)+' от "30 дни Суперсила"!\n\n"'+m.title+'" — '+m.desc.substring(0,70)+'...\n\nА твоето дете? Започни безплатно: misiyasupersila.com\n\n#30дниСуперсила #родителство';
-  
-  // Track that user shared
-  state.hasShared = true;
-  state.booksEarned = (state.booksEarned || 0) + 1;
-  save();
-  
-  // Show book earned
-  document.getElementById('book-earned-notice').classList.remove('hidden');
-  document.getElementById('share-card-visual').classList.add('hidden');
-  document.querySelector('.btn-share').classList.add('hidden');
-  
-  // Try native share
-  if(navigator.share) {
-    navigator.share({title:'30 дни Суперсила',text}).catch(()=>{});
-  } else {
-    navigator.clipboard.writeText(text).then(()=>showToast('📲 Копирано! Сподели в Reels/Stories → книгата е твоя!'));
-  }
-  
-  launchConfetti();
-}
-
-function copyRefLink() {
-  navigator.clipboard.writeText('misiyasupersila.com/ref/'+state.referralCode).then(()=>showToast('Линкът е копиран! 📋'));
-}
-
-function showPremiumInfo() {
-  document.getElementById('premium-full-card').classList.toggle('hidden');
-}
-
-function selectAge(btn, age) {
-  document.querySelectorAll('.age-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function buyPremium() { showToast('Скоро! Пиши ни за ранен достъп 🚀'); }
-
-function updateStreak() {
-  const refKey='ref_count_'+state.referralCode;
-  state.referrals=parseInt(localStorage.getItem(refKey)||'0');
-  save();
-  document.getElementById('ref-count').textContent='Поканил си '+state.referrals+' семейства';
-  if(state.referrals >= 1) {
-    document.getElementById('book-unlocked').classList.remove('hidden');
-  }
-}
-
-function updateFamilies() {
-  document.getElementById('total-families').textContent=312+Math.floor(Math.random()*5);
-}
-
-// ===== CONFETTI =====
-function launchConfetti() {
-  const c=document.getElementById('confetti'); c.classList.remove('hidden'); c.innerHTML='';
-  const colors=['#7c3aed','#f97316','#fbbf24','#22c55e','#ef4444','#3b82f6','#ec4899'];
-  for(let i=0;i<50;i++) {
-    const p=document.createElement('div'); p.className='confetti-piece';
-    p.style.left=Math.random()*100+'%';
-    p.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
-    p.style.animationDelay=Math.random()*0.8+'s';
-    p.style.animationDuration=(Math.random()*1.5+1)+'s';
-    c.appendChild(p);
-  }
-  setTimeout(()=>{c.classList.add('hidden');c.innerHTML='';},2500);
-}
-
-// ===== TOAST =====
-function showToast(msg) {
-  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
-  document.getElementById('toast-container').appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2500);
-}
-
-function openBook() {
-  window.open('https://tvb1990.github.io/30-dni-supersila/storybook.html', '_blank');
-}
-
-// ===== INIT =====
-// ===== INIT =====
-load();
-if(state.email&&state.startedAt) { showScreen('screen-app'); renderApp(); }
-else { showScreen('screen-landing'); }
-updateFamilies();
-setInterval(updateStreak,5000);
-setInterval(updateFamilies,15000);
-setInterval(()=>{if(state.email)renderApp();},60000);
-</script>
-</body>
-</html>
+      <p style="font-size:14px;color:var(--muted);text-decoration:line-through;">Стойност 30 €</p>
+      <p class="price" style="font-size:32px;font-weight:900;color:var(--purple-dark);">15 €</p>
+      <p style="font-size:12px;color:green;font-weight:600;">Еднократно · Без абонамент · Завинаги</p>
+      <p style="font-size:12px;color:var(--muted);">🔒 30 дни гаранция: не работи → връщам парите</p>
+      <button class="btn btn-primary" onclick="buyPremium()" style="margin-top:10px;">🎁 ВЗЕМИ ПОДАРЪКА — 15 €</button>
+      <p style="font-size:11px;color:var(--muted);margin-top:6px;">Това не е лъжа. Истинска оферта за истински родители.</p>
+    
