@@ -318,7 +318,7 @@ function showLanding() { showScreen('screen-landing'); }
 function showApp() { showScreen('screen-app'); }
 
 function startChallenge() {
-  const input = document.getElementById('signupEmail');
+  const input = document.getElementById('email-input');
   const email = input ? input.value.trim() : '';
   if (!email || email.trim().length === 0) {
     showToast('Моля, въведи валиден имейл ✉️');
