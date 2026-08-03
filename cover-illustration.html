@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Корица — Преди и След</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#0f0a1e;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px;
+  font-family:system-ui,sans-serif;
+}
+.cover-wrapper {
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  max-width:800px;
+  width:100%;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.cover-header {
+  background:linear-gradient(135deg,#1a0a2e,#2d1b69,#4c1d95);
+  color:white;
+  padding:16px 20px;
+  text-align:center;
+}
+.cover-header h2 { font-size:18px; font-weight:800; }
+.cover-header p { font-size:12px; opacity:0.7; }
+.svg-container { padding:0; }
+svg { display:block; width:100%; height:auto; }
+.caption {
+  padding:16px 20px;
+  background:#fafafa;
+  text-align:center;
+  font-size:14px;
+  color:#6b7280;
+}
+.actions { margin-top:20px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.btn {
+  padding:12px 24px; border-radius:50px; font-weight:700; font-size:14px;
+  border:none; cursor:pointer; transition:transform 0.2s;
+}
+.btn:active { transform:scale(0.96); }
+.btn-purple { background:#7c3aed; color:white; }
+.btn-outline { background:white; color:#7c3aed; border:2px solid #7c3aed; }
+</style>
+</head>
+<body>
+
+<div class="cover-wrapper">
+  <div class="cover-header">
+    <h2>🎨 Илюстрация за корица</h2>
+    <p>Свали като изображение — Скрийншот → Изрежи</p>
+  </div>
+  <div class="svg-container">
+
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0a2e"/>
+      <stop offset="50%" stop-color="#2d1b69"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="phoneGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0.4"/>
+    </linearGradient>
+    <radialGradient id="angerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="phoneScreen" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#2d1b69"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="black" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bgGrad)"/>
+  
+  <!-- Floor -->
+  <rect x="0" y="380" width="800" height="120" fill="#0d0620" opacity="0.8"/>
+  <line x1="0" y1="380" x2="800" y2="380" stroke="#3b1f8a" stroke-width="1" opacity="0.5"/>
+
+  <!-- === SCENE: BEFORE === -->
+  
+  <!-- Red anger glow behind parent -->
+  <circle cx="200" cy="180" r="100" fill="url(#angerGlow)" opacity="0.5"/>
+  
+  <!-- Parent figure (angry, arms raised) -->
+  <g transform="translate(200, 160)" filter="url(#shadow)">
+    <!-- Body -->
+    <rect x="-15" y="30" width="30" height="70" rx="8" fill="#cbd5e1" opacity="0.9"/>
+    <!-- Head -->
+    <circle cx="0" cy="18" r="22" fill="#fed7aa"/>
+    <!-- Angry eyebrows -->
+    <line x1="-12" y1="10" x2="-4" y2="14" stroke="#1e1b4b" stroke-width="3" stroke-linecap="round"/>
+    <line x1="4" y1="14" x2="12" y2="10" stroke="#1e1b4b" stroke-width="3" stroke-linecap="round"/>
+    <!-- Angry eyes -->
+    <circle cx="-8" cy="18" r="3.5" fill="#1e1b4b"/>
+    <circle cx="8" cy="18" r="3.5" fill="#1e1b4b"/>
+    <!-- Open mouth (yelling) -->
+    <ellipse cx="0" cy="28" rx="6" ry="8" fill="#1e1b4b"/>
+    <ellipse cx="0" cy="26" rx="5" ry="3" fill="#ef4444"/>
+    <!-- Hair -->
+    <ellipse cx="0" cy="3" rx="24" ry="12" fill="#1e1b4b"/>
+    <!-- Raised arms -->
+    <line x1="-15" y1="40" x2="-35" y2="5" stroke="#fed7aa" stroke-width="7" stroke-linecap="round"/>
+    <line x1="15" y1="40" x2="35" y2="5" stroke="#fed7aa" stroke-width="7" stroke-linecap="round"/>
+    <!-- Hands -->
+    <circle cx="-35" cy="5" r="6" fill="#fed7aa"/>
+    <circle cx="35" cy="5" r="6" fill="#fed7aa"/>
+    <!-- Legs -->
+    <line x1="-10" y1="100" x2="-15" y2="160" stroke="#64748b" stroke-width="10" stroke-linecap="round"/>
+    <line x1="10" y1="100" x2="15" y2="160" stroke="#64748b" stroke-width="10" stroke-linecap="round"/>
+    <!-- Shoes -->
+    <ellipse cx="-17" cy="160" rx="12" ry="6" fill="#1e1b4b"/>
+    <ellipse cx="17" cy="160" rx="12" ry="6" fill="#1e1b4b"/>
+  </g>
+
+  <!-- Yelling text indicators -->
+  <g opacity="0.7">
+    <text x="240" y="130" font-size="14" fill="#ef4444" font-weight="700" font-family="system-ui">ОСТАВИ</text>
+    <text x="250" y="150" font-size="14" fill="#ef4444" font-weight="700" font-family="system-ui">ТЕЛЕФОНА!</text>
+    <text x="255" y="170" font-size="11" fill="#f87171" font-weight="600" font-family="system-ui">ВЕДНАГА!</text>
+  </g>
+
+  <!-- Angry symbols -->
+  <text x="250" y="110" font-size="18">😡</text>
+  <text x="150" y="100" font-size="14">💢</text>
+  <text x="260" y="190" font-size="12">⚡</text>
+
+  <!-- Chair -->
+  <g transform="translate(470, 290)">
+    <!-- Chair legs -->
+    <line x1="-25" y1="20" x2="-30" y2="80" stroke="#4a3728" stroke-width="7" stroke-linecap="round"/>
+    <line x1="25" y1="20" x2="30" y2="80" stroke="#4a3728" stroke-width="7" stroke-linecap="round"/>
+    <!-- Chair seat -->
+    <rect x="-35" y="0" width="70" height="12" rx="4" fill="#5c3d2e"/>
+    <!-- Chair back -->
+    <rect x="-30" y="-35" width="8" height="50" rx="3" fill="#5c3d2e"/>
+    <rect x="22" y="-35" width="8" height="50" rx="3" fill="#5c3d2e"/>
+    <rect x="-30" y="-35" width="60" height="10" rx="3" fill="#5c3d2e"/>
+  </g>
+
+  <!-- Child figure (hunched, looking at phone) -->
+  <g transform="translate(470, 220)" filter="url(#shadow)">
+    <!-- Body (hunched forward) -->
+    <ellipse cx="0" cy="45" rx="16" ry="28" fill="#7c3aed" opacity="0.9"/>
+    <!-- Head (tilted down toward phone) -->
+    <circle cx="8" cy="12" r="18" fill="#fed7aa"/>
+    <!-- Hair (messy) -->
+    <ellipse cx="8" cy="0" rx="20" ry="12" fill="#3b1f8a"/>
+    <ellipse cx="-5" cy="5" rx="6" ry="10" fill="#3b1f8a"/>
+    <!-- Sad/downcast eyes -->
+    <circle cx="3" cy="14" r="2.5" fill="#1e1b4b"/>
+    <circle cx="13" cy="14" r="2.5" fill="#1e1b4b"/>
+    <!-- Slight frown -->
+    <path d="M5 22 Q10 19 15 22" stroke="#1e1b4b" stroke-width="1.5" fill="none"/>
+    <!-- Arms holding phone -->
+    <line x1="-5" y1="35" x2="15" y2="55" stroke="#fed7aa" stroke-width="6" stroke-linecap="round"/>
+    <line x1="15" y1="35" x2="25" y2="55" stroke="#fed7aa" stroke-width="6" stroke-linecap="round"/>
+    <!-- Phone -->
+    <rect x="12" y="52" width="18" height="28" rx="3" fill="#1e1b4b" filter="url(#glow)"/>
+    <rect x="15" y="55" width="12" height="19" rx="2" fill="url(#phoneScreen)"/>
+    <!-- Phone glow effect -->
+    <rect x="12" y="52" width="18" height="28" rx="3" fill="url(#phoneGlow)" opacity="0.3"/>
+    <!-- Legs dangling -->
+    <line x1="-8" y1="70" x2="-12" y2="105" stroke="#64748b" stroke-width="8" stroke-linecap="round"/>
+    <line x1="8" y1="70" x2="12" y2="105" stroke="#64748b" stroke-width="8" stroke-linecap="round"/>
+    <!-- Shoes (small) -->
+    <ellipse cx="-14" cy="107" rx="9" ry="5" fill="#1e1b4b"/>
+    <ellipse cx="14" cy="107" rx="9" ry="5" fill="#1e1b4b"/>
+  </g>
+
+  <!-- Sad symbols around child -->
+  <text x="420" y="280" font-size="16">😢</text>
+  <text x="520" y="270" font-size="12">💔</text>
+
+  <!-- Phone light casting on child's face -->
+  <ellipse cx="495" cy="265" rx="15" ry="12" fill="#7c3aed" opacity="0.15"/>
+
+  <!-- === DIVIDER === -->
+  <g transform="translate(400, 120)">
+    <!-- Jagged lightning divider -->
+    <line x1="0" y1="0" x2="0" y2="15" stroke="#f97316" stroke-width="3"/>
+    <line x1="0" y1="15" x2="3" y2="30" stroke="#f97316" stroke-width="3"/>
+    <line x1="3" y1="30" x2="-2" y2="50" stroke="#f97316" stroke-width="3"/>
+    <line x1="-2" y1="50" x2="2" y2="70" stroke="#f97316" stroke-width="3"/>
+    <line x1="2" y1="70" x2="-1" y2="90" stroke="#f97316" stroke-width="3"/>
+    <line x1="-1" y1="90" x2="1" y2="110" stroke="#f97316" stroke-width="3"/>
+    <line x1="1" y1="110" x2="-2" y2="130" stroke="#f97316" stroke-width="3"/>
+    <line x1="-2" y1="130" x2="0" y2="150" stroke="#f97316" stroke-width="3"/>
+    <line x1="0" y1="150" x2="3" y2="170" stroke="#f97316" stroke-width="3"/>
+    <line x1="3" y1="170" x2="0" y2="190" stroke="#f97316" stroke-width="3"/>
+    <line x1="0" y1="190" x2="-1" y2="210" stroke="#f97316" stroke-width="3"/>
+    <line x1="-1" y1="210" x2="1" y2="230" stroke="#f97316" stroke-width="3"/>
+    <line x1="1" y1="230" x2="0" y2="245" stroke="#f97316" stroke-width="3"/>
+    <line x1="0" y1="245" x2="-2" y2="260" stroke="#f97316" stroke-width="3"/>
+  </g>
+
+  <!-- === SCENE: AFTER (right side hint) === -->
+  <g transform="translate(600, 180)" opacity="0.8">
+    <!-- Warm glow -->
+    <circle cx="0" cy="40" r="60" fill="#f59e0b" opacity="0.1"/>
+    <!-- Small happy figures -->
+    <circle cx="-20" cy="10" r="12" fill="#fed7aa"/>
+    <circle cx="20" cy="5" r="14" fill="#fed7aa"/>
+    <!-- Hands together -->
+    <path d="M-8 15 Q0 25 8 15" stroke="#fed7aa" stroke-width="3" fill="none"/>
+    <!-- Small phone between them, glowing warm -->
+    <rect x="-4" y="30" width="8" height="12" rx="2" fill="#f59e0b" opacity="0.6"/>
+    <!-- Hearts -->
+    <text x="-35" y="0" font-size="14">❤️</text>
+    <text x="25" y="-10" font-size="12">✨</text>
+  </g>
+
+  <!-- === LABELS === -->
+  
+  <!-- Before label -->
+  <g transform="translate(130, 60)">
+    <rect x="-45" y="-14" width="90" height="28" rx="14" fill="#ef4444" opacity="0.2"/>
+    <text x="0" y="5" font-size="14" fill="#ef4444" font-weight="800" font-family="system-ui" text-anchor="middle">ПРЕДИ</text>
+  </g>
+
+  <!-- After label -->
+  <g transform="translate(620, 60)">
+    <rect x="-45" y="-14" width="90" height="28" rx="14" fill="#22c55e" opacity="0.2"/>
+    <text x="0" y="5" font-size="14" fill="#22c55e" font-weight="800" font-family="system-ui" text-anchor="middle">СЛЕД</text>
+  </g>
+
+  <!-- Title at top -->
+  <g transform="translate(400, 30)">
+    <text x="0" y="0" font-size="20" fill="white" font-weight="900" font-family="system-ui" text-anchor="middle" filter="url(#glow)">30 ДНИ СУПЕРСИЛА</text>
+    <text x="0" y="20" font-size="12" fill="#cbd5e1" font-family="system-ui" text-anchor="middle">Не бори телефона. Дай на детето мисия.</text>
+  </g>
+
+  <!-- Arrow pointing right -->
+  <g transform="translate(540, 350)">
+    <text font-size="28" fill="#f97316" filter="url(#glow)">→</text>
+  </g>
+
+</svg>
+
+  </div>
+  <div class="caption">
+    📱 Направи скрийншот → изрежи → използвай за корица на Facebook, Instagram или лендинг страница
+  </div>
+</div>
+
+<div class="actions">
+  <button class="btn btn-purple" onclick="alert('📸 Направи скрийншот на цялата страница и изрежи илюстрацията!')">📸 Запази като изображение</button>
+</div>
+
+<p style="color:#94a3b8;margin-top:16px;font-size:12px;text-align:center;">
+  SVG векторна графика — мащабира се без загуба на качество.<br>
+  Можеш да я ползваш за корица на Facebook, Instagram, лендинг страница или печат.
+</p>
+
+</body>
+</html>
