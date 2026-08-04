@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>30 дни Суперсила — Всички мисии</title>
+<style>
+:root {
+  --purple: #7c3aed; --purple-dark: #5b21b6; --purple-light: #ede9fe;
+  --orange: #f97316; --green: #22c55e; --bg: #fafafa; --card: #fff;
+  --text: #1e1b4b; --muted: #6b7280; --radius: 20px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width:480px; margin:0 auto; padding:16px; min-height:100vh; }
+
+.app-header { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #e5e7eb; margin-bottom:12px; }
+.app-logo { font-weight:800; font-size:18px; color:var(--purple); display:flex; align-items:center; gap:6px; }
+.streak-badge { background:#fff7ed; color:var(--orange); padding:5px 12px; border-radius:50px; font-size:12px; font-weight:700; }
+
+.stats-row { display:flex; gap:10px; margin:12px 0; }
+.stat-box { flex:1; background:var(--card); border-radius:14px; padding:12px; text-align:center; box-shadow:0 1px 4px rgba(0,0,0,0.04); }
+.stat-box .sv { font-size:24px; font-weight:800; color:var(--purple); }
+.stat-box .sl { font-size:10px; color:var(--muted); margin-top:2px; }
+
+.progress-bar-outer { height:8px; background:#e5e7eb; border-radius:50px; margin-bottom:16px; overflow:hidden; }
+.progress-bar-inner { height:100%; background:linear-gradient(90deg,var(--purple),var(--orange)); border-radius:50px; transition:width 0.5s ease; }
+
+.week-label { font-size:13px; font-weight:700; color:var(--purple); margin:18px 0 6px; text-transform:uppercase; display:flex; align-items:center; gap:6px; }
+.week-label::before,.week-label::after { content:''; flex:1; height:1px; background:#e5e7eb; }
+
+.mission-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:8px 0 18px; }
+.mission-cell {
+  background:var(--card); border-radius:14px; padding:10px 4px;
+  text-align:center; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  transition:all 0.15s; border:2px solid transparent; position:relative;
+  min-height:78px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.mission-cell:active { transform:scale(0.95); }
+.mission-cell.completed { background:#f0fdf4; border-color:var(--green); }
+.mission-cell.completed::after { content:'✅'; position:absolute; top:3px; right:3px; font-size:11px; }
+.mission-cell .mc-emoji { font-size:26px; display:block; line-height:1; }
+.mission-cell .mc-day { font-size:10px; color:var(--muted); margin-top:3px; font-weight:700; }
+.mission-cell .mc-title { font-size:8px; color:var(--text); margin-top:2px; font-weight:600; line-height:1.2; }
+@media(max-width:380px){ .mission-grid{grid-template-columns:repeat(4,1fr);gap:5px} .mission-cell{padding:8px 3px;min-height:68px} .mission-cell .mc-emoji{font-size:22px} }
+
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:90; animation:fadeIn 0.2s; }
+.modal-card { background:white; border-radius:24px; padding:28px 20px; max-width:360px; margin:20px; width:100%; text-align:center; animation:popIn 0.3s ease; }
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+.md-emoji { font-size:56px; display:block; margin-bottom:8px; }
+.md-day { font-size:12px; color:var(--muted); }
+.md-title { font-size:22px; font-weight:800; margin:4px 0 8px; color:var(--purple); }
+.md-desc { font-size:14px; color:var(--muted); margin-bottom:12px; line-height:1.5; }
+.md-tip { background:#fffbeb; border-radius:12px; padding:10px 14px; font-size:13px; color:#92400e; margin-bottom:16px; display:flex; align-items:flex-start; gap:8px; }
+
+.btn { padding:14px 28px; border:none; border-radius:50px; font-size:16px; font-weight:700; cursor:pointer; width:100%; }
+.btn:active { transform:scale(0.96); }
+.btn-done { background:var(--green); color:white; box-shadow:0 4px 16px rgba(34,197,94,0.3); }
+.btn-done.completed { background:#d1d5db; box-shadow:none; }
+.btn-back { background:#f3f4f6; color:var(--text); margin-top:8px; }
+
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#1e1b4b; color:white; padding:12px 24px; border-radius:50px; font-size:14px; font-weight:600; z-index:200; animation:slideUp 0.3s ease; }
+@keyframes slideUp{from{transform:translateX(-50%) translateY(20px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+
+.hidden { display:none !important; }
+
+.email-bar { background:linear-gradient(135deg,var(--purple),var(--purple-dark)); border-radius:var(--radius); padding:20px 24px; color:white; text-align:center; margin-bottom:20px; box-shadow:0 4px 20px rgba(124,58,237,0.2); }
+.email-bar h3 { font-size:18px; margin-bottom:4px; }
+.email-bar p { opacity:0.85; font-size:13px; margin-bottom:14px; }
+.email-bar input { width:100%; padding:12px 16px; border:none; border-radius:50px; font-size:15px; outline:none; background:rgba(255,255,255,0.95); color:var(--text); margin-bottom:10px; }
+.btn-start { background:var(--orange); color:white; box-shadow:0 4px 16px rgba(249,115,22,0.4); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- EMAIL BAR (показва се ако няма записан имейл) -->
+<div class="email-bar hidden" id="email-bar">
+  <h3>🚀 Започни безплатно</h3>
+  <p>Въведи имейл, за да отключиш всички 30 мисии</p>
+  <input type="email" id="email-input" placeholder="Твоят имейл..." autocomplete="email">
+  <button class="btn btn-start" onclick="startNow()">✨ ЗАПОЧНИ 30-ТЕ ДНИ</button>
+</div>
+
+<!-- HEADER -->
+<div class="app-header">
+  <a href="https://tvb1990.github.io/30-dni-supersila/" style="font-size:10px;color:#9ca3af;text-decoration:none;">↩ Начало</a>
+  <div class="app-logo"><span>🦸</span> Суперсила</div>
+  <div class="streak-badge">🔥 <span id="streak-count">0</span> дни</div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-box"><div class="sv" id="completed-count">0</div><div class="sl">Изпълнени</div></div>
+  <div class="stat-box"><div class="sv" id="remaining-count">30</div><div class="sl">Оставащи</div></div>
+  <div class="stat-box"><div class="sv" id="pct-display">0%</div><div class="sl">Прогрес</div></div>
+</div>
+
+<div class="progress-bar-outer">
+  <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
+</div>
+
+<!-- MISSION GRID -->
+<div id="mission-grid-container">
+  <p style="text-align:center;color:var(--muted);padding:40px 0;">⏳ Зареждане на мисиите...</p>
+</div>
+
+</div>
+
+<!-- MISSION DETAIL MODAL -->
+<div class="hidden modal-overlay" id="mission-detail">
+  <div class="modal-card">
+    <span class="md-emoji" id="md-emoji">🍳</span>
+    <div class="md-day" id="md-day">Ден 1 от 30</div>
+    <div class="md-title" id="md-title">Готвач с мама</div>
+    <div class="md-desc" id="md-desc">Описание...</div>
+    <div class="md-tip" id="md-tip"><span>💡</span> Съвет</div>
+    <button class="btn btn-done" id="btn-done-detail" onclick="completeMission()">✅ ГОТОВО — МИСИЯТА Е ИЗПЪЛНЕНА!</button>
+    <button class="btn btn-back" onclick="closeModal()">← Затвори</button>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+var MISSIONS = [
+  {emoji:'🍳',title:'Готвач с мама',tip:'Потърсете "лесни палачинки за деца" в YouTube — 5 минути подготовка, 100% забавление!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Заедно с мама или тати намерете лесна рецепта онлайн и пригответе нещо вкусно. Детето чете рецептата и ръководи процеса!'},
+  {emoji:'📸',title:'Ловец на усмивки',tip:'Обиколете квартала заедно — свеж въздух + мисия!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Снимай 5 неща, които те карат да се усмихнеш. Може да са хора, животни, предмети — всичко!'},
+  {emoji:'🥪',title:'Магията на сандвича',tip:'Оставете детето да избере съставките само — ще се изненадате!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Измисли своя уникален сандвич! Комбинирай съставки, които никой не е пробвал. Снимай го преди да го изядеш.'},
+  {emoji:'🍪',title:'Тайната бисквитка',tip:'Скрийте една бисквитка за изненада утре 😉',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Намери рецепта за бисквитки онлайн и ги изпечи. Украси ги със захарни пръчици или шоколад.'},
+  {emoji:'🎂',title:'Рожден ден всеки ден',tip:'Не е нужно да е истински рожден ден — важното е забавлението!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Организирай мини парти за някого у дома. Направи картичка на телефона, поднеси изненада!'},
+  {emoji:'🔍',title:'Детектив вкъщи',tip:'Може да скриеш предмет и да даваш улики — като истински детектив!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Родител крие 3 предмета из дома. Детето получава 3 улики и тръгва да ги търси с телефона като фенерче!'},
+  {emoji:'🗺️',title:'Карта на съкровището',tip:'Използвайте Google Maps и компас за повече реализъм!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Нарисувай карта на дома с "X" маркиращо съкровището. Води родител по картата.'},
+  {emoji:'🎤',title:'Интервю с баба',tip:'Запишете разговора — след 10 години ще е безценен спомен!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Обади се на баба/дядо по видеоразговор. Подготви 5 въпроса за детството им.'},
+  {emoji:'📏',title:'Ловец на форми',tip:'Предизвикайте детето да намери предмет, който вие не виждате!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Намери и снимай: 5 кръгли предмета, 3 квадратни, 1 триъгълен. Направи колаж.'},
+  {emoji:'🧩',title:'Мистерията на изчезналото',tip:'Разкажете предистория — "Някой е взел дистанционното!"',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Нещо е изчезнало у дома! Детето разпитва "заподозрени" и разгадава случая.'},
+  {emoji:'🎨',title:'Рисувай без четка',tip:'Покажете на детето примери в Pinterest преди да започне.',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Създай картина БЕЗ четка! Използвай памук, гъба, листа, пръсти.'},
+  {emoji:'📖',title:'Моята история',tip:'Помогнете с първото изречение: "Имало едно време... едно телефоне..."',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Измисли кратка история и я "илюстрирай" — снимай предмети от дома като герои.'},
+  {emoji:'🎬',title:'Режисьор за 30 сек',tip:'Използвайте CapCut на телефона за монтаж.',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Направи 30-секунден филм с играчки. Напиши "сценарий", снимай, покажи на семейството!'},
+  {emoji:'🧵',title:'От боклук в съкровище',tip:'Преди да изхвърлите нещо — попитайте: "Може ли да стане на нещо готино?"',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Намери нещо за изхвърляне. Превърни го в изкуство! Снимай преди и след.'},
+  {emoji:'🎵',title:'Домашен оркестър',tip:'Запишете изпълнението и го пратете на роднини!',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Създай музикален инструмент от предмети вкъщи. Направи концерт и го запиши.'},
+  {emoji:'💌',title:'Писмо до бъдещето',tip:'Запазете го и го отворете след 1 година!',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Напиши писмо до себе си след 1 година на телефона. Какво искаш да помниш?'},
+  {emoji:'📞',title:'Обади се без повод',tip:'Попитай детето: "За какво никога не си питал баба?"',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Обади се на роднина, с когото не си говорил скоро. БЕЗ повод.'},
+  {emoji:'🏠',title:'Музей на семейството',tip:'Сложете "експонатите" на масата за 1 вечер.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Събери 5 предмета със семейна история. Снимай ги, попитай родител, напиши "етикет".'},
+  {emoji:'🧹',title:'Супергерой за ден',tip:'Дори 10 минути помощ са достатъчни.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Направи нещо добро за някой у дома БЕЗ да го казваш. Изненадай го. ❤️'},
+  {emoji:'📸',title:'Семеен албум 2.0',tip:'Използвайте Google Photos за безплатно съхранение.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Създай дигитален албум на семейството! Снимай всеки член, добави любима песен.'},
+  {emoji:'🔬',title:'Домашна лаборатория',tip:'Всички съставки ги имате у дома — оцет, сода, боички.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Направи научен експеримент! Вулкан от оцет и сода. Снимай "ЕКСПЛОЗИЯТА"!'},
+  {emoji:'🌱',title:'Мисия Кълн',tip:'Снимайте растежа всеки ден за stop-motion ефект!',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Засади бобче или леща във влажен памук. Снимай го всеки ден.'},
+  {emoji:'🌤️',title:'Метеоролог за ден',tip:'Използвайте Windy.app за прогнозата.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Провери прогнозата за времето. Запиши 3 факта. Направи "репортаж от терасата".'},
+  {emoji:'🧲',title:'Магнитна магия',tip:'Пуснете Google за "magnet experiments for kids"',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Намери магнит и тествай: какво привлича, какво не? Изненадай се!'},
+  {emoji:'🪐',title:'Космическа разходка',tip:'Използвайте NASA Kids на телефона.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Научи 3 нови факта за Космоса. Разкажи ги на семейството като астронавт.'},
+  {emoji:'🏆',title:'Моето портфолио',tip:'Страхотен повод да празнувате с торта!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Събери най-добрите снимки от всички мисии в 1 колаж. Ти си супергерой! 🦸'},
+  {emoji:'🎬',title:'Филм "Моите 30 дни"',tip:'Използвайте CapCut или InShot.',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Направи кратко видео с най-добрите моменти. Това е твоят Оскар!'},
+  {emoji:'📜',title:'Супергеройски сертификат',tip:'Закачете сертификата на стената!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Създай свой сертификат: "Аз завърших 30 дни Суперсила!" Украси го.'},
+  {emoji:'💌',title:'Писмо до родителите',tip:'Родители — пригответе кърпички.',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Напиши писмо на мама и тати. Какво ти хареса? Благодари им. Прочети го на глас.'},
+  {emoji:'🎉',title:'Парти на супергероите!',tip:'Поканете приятел — може и те да започнат!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Организирай малък празник! Украса, музика, танци. 30 дни са ГОЛЯМО постижение! 🎊'}
+];
+
+var THEMES = ['🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ','🔍 ДЕТЕКТИВСКИ МИСТЕРИИ','🎨 ТВОРЧЕСКА РАБОТИЛНИЦА','❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ','🔬 НАУЧНА ЛАБОРАТОРИЯ','🏆 СУПЕРГЕРОЙСКИ ФИНАЛ'];
+var TOTAL_DAYS = 30;
+var selectedDay = null;
+var completedDays = [];
+
+// ===== LOAD STATE =====
+try {
+  var saved = localStorage.getItem('supersila_v2');
+  if (saved) {
+    var s = JSON.parse(saved);
+    completedDays = s.completedDays || [];
+    if (s.email) {
+      document.getElementById('email-bar').classList.add('hidden');
+    }
+  }
+} catch(e) {}
+
+// Ако няма имейл — покажи email bar
+if (!localStorage.getItem('supersila_email_v2')) {
+  document.getElementById('email-bar').classList.remove('hidden');
+} else {
+  document.getElementById('email-bar').classList.add('hidden');
+}
+
+function saveState() {
+  localStorage.setItem('supersila_v2', JSON.stringify({
+    completedDays: completedDays,
+    email: localStorage.getItem('supersila_email_v2') || ''
+  }));
+}
+
+// ===== START =====
+function startNow() {
+  var input = document.getElementById('email-input');
+  var email = input.value.trim();
+  if (!email) { toast('Моля, въведи имейл ✉️'); return; }
+  localStorage.setItem('supersila_email_v2', email);
+  document.getElementById('email-bar').classList.add('hidden');
+  toast('✅ Готово! Всички 30 мисии са отключени!');
+}
+
+// ===== RENDER =====
+function renderGrid() {
+  var html = '';
+  var done = completedDays.length;
+  
+  document.getElementById('completed-count').textContent = done;
+  document.getElementById('remaining-count').textContent = TOTAL_DAYS - done;
+  document.getElementById('pct-display').textContent = Math.round(done/TOTAL_DAYS*100) + '%';
+  document.getElementById('progress-bar').style.width = (done/TOTAL_DAYS*100) + '%';
+  
+  for (var w = 0; w < 6; w++) {
+    html += '<div class="week-label">' + THEMES[w] + '</div>';
+    html += '<div class="mission-grid">';
+    for (var d = 0; d < 5; d++) {
+      var dayNum = w * 5 + d + 1;
+      var mission = MISSIONS[dayNum - 1];
+      var isCompleted = completedDays.indexOf(dayNum) !== -1;
+      html += '<div class="mission-cell' + (isCompleted ? ' completed' : '') + '" onclick="openMission(' + dayNum + ')">';
+      html += '<span class="mc-emoji">' + mission.emoji + '</span>';
+      html += '<span class="mc-day">Ден ' + dayNum + '</span>';
+      html += '<span class="mc-title">' + mission.title + '</span>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  document.getElementById('mission-grid-container').innerHTML = html;
+}
+
+// ===== MISSION DETAIL =====
+function openMission(dayNum) {
+  selectedDay = dayNum;
+  var mission = MISSIONS[dayNum - 1];
+  var isCompleted = completedDays.indexOf(dayNum) !== -1;
+  
+  document.getElementById('md-emoji').textContent = mission.emoji;
+  document.getElementById('md-day').textContent = 'Ден ' + dayNum + ' от 30';
+  document.getElementById('md-title').textContent = mission.title;
+  document.getElementById('md-desc').textContent = mission.desc;
+  document.getElementById('md-tip').innerHTML = '<span>💡</span> ' + mission.tip;
+  
+  var btn = document.getElementById('btn-done-detail');
+  if (isCompleted) {
+    btn.textContent = '✅ МИСИЯТА Е ВЕЧЕ ИЗПЪЛНЕНА';
+    btn.classList.add('completed');
+    btn.disabled = true;
+  } else {
+    btn.textContent = '✅ ГОТОВО — МИСИЯТА Е ИЗПЪЛНЕНА!';
+    btn.classList.remove('completed');
+    btn.disabled = false;
+  }
+  
+  document.getElementById('mission-detail').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('mission-detail').classList.add('hidden');
+  selectedDay = null;
+}
+
+function completeMission() {
+  if (!selectedDay) return;
+  if (completedDays.indexOf(selectedDay) !== -1) return;
+  
+  completedDays.push(selectedDay);
+  saveState();
+  renderGrid();
+  closeModal();
+  toast('🎉 Мисия #' + selectedDay + ' е изпълнена!');
+}
+
+// ===== TOAST =====
+function toast(msg) {
+  var t = document.getElementById('toast-msg');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast-msg';
+    t.className = 'toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.style.display = 'none'; }, 2500);
+}
+
+// ===== INIT =====
+renderGrid();
+</script>
+</body>
+</html>
