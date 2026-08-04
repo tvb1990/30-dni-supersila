@@ -243,7 +243,8 @@ body {
 <div class="screen" id="screen-app">
   <div class="container">
     <div class="app-header">
-      <div class="app-logo"><span>🦸</span> Суперсила</div>
+      <a href="javascript:resetApp()" style="font-size:10px;color:#9ca3af;text-decoration:none;display:flex;align-items:center;gap:4px;">↩ Изход</a>
+    <div class="app-logo"><span>🦸</span> Суперсила</div>
       <div class="streak-badge">🔥 <span id="streak-count">0</span> дни</div>
     </div>
 
@@ -409,6 +410,13 @@ function showToast(msg) {
 }
 
 var selectedMissionDay = null;
+
+function resetApp() {
+  localStorage.removeItem('supersila_state');
+  localStorage.removeItem('supersila_email');
+  state = loadState();
+  showLanding();
+}
 
 function renderApp() {
   var completed = state.completedDays.length;
@@ -627,7 +635,12 @@ function spawnConfetti() {
 // Init - wait for DOM
 document.addEventListener('DOMContentLoaded', function() {
   try {
-    if (state.email && state.currentDay > 0) {
+    if (window.location.search.includes('reset=1')) {
+    localStorage.removeItem('supersila_state');
+    localStorage.removeItem('supersila_email');
+    state = loadState();
+  }
+  if (state.email && state.currentDay > 0) {
       showApp();
       renderApp();
     } else {
@@ -642,7 +655,17 @@ document.addEventListener('DOMContentLoaded', function() {
 // Fallback if DOM already loaded
 if (document.readyState !== 'loading') {
   try {
-    if (state.email && state.currentDay > 0) {
+    if (window.location.search.includes('reset=1')) {
+    localStorage.removeItem('supersila_state');
+    localStorage.removeItem('supersila_email');
+    state = loadState();
+  }
+  if (window.location.search.includes('reset=1')) {
+    localStorage.removeItem('supersila_state');
+    localStorage.removeItem('supersila_email');
+    state = loadState();
+  }
+  if (state.email && state.currentDay > 0) {
       showApp();
       renderApp();
     } else {
