@@ -72,6 +72,67 @@ body {
 .btn-done:active { transform:scale(0.97); }
 .btn-done.completed { background:#d1d5db; box-shadow:none; }
 
+
+/* ===== MISSION GRID ===== */
+.mission-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:16px 0; }
+.mission-cell { 
+  background:var(--card); border-radius:14px; padding:12px 6px; 
+  text-align:center; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  transition:all 0.15s; border:2px solid transparent; position:relative;
+  min-height:80px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.mission-cell:active { transform:scale(0.95); }
+.mission-cell:hover { border-color:var(--purple-light); }
+.mission-cell.completed { background:#f0fdf4; border-color:var(--green); }
+.mission-cell.completed::after { 
+  content:'✅'; position:absolute; top:4px; right:4px; font-size:12px; 
+}
+.mission-cell .mc-emoji { font-size:28px; display:block; line-height:1; }
+.mission-cell .mc-day { font-size:10px; color:var(--muted); margin-top:4px; font-weight:700; }
+.mission-cell .mc-title { font-size:9px; color:var(--text); margin-top:2px; font-weight:600; line-height:1.2; }
+@media (max-width:380px) {
+  .mission-grid { grid-template-columns:repeat(4,1fr); gap:6px; }
+  .mission-cell { padding:10px 4px; min-height:70px; }
+  .mission-cell .mc-emoji { font-size:24px; }
+}
+.week-label { 
+  font-size:13px; font-weight:700; color:var(--purple); 
+  margin:16px 0 6px 0; text-transform:uppercase; letter-spacing:0.5px;
+  display:flex; align-items:center; gap:6px;
+}
+.week-label::before { content:''; flex:1; height:1px; background:#e5e7eb; }
+.week-label::after { content:''; flex:1; height:1px; background:#e5e7eb; }
+
+/* Mission detail modal */
+.mission-detail { 
+  position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex;
+  align-items:center; justify-content:center; z-index:90; animation:fadeIn 0.2s;
+}
+.mission-detail-card {
+  background:white; border-radius:24px; padding:28px 20px; 
+  max-width:360px; margin:20px; width:100%;
+  animation:popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+  text-align:center;
+}
+.mission-detail .md-emoji { font-size:64px; display:block; margin-bottom:8px; }
+.mission-detail .md-day { font-size:12px; color:var(--muted); }
+.mission-detail .md-title { font-size:22px; font-weight:800; margin:4px 0 8px; color:var(--purple); }
+.mission-detail .md-desc { font-size:14px; color:var(--muted); margin-bottom:12px; line-height:1.5; }
+.mission-detail .md-tip { 
+  background:#fffbeb; border-radius:12px; padding:10px 14px; font-size:13px; 
+  color:#92400e; margin-bottom:16px; display:flex; align-items:flex-start; gap:8px; 
+}
+.btn-back { background:#f3f4f6; color:var(--text); width:100%; margin-top:8px; }
+
+/* Stats row */
+.stats-row { display:flex; gap:10px; margin:12px 0; }
+.stat-box { 
+  flex:1; background:var(--card); border-radius:14px; padding:12px; 
+  text-align:center; box-shadow:0 1px 4px rgba(0,0,0,0.04); 
+}
+.stat-box .sv { font-size:24px; font-weight:800; color:var(--purple); }
+.stat-box .sl { font-size:10px; color:var(--muted); margin-top:2px; }
+
 /* Celebration */
 .celebration { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:100; animation:fadeIn 0.3s; }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
@@ -347,28 +408,73 @@ function showToast(msg) {
   setTimeout(() => t.remove(), 2500);
 }
 
+var selectedMissionDay = null;
+
 function renderApp() {
-  if (state.currentDay === 0) state.currentDay = 1;
-  const day = Math.min(state.currentDay, TOTAL_DAYS);
-  const mission = MISSIONS[day - 1];
-  const themeIdx = Math.floor((day - 1) / 5);
+  var completed = state.completedDays.length;
+  var pct = (completed / TOTAL_DAYS) * 100;
   
-  document.getElementById('day-number').textContent = day;
-  document.getElementById('day-theme').textContent = THEMES[themeIdx] || '';
+  document.getElementById('day-number').textContent = completed + '/30';
+  document.getElementById('day-theme').textContent = '✨ Избери своята мисия';
   document.getElementById('streak-count').textContent = state.streak;
-  // ref stats simplified
-  
-  document.getElementById('mission-emoji').textContent = mission.emoji;
-  document.getElementById('mission-title').textContent = mission.title;
-  document.getElementById('mission-desc').textContent = mission.desc;
-  document.getElementById('mission-tip').textContent = mission.tip;
-  
-  const pct = ((day - 1) / TOTAL_DAYS) * 100;
   document.getElementById('progress-bar').style.width = pct + '%';
   
-  const btn = document.getElementById('btn-done');
-  if (state.completedDays.includes(day)) {
-    btn.textContent = '✅ МИСИЯТА Е ИЗПЪЛНЕНА';
+  // Build mission grid
+  var gridContainer = document.getElementById('mission-grid-container');
+  var html = '';
+  
+  for (var w = 0; w < 6; w++) {
+    html += '<div class="week-label">' + THEMES[w] + '</div>';
+    html += '<div class="mission-grid">';
+    for (var d = 0; d < 5; d++) {
+      var dayNum = w * 5 + d + 1;
+      var mission = MISSIONS[dayNum - 1];
+      var isCompleted = state.completedDays.includes(dayNum);
+      html += '<div class="mission-cell' + (isCompleted ? ' completed' : '') + '" onclick="openMission(' + dayNum + ')" title="Ден ' + dayNum + ': ' + mission.title + '">';
+      html += '<span class="mc-emoji">' + mission.emoji + '</span>';
+      html += '<span class="mc-day">Ден ' + dayNum + '</span>';
+      html += '<span class="mc-title">' + mission.title + '</span>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  gridContainer.innerHTML = html;
+  
+  // Book unlocked
+  if (state.booksEarned > 0 || state.shareUnlocked) {
+    document.getElementById('book-unlocked').classList.remove('hidden');
+  }
+  
+  // Upsell after 5+ completed
+  if (completed >= 5) {
+    document.getElementById('upsell-free-card').classList.remove('hidden');
+  }
+  
+  // Completed chips (keep as summary)
+  var chipsContainer = document.getElementById('completed-chips');
+  chipsContainer.innerHTML = '';
+  state.completedDays.forEach(function(d) {
+    var chip = document.createElement('span');
+    chip.className = 'completed-chip';
+    chip.textContent = '✅ Ден ' + d;
+    chipsContainer.appendChild(chip);
+  });
+}
+
+function openMission(dayNum) {
+  selectedMissionDay = dayNum;
+  var mission = MISSIONS[dayNum - 1];
+  var isCompleted = state.completedDays.includes(dayNum);
+  
+  document.getElementById('md-emoji').textContent = mission.emoji;
+  document.getElementById('md-day').textContent = 'Ден ' + dayNum + ' от 30';
+  document.getElementById('md-title').textContent = mission.title;
+  document.getElementById('md-desc').textContent = mission.desc;
+  document.getElementById('md-tip').innerHTML = '💡 ' + mission.tip;
+  
+  var btn = document.getElementById('btn-done-detail');
+  if (isCompleted) {
+    btn.textContent = '✅ МИСИЯТА Е ВЕЧЕ ИЗПЪЛНЕНА';
     btn.classList.add('completed');
     btn.disabled = true;
   } else {
@@ -377,51 +483,43 @@ function renderApp() {
     btn.disabled = false;
   }
   
-  // Book unlocked
-  if (state.booksEarned > 0 || state.shareUnlocked) {
-    document.getElementById('book-unlocked').classList.remove('hidden');
-  }
-  
-  // Completed chips
-  const chipsContainer = document.getElementById('completed-chips');
-  chipsContainer.innerHTML = '';
-  state.completedDays.forEach(d => {
-    const chip = document.createElement('span');
-    chip.className = 'completed-chip';
-    chip.textContent = '✅ Ден ' + d;
-    chipsContainer.appendChild(chip);
-  });
-  
-  // Upsell after day 5
-  if (day > 5) {
-    document.getElementById('upsell-free-card').classList.remove('hidden');
-  }
+  document.getElementById('mission-detail').classList.remove('hidden');
 }
 
-function completeMission() {
-  const day = state.currentDay;
+function closeMissionDetail() {
+  document.getElementById('mission-detail').classList.add('hidden');
+  selectedMissionDay = null;
+}
+
+function completeSelectedMission() {
+  if (!selectedMissionDay) return;
+  var day = selectedMissionDay;
   if (state.completedDays.includes(day)) return;
   
   state.completedDays.push(day);
-  if (!state.completedDays.includes(day)) state.completedDays = [...new Set(state.completedDays)];
   
   // Streak
-  const today = new Date().toDateString();
+  var today = new Date().toDateString();
   if (state.lastCompletedDate) {
-    const last = new Date(state.lastCompletedDate);
-    const diff = Math.floor((new Date(today) - last) / (1000 * 60 * 60 * 24));
+    var last = new Date(state.lastCompletedDate);
+    var diff = Math.floor((new Date(today) - last) / (1000 * 60 * 60 * 24));
     if (diff === 1) state.streak++;
     else if (diff > 1) state.streak = 1;
   } else {
     state.streak = 1;
   }
   state.lastCompletedDate = today;
-  
-  // Next day
-  if (state.currentDay < TOTAL_DAYS) state.currentDay++;
+  state.currentDay = Math.max(state.currentDay, day);
   
   saveState(state);
+  
+  // Update grid
   renderApp();
+  
+  // Close detail
+  closeMissionDetail();
+  
+  // Celebration
   showCelebration(day);
 }
 
