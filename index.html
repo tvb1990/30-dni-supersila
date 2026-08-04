@@ -22,7 +22,6 @@ body {
 .screen { display:none; }
 .screen.active { display:block; }
 
-/* ===== LANDING ===== */
 .hero { text-align:center; padding:30px 0 10px; }
 .hero .logo { font-size:56px; animation: bounce 2s infinite; }
 @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
@@ -46,35 +45,24 @@ body {
 .btn { padding:14px 28px; border:none; border-radius:50px; font-size:16px; font-weight:700; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:8px; justify-content:center; }
 .btn:active { transform:scale(0.96); }
 .btn-primary { background:var(--orange); color:white; box-shadow:0 4px 16px rgba(249,115,22,0.4); width:100%; }
-.btn-outline { background:rgba(255,255,255,0.2); color:white; backdrop-filter:blur(4px); font-size:13px; }
 .social-proof { text-align:center; padding:16px; font-size:14px; color:var(--muted); }
 .social-proof .count { font-size:28px; font-weight:800; color:var(--purple); display:block; }
 
-/* ===== APP ===== */
+/* APP */
 .app-header { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #e5e7eb; margin-bottom:16px; }
 .app-logo { font-weight:800; font-size:17px; color:var(--purple); display:flex; align-items:center; gap:6px; }
 .streak-badge { background:var(--orange-light); color:var(--orange); padding:5px 12px; border-radius:50px; font-size:12px; font-weight:700; }
 
-.day-number { font-size:44px; font-weight:800; text-align:center; color:var(--purple); line-height:1; }
-.day-label { text-align:center; font-size:12px; color:var(--muted); margin-bottom:8px; }
-.day-theme { text-align:center; font-size:12px; color:var(--purple); font-weight:600; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px; }
+.stats-row { display:flex; gap:10px; margin:12px 0; }
+.stat-box { flex:1; background:var(--card); border-radius:14px; padding:12px; text-align:center; box-shadow:0 1px 4px rgba(0,0,0,0.04); }
+.stat-box .sv { font-size:24px; font-weight:800; color:var(--purple); }
+.stat-box .sl { font-size:10px; color:var(--muted); margin-top:2px; }
 
-.progress-bar-outer { height:8px; background:#e5e7eb; border-radius:50px; margin-bottom:20px; overflow:hidden; }
+.progress-bar-outer { height:8px; background:#e5e7eb; border-radius:50px; margin-bottom:16px; overflow:hidden; }
 .progress-bar-inner { height:100%; background:linear-gradient(90deg,var(--purple),var(--orange)); border-radius:50px; transition:width 0.5s ease; }
 
-.mission-card { background:var(--card); border-radius:var(--radius); padding:24px 20px; box-shadow:var(--shadow); text-align:center; margin-bottom:16px; position:relative; overflow:hidden; border-top:4px solid var(--purple); }
-.mission-emoji { font-size:56px; display:block; margin-bottom:12px; }
-.mission-title { font-size:21px; font-weight:800; margin-bottom:6px; }
-.mission-desc { font-size:14px; color:var(--muted); margin-bottom:16px; line-height:1.5; }
-.mission-tip { background:#fffbeb; border-radius:12px; padding:10px 14px; font-size:13px; color:#92400e; margin-bottom:16px; display:flex; align-items:flex-start; gap:8px; }
-
-.btn-done { width:100%; padding:16px; background:var(--green); color:white; border:none; border-radius:50px; font-size:17px; font-weight:700; cursor:pointer; box-shadow:0 4px 16px rgba(34,197,94,0.3); transition:all 0.2s; }
-.btn-done:active { transform:scale(0.97); }
-.btn-done.completed { background:#d1d5db; box-shadow:none; }
-
-
-/* ===== MISSION GRID ===== */
-.mission-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:16px 0; }
+/* MISSION GRID */
+.mission-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:12px 0 20px; }
 .mission-cell { 
   background:var(--card); border-radius:14px; padding:12px 6px; 
   text-align:center; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.04);
@@ -84,9 +72,7 @@ body {
 .mission-cell:active { transform:scale(0.95); }
 .mission-cell:hover { border-color:var(--purple-light); }
 .mission-cell.completed { background:#f0fdf4; border-color:var(--green); }
-.mission-cell.completed::after { 
-  content:'✅'; position:absolute; top:4px; right:4px; font-size:12px; 
-}
+.mission-cell.completed::after { content:'✅'; position:absolute; top:4px; right:4px; font-size:12px; }
 .mission-cell .mc-emoji { font-size:28px; display:block; line-height:1; }
 .mission-cell .mc-day { font-size:10px; color:var(--muted); margin-top:4px; font-weight:700; }
 .mission-cell .mc-title { font-size:9px; color:var(--text); margin-top:2px; font-weight:600; line-height:1.2; }
@@ -97,96 +83,66 @@ body {
 }
 .week-label { 
   font-size:13px; font-weight:700; color:var(--purple); 
-  margin:16px 0 6px 0; text-transform:uppercase; letter-spacing:0.5px;
+  margin:16px 0 6px; text-transform:uppercase; letter-spacing:0.5px;
   display:flex; align-items:center; gap:6px;
 }
 .week-label::before { content:''; flex:1; height:1px; background:#e5e7eb; }
 .week-label::after { content:''; flex:1; height:1px; background:#e5e7eb; }
 
-/* Mission detail modal */
-.mission-detail { 
-  position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex;
-  align-items:center; justify-content:center; z-index:90; animation:fadeIn 0.2s;
-}
-.mission-detail-card {
-  background:white; border-radius:24px; padding:28px 20px; 
-  max-width:360px; margin:20px; width:100%;
-  animation:popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
-  text-align:center;
-}
-.mission-detail .md-emoji { font-size:64px; display:block; margin-bottom:8px; }
-.mission-detail .md-day { font-size:12px; color:var(--muted); }
-.mission-detail .md-title { font-size:22px; font-weight:800; margin:4px 0 8px; color:var(--purple); }
-.mission-detail .md-desc { font-size:14px; color:var(--muted); margin-bottom:12px; line-height:1.5; }
-.mission-detail .md-tip { 
-  background:#fffbeb; border-radius:12px; padding:10px 14px; font-size:13px; 
-  color:#92400e; margin-bottom:16px; display:flex; align-items:flex-start; gap:8px; 
-}
-.btn-back { background:#f3f4f6; color:var(--text); width:100%; margin-top:8px; }
-
-/* Stats row */
-.stats-row { display:flex; gap:10px; margin:12px 0; }
-.stat-box { 
-  flex:1; background:var(--card); border-radius:14px; padding:12px; 
-  text-align:center; box-shadow:0 1px 4px rgba(0,0,0,0.04); 
-}
-.stat-box .sv { font-size:24px; font-weight:800; color:var(--purple); }
-.stat-box .sl { font-size:10px; color:var(--muted); margin-top:2px; }
-
-/* Celebration */
-.celebration { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:100; animation:fadeIn 0.3s; }
+/* MISSION DETAIL MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:90; animation:fadeIn 0.2s; }
+.modal-card { background:white; border-radius:24px; padding:28px 20px; max-width:360px; margin:20px; width:100%; animation:popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275); text-align:center; }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-.celebration-card { background:white; border-radius:24px; padding:28px 20px; text-align:center; max-width:340px; margin:20px; animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
 @keyframes popIn { from{transform:scale(0.8);opacity:0} to{transform:scale(1);opacity:1} }
-.celebration-emoji { font-size:64px; display:block; margin-bottom:10px; }
-.celebration-card h3 { font-size:22px; color:var(--purple); margin-bottom:6px; }
-.share-image { background:linear-gradient(135deg,#7c3aed,#f97316); border-radius:16px; padding:20px; color:white; margin:14px 0; }
-.share-image .mission-name { font-size:18px; font-weight:800; }
-.btn-share { background:linear-gradient(135deg,#f97316,#ef4444); color:white; font-size:14px; padding:10px 20px; width:100%; }
-.btn-close { background:var(--purple-light); color:var(--purple-dark); width:100%; margin-top:8px; }
+.md-emoji { font-size:64px; display:block; margin-bottom:8px; }
+.md-day { font-size:12px; color:var(--muted); }
+.md-title { font-size:22px; font-weight:800; margin:4px 0 8px; color:var(--purple); }
+.md-desc { font-size:14px; color:var(--muted); margin-bottom:12px; line-height:1.5; }
+.md-tip { background:#fffbeb; border-radius:12px; padding:10px 14px; font-size:13px; color:#92400e; margin-bottom:16px; display:flex; align-items:flex-start; gap:8px; }
 
-/* Referral */
+.btn-done { width:100%; padding:16px; background:var(--green); color:white; border:none; border-radius:50px; font-size:17px; font-weight:700; cursor:pointer; box-shadow:0 4px 16px rgba(34,197,94,0.3); transition:all 0.2s; }
+.btn-done:active { transform:scale(0.97); }
+.btn-done.completed { background:#d1d5db; box-shadow:none; }
+.btn-back { background:#f3f4f6; color:var(--text); width:100%; margin-top:8px; border:none; border-radius:50px; padding:14px; font-size:16px; font-weight:700; cursor:pointer; }
+
+/* REFERRAL */
 .ref-card { background:var(--card); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow); margin-top:16px; text-align:center; border:2px dashed #e5e7eb; }
 .ref-card h4 { margin-bottom:6px; color:var(--purple); font-size:15px; }
-.ref-link { background:#f3f4f6; padding:8px; border-radius:10px; font-size:12px; word-break:break-all; margin:10px 0; color:var(--muted); user-select:all; }
 
-/* Completed */
+/* PREMIUM */
+.upsell-free { background:linear-gradient(135deg,#fef3c7,#fde68a); border-radius:var(--radius); padding:20px; margin-top:16px; text-align:center; border:2px solid var(--yellow); }
+.upsell-free h4 { font-size:17px; margin-bottom:4px; }
+.btn-upgrade { background:var(--purple-dark); color:white; width:100%; margin-top:10px; }
+
+/* COMPLETED */
 .completed-list { margin-top:16px; }
 .completed-list h4 { font-size:14px; margin-bottom:10px; color:var(--muted); }
 .completed-chip { display:inline-flex; align-items:center; gap:4px; background:#f0fdf4; color:var(--green); padding:5px 10px; border-radius:50px; font-size:12px; font-weight:600; margin:3px; }
 
-/* Premium Upsell */
-.upsell-free { background:linear-gradient(135deg,#fef3c7,#fde68a); border-radius:var(--radius); padding:20px; margin-top:16px; text-align:center; border:2px solid var(--yellow); }
-.upsell-free h4 { font-size:17px; margin-bottom:4px; }
-.upsell-free .price { font-size:28px; font-weight:800; color:var(--purple-dark); }
-.upsell-free .perk { font-size:12px; color:var(--muted); margin:4px 0; }
-.btn-upgrade { background:var(--purple-dark); color:white; width:100%; margin-top:10px; }
+/* CELEBRATION */
+.celebration { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:100; animation:fadeIn 0.3s; }
+.celebration-card { background:white; border-radius:24px; padding:28px 20px; text-align:center; max-width:340px; margin:20px; animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+.celebration-emoji { font-size:64px; display:block; margin-bottom:10px; }
+.celebration-card h3 { font-size:22px; color:var(--purple); margin-bottom:6px; }
+.share-image { background:linear-gradient(135deg,#7c3aed,#f97316); border-radius:16px; padding:20px; color:white; margin:14px 0; }
+.btn-share { background:linear-gradient(135deg,#f97316,#ef4444); color:white; font-size:14px; padding:10px 20px; width:100%; }
+.btn-close { background:var(--purple-light); color:var(--purple-dark); width:100%; margin-top:8px; }
 
-/* Premium Full */
-.premium-full { background:var(--card); border-radius:var(--radius); padding:20px; margin-top:20px; box-shadow:var(--shadow); text-align:center; border:3px solid var(--yellow); position:relative; }
-.premium-full::before { content:'⭐ НАЙ-ДОБРАТА ОФЕРТА'; position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--yellow); color:#1e1b4b; padding:4px 18px; border-radius:50px; font-size:11px; font-weight:800; }
-.premium-full h4 { font-size:20px; color:var(--purple-dark); margin:8px 0 4px; }
-.premium-full .gift { background:#fef3c7; padding:10px; border-radius:12px; margin:12px 0; font-size:13px; font-weight:600; }
-.age-tabs { display:flex; gap:6px; justify-content:center; margin:12px 0; }
-.age-tab { padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:#f3f4f6; border:none; cursor:pointer; }
-.age-tab.active { background:var(--purple); color:white; }
-
-/* Toast */
+/* TOAST */
 .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#1e1b4b; color:white; padding:12px 24px; border-radius:50px; font-size:14px; font-weight:600; z-index:200; animation:slideUp 0.3s ease; }
 @keyframes slideUp { from{transform:translateX(-50%) translateY(20px);opacity:0} to{transform:translateX(-50%) translateY(0);opacity:1} }
 
-/* Confetti */
 .confetti-container { position:fixed; inset:0; pointer-events:none; z-index:150; }
 .confetti-piece { position:absolute; width:10px; height:10px; border-radius:3px; animation:confettiFall 1.5s ease-out forwards; }
 @keyframes confettiFall { 0%{transform:translateY(-100px) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
 
 .hidden { display:none !important; }
+.book-unlocked-box { margin-top:14px; padding:16px; background:#f0fdf4; border-radius:12px; border:2px solid #86efac; text-align:center; }
 </style>
-<!-- v3 -->
 </head>
 <body>
 
-<!-- ============ SCREEN: LANDING ============ -->
+<!-- ============ LANDING ============ -->
 <div class="screen active" id="screen-landing">
   <div class="container">
     <div class="hero">
@@ -239,85 +195,76 @@ body {
   </div>
 </div>
 
-<!-- ============ SCREEN: APP ============ -->
+<!-- ============ APP ============ -->
 <div class="screen" id="screen-app">
   <div class="container">
     <div class="app-header">
       <a href="javascript:resetApp()" style="font-size:10px;color:#9ca3af;text-decoration:none;display:flex;align-items:center;gap:4px;">↩ Изход</a>
-    <div class="app-logo"><span>🦸</span> Суперсила</div>
+      <div class="app-logo"><span>🦸</span> Суперсила</div>
       <div class="streak-badge">🔥 <span id="streak-count">0</span> дни</div>
     </div>
 
-    <div class="day-number" id="current-day">1</div>
-    <div class="day-label">от 30 дни</div>
-    <div class="day-theme" id="day-theme">🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="sv" id="completed-count">0</div><div class="sl">Изпълнени</div></div>
+      <div class="stat-box"><div class="sv" id="remaining-count">30</div><div class="sl">Оставащи</div></div>
+      <div class="stat-box"><div class="sv" id="pct-display">0%</div><div class="sl">Прогрес</div></div>
+    </div>
 
     <div class="progress-bar-outer">
-      <div class="progress-bar-inner" id="progress-bar" style="width:3%"></div>
+      <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
     </div>
 
-    <div class="mission-card" id="mission-card">
-      <span class="mission-emoji" id="mission-emoji">🍳</span>
-      <div class="mission-title" id="mission-title">Готвач с мама</div>
-      <div class="mission-desc" id="mission-desc">Заедно с мама или тати намерете лесна рецепта онлайн и пригответе нещо вкусно. Детето чете рецептата и ръководи процеса!</div>
-      <div class="mission-tip"><span>💡</span> <span id="mission-tip">Потърсете "лесни палачинки за деца" в YouTube — 5 минути подготовка, 100% забавление!</span></div>
-      <button class="btn-done" id="btn-done" onclick="completeMission()">✅ ГОТОВО — МИСИЯТА Е ИЗПЪЛНЕНА!</button>
-    </div>
+    <!-- MISSION GRID - ВСИЧКИ 30 МИСИИ -->
+    <div id="mission-grid-container"></div>
 
-    <!-- Referral -->
+    <!-- REFERRAL -->
     <div class="ref-card" id="ref-card">
       <h4>🎁 Сподели с приятел → вземи подарък</h4>
       <p style="font-size:14px;color:var(--muted);margin-bottom:14px">Сподели с друг родител и получи <strong>специалната ни персонализирана книга</strong> като подарък.</p>
       <button class="btn btn-primary" style="background:linear-gradient(135deg,#f97316,#ef4444);color:white;width:100%;font-size:15px;padding:16px;box-shadow:0 4px 16px rgba(249,115,22,0.4)" onclick="shareAndUnlock(0, this)">
         📲 Сподели с приятел и вземи подарък — специалната ни персонализирана книга 🎁
       </button>
-      <div class="hidden" id="book-unlocked" style="margin-top:14px;padding:16px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac">
+      <div class="hidden book-unlocked-box" id="book-unlocked">
         <span style="font-size:32px">🎁</span>
         <p style="font-weight:700;color:#166534;margin:6px 0;font-size:17px">Подаръкът е твой!</p>
+        <p style="font-size:13px;color:#166534">Спечели <strong id="books-count">1</strong> книга</p>
         <button class="btn" style="background:#22c55e;color:white;padding:10px 20px;font-size:14px;width:100%" onclick="openBook()">📖 Отвори специалната книга</button>
       </div>
     </div>
 
-    <!-- Completed -->
+    <!-- COMPLETED -->
     <div class="completed-list">
       <h4>✅ Изпълнени мисии</h4>
       <div id="completed-chips"></div>
     </div>
 
-    <!-- Free upsell after day 5 -->
+    <!-- PREMIUM UPSELL -->
     <div class="upsell-free hidden" id="upsell-free-card">
       <h4>🎁 Специален подарък за теб</h4>
       <p style="font-size:13px;color:var(--muted);margin-bottom:6px;">Подарък на стойност <strong>30 €</strong> — само за теб</p>
-      <div style="text-align:left;font-size:12px;color:var(--text);margin:8px 0;">
-        <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">📖 <span>Най-новата ни книга <strong>"Историите на Теа"</strong> (НЕИЗДАДЕНА)</span></div>
-        <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">🎯 <span><strong>5 персонализирани</strong> мисии за твоето дете</span></div>
-        <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">🚀 <span>Новата ни програма — <strong>все още неизлязла</strong></span></div>
-      </div>
       <p style="font-size:12px;color:var(--muted);text-decoration:line-through;margin:8px 0 0;">Стойност 30 €</p>
       <p style="font-size:20px;font-weight:800;color:var(--purple-dark);">Само за 15 €</p>
-      <p style="font-size:11px;color:var(--muted);">Еднократно плащане · Без абонамент · Завинаги</p>
-      <button class="btn btn-upgrade" onclick="showPremiumInfo()">🎁 ВИЖ ПОДАРЪКА</button>
+      <button class="btn btn-upgrade" onclick="buyPremium()">🎁 ВЗЕМИ ПОДАРЪКА — 15 €</button>
     </div>
-    <div class="premium-full hidden" id="premium-full-card">
-      <h4>🎁 Твоят специален подарък</h4>
-      <p style="font-size:14px;color:var(--muted);">Подарък на стойност 30 €</p>
-      
-      <div class="gift" style="text-align:left;">
-        <p style="margin:4px 0;">📖 <strong>"Историите на Теа"</strong> — най-новата ни неиздадена книга с 10 вълшебни истории</p>
-        <p style="margin:4px 0;">🎯 <strong>5 персонализирани мисии</strong> — създадени за твоето дете с неговото име и интереси</p>
-        <p style="margin:4px 0;">🚀 <strong>Новата ни програма</strong> — разширени мисии за 3 възрастови групи (все още неизлязла публично)</p>
-      </div>
+  </div>
+</div>
 
-      <p style="font-size:14px;color:var(--muted);text-decoration:line-through;">Стойност 30 €</p>
-      <p class="price" style="font-size:32px;font-weight:900;color:var(--purple-dark);">15 €</p>
-      <p style="font-size:12px;color:green;font-weight:600;">Еднократно · Без абонамент · Завинаги</p>
-      <p style="font-size:12px;color:var(--muted);">🔒 30 дни гаранция: не работи → връщам парите</p>
-      <button class="btn btn-primary" onclick="buyPremium()" style="margin-top:10px;">🎁 ВЗЕМИ ПОДАРЪКА — 15 €</button>
-      <p style="font-size:11px;color:var(--muted);margin-top:6px;">Това не е лъжа. Истинска оферта за истински родители.</p>
-    
+<!-- ============ MISSION DETAIL MODAL ============ -->
+<div class="hidden modal-overlay" id="mission-detail">
+  <div class="modal-card">
+    <span class="md-emoji" id="md-emoji">🍳</span>
+    <div class="md-day" id="md-day">Ден 1 от 30</div>
+    <div class="md-title" id="md-title">Готвач с мама</div>
+    <div class="md-desc" id="md-desc">Заедно с мама или тати намерете лесна рецепта онлайн и пригответе нещо вкусно.</div>
+    <div class="md-tip" id="md-tip"><span>💡</span> Потърсете "лесни палачинки за деца" в YouTube</div>
+    <button class="btn-done" id="btn-done-detail" onclick="completeSelectedMission()">✅ ГОТОВО — МИСИЯТА Е ИЗПЪЛНЕНА!</button>
+    <button class="btn-back" onclick="closeMissionDetail()">← Затвори</button>
+  </div>
+</div>
+
 <script>
-// ===== APP STATE =====
-const MISSIONS = [
+// ===== MISSIONS DATA =====
+var MISSIONS = [
   {emoji:'🍳',title:'Готвач с мама',tip:'Потърсете "лесни палачинки за деца" в YouTube — 5 минути подготовка, 100% забавление!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Заедно с мама или тати намерете лесна рецепта онлайн и пригответе нещо вкусно. Детето чете рецептата и ръководи процеса!'},
   {emoji:'📸',title:'Ловец на усмивки',tip:'Обиколете квартала заедно — свеж въздух + мисия!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Снимай 5 неща, които те карат да се усмихнеш. Може да са хора, животни, предмети — всичко!'},
   {emoji:'🥪',title:'Магията на сандвича',tip:'Оставете детето да избере съставките само — ще се изненадате!',theme:'🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ',desc:'Измисли своя уникален сандвич! Комбинирай съставки, които никой не е пробвал. Снимай го преди да го изядеш.'},
@@ -327,69 +274,71 @@ const MISSIONS = [
   {emoji:'🗺️',title:'Карта на съкровището',tip:'Използвайте Google Maps и компас за повече реализъм!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Нарисувай карта на дома с "X" маркиращо съкровището. Води родител по картата. Заснеми откритието!'},
   {emoji:'🎤',title:'Интервю с баба',tip:'Запишете разговора — след 10 години ще е безценен спомен!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Обади се на баба/дядо по видеоразговор. Подготви 5 въпроса за детството им. Запиши най-интересния отговор.'},
   {emoji:'📏',title:'Ловец на форми',tip:'Предизвикайте детето да намери предмет, който вие не виждате!',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Намери и снимай: 5 кръгли предмета, 3 квадратни, 1 триъгълен и нещо със странна форма. Направи колаж.'},
-  {emoji:'🧩',title:'Мистерията на изчезналото',tip:'Разкажете предистория — "Някой е взел дистанционното! Кой е престъпникът?"',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Нещо е изчезнало у дома! Детето разпитва "заподозрени" от семейството (на живо или по телефона) и разгадава случая.'},
+  {emoji:'🧩',title:'Мистерията на изчезналото',tip:'Разкажете предистория — "Някой е взел дистанционното! Кой е престъпникът?"',theme:'🔍 ДЕТЕКТИВСКИ МИСТЕРИИ',desc:'Нещо е изчезнало у дома! Детето разпитва "заподозрени" от семейството и разгадава случая.'},
   {emoji:'🎨',title:'Рисувай без четка',tip:'Покажете на детето примери в Pinterest преди да започне.',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Създай картина БЕЗ четка! Използвай памук, гъба, листа, пръсти — всичко, което не е четка. Снимай процеса и резултата.'},
-  {emoji:'📖',title:'Моята история',tip:'Помогнете с първото изречение: "Имало едно време... едно телефоне..."',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Измисли кратка история (5 изречения) и я "илюстрирай" — снимай предмети от дома, които представят героите. Прочети я на семейството.'},
+  {emoji:'📖',title:'Моята история',tip:'Помогнете с първото изречение: "Имало едно време... едно телефоне..."',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Измисли кратка история (5 изречения) и я "илюстрирай" — снимай предмети от дома, които представят героите.'},
   {emoji:'🎬',title:'Режисьор за 30 сек',tip:'Използвайте безплатното приложение CapCut за монтаж.',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Направи 30-секунден филм с играчки. Напиши "сценарий" (начало, среда, край). Снимай, монтирай, покажи на семейството!'},
-  {emoji:'🧵',title:'От боклук в съкровище',tip:'Преди да изхвърлите нещо — попитайте: "Може ли да стане на нещо готино?"',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Намери нещо за изхвърляне (кутия, шише, капачка). Превърни го в изкуство! Снимай го преди и след. Направи мини изложба.'},
+  {emoji:'🧵',title:'От боклук в съкровище',tip:'Преди да изхвърлите нещо — попитайте: "Може ли да стане на нещо готино?"',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Намери нещо за изхвърляне (кутия, шише, капачка). Превърни го в изкуство! Снимай го преди и след.'},
   {emoji:'🎵',title:'Домашен оркестър',tip:'Запишете изпълнението и го пратете на роднини — ще ги развеселите!',theme:'🎨 ТВОРЧЕСКА РАБОТИЛНИЦА',desc:'Създай музикален инструмент от предмети вкъщи (тенджера = барабан, чаши = ксилофон). Направи концерт и го запиши.'},
-  {emoji:'💌',title:'Писмо до бъдещето',tip:'Запазете го и го отворете след 1 година — ще се просълзите!',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Напиши писмо до себе си след 1 година на телефона. Какво искаш да помниш? Какво искаш да си постигнал? Запази го в бележките.'},
-  {emoji:'📞',title:'Обади се без повод',tip:'Попитай детето: "За какво никога не си питал баба?" — ще излязат невероятни неща!',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Обади се на роднина, с когото не си говорил скоро. БЕЗ повод. Просто да кажеш "Здрасти, как си?". Усети топлината.'},
-  {emoji:'🏠',title:'Музей на семейството',tip:'Сложете "експонатите" на масата и направете истинска изложба за 1 вечер.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Събери 5 предмета от дома, които имат семейна история. Снимай ги, попитай родител за всеки, напиши "етикет" като в музей.'},
+  {emoji:'💌',title:'Писмо до бъдещето',tip:'Запазете го и го отворете след 1 година — ще се просълзите!',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Напиши писмо до себе си след 1 година на телефона. Какво искаш да помниш? Запази го в бележките.'},
+  {emoji:'📞',title:'Обади се без повод',tip:'Попитай детето: "За какво никога не си питал баба?" — ще излязат невероятни неща!',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Обади се на роднина, с когото не си говорил скоро. БЕЗ повод. Просто да кажеш "Здрасти, как си?".'},
+  {emoji:'🏠',title:'Музей на семейството',tip:'Сложете "експонатите" на масата и направете истинска изложба за 1 вечер.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Събери 5 предмета от дома, които имат семейна история. Снимай ги, попитай родител за всеки, напиши "етикет".'},
   {emoji:'🧹',title:'Супергерой за ден',tip:'Дори 10 минути помощ са достатъчни. Малките жестове = големите промени.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Направи нещо добро за някой у дома БЕЗ да го казваш. Изненадай го. Когато те попитат защо, кажи: "Просто така." ❤️'},
-  {emoji:'📸',title:'Семеен албум 2.0',tip:'Използвайте Google Photos за безплатно неограничено съхранение.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Създай дигитален албум на семейството! Снимай всеки член, добави любима песен към всяка снимка. Покажи го на вечеря.'},
-  {emoji:'🔬',title:'Домашна лаборатория',tip:'Всички съставки ги имате у дома — оцет, сода, боички.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Направи научен експеримент с кухненски материали! Вулкан от оцет и сода, мляко + бои, или друго. Снимай "ЕКСПЛОЗИЯТА"!'},
-  {emoji:'🌱',title:'Мисия Кълн',tip:'Снимайте растежа всеки ден в продължение на 5 дни — stop-motion ефект!',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Засади бобче или леща във влажен памук. Снимай го всеки ден. Направи time-lapse видео на растежа. Науката оживява!'},
-  {emoji:'🌤️',title:'Метеоролог за ден',tip:'Използвайте Windy.app или Weather.com за прогнозата.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Провери прогнозата за времето на телефона. Запиши 3 факта: температура, вятър, облаци. Направи "репортаж от терасата" и сравни.'},
-  {emoji:'🧲',title:'Магнитна магия',tip:'Пуснете Google търсене за "magnet experiments for kids" и избери заедно с детето.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Намери магнит (от хладилника) и тествай: какво привлича, какво не? Направи списък със снимки. Изненадай се от резултатите!'},
-  {emoji:'🪐',title:'Космическа разходка',tip:'Използвайте безплатното приложение SkyView или просто NASA Kids.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Отвори NASA Kids или астрономическо приложение на телефона. Научи 3 нови факта за Космоса. Разкажи ги на семейството като истински астронавт.'},
+  {emoji:'📸',title:'Семеен албум 2.0',tip:'Използвайте Google Photos за безплатно неограничено съхранение.',theme:'❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ',desc:'Създай дигитален албум на семейството! Снимай всеки член, добави любима песен към всяка снимка.'},
+  {emoji:'🔬',title:'Домашна лаборатория',tip:'Всички съставки ги имате у дома — оцет, сода, боички.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Направи научен експеримент с кухненски материали! Вулкан от оцет и сода, мляко + бои. Снимай "ЕКСПЛОЗИЯТА"!'},
+  {emoji:'🌱',title:'Мисия Кълн',tip:'Снимайте растежа всеки ден в продължение на 5 дни — stop-motion ефект!',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Засади бобче или леща във влажен памук. Снимай го всеки ден. Направи time-lapse видео на растежа.'},
+  {emoji:'🌤️',title:'Метеоролог за ден',tip:'Използвайте Windy.app или Weather.com за прогнозата.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Провери прогнозата за времето на телефона. Запиши 3 факта. Направи "репортаж от терасата" и сравни.'},
+  {emoji:'🧲',title:'Магнитна магия',tip:'Пуснете Google търсене за "magnet experiments for kids"',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Намери магнит и тествай: какво привлича, какво не? Направи списък със снимки. Изненадай се от резултатите!'},
+  {emoji:'🪐',title:'Космическа разходка',tip:'Използвайте безплатното приложение SkyView или NASA Kids.',theme:'🔬 НАУЧНА ЛАБОРАТОРИЯ',desc:'Отвори NASA Kids на телефона. Научи 3 нови факта за Космоса. Разкажи ги на семейството като истински астронавт.'},
   {emoji:'🏆',title:'Моето портфолио',tip:'Това е страхотен повод да празнувате с торта/сладолед!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Събери най-добрите снимки от всички мисии в 1 колаж. Покажи ги на семейството. Ти си истински супергерой! 🦸'},
-  {emoji:'🎬',title:'Филм "Моите 30 дни"',tip:'Използвайте CapCut или InShot на телефона.',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Направи кратко видео с най-добрите моменти от предизвикателството. Добави музика. Покажи го на всички. Това е твоят Оскар!'},
-  {emoji:'📜',title:'Супергеройски сертификат',tip:'Закачете сертификата на стената — напомняне за силата на детето!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Създай свой сертификат на телефона: "Аз, [име], завърших 30 дни Суперсила!" Украси го, разпечатай го (или го запази дигитално).'},
-  {emoji:'💌',title:'Писмо до родителите',tip:'Родители — пригответе кърпички. Това ще ви разплаче (в хубавия смисъл).',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Напиши писмо на мама и тати. Какво ти хареса най-много? Как се чувстваш? Благодари им за нещо конкретно. Прочети го на глас.'},
-  {emoji:'🎉',title:'Парти на супергероите!',tip:'Поканете приятел или двама. Покажете им как работи предизвикателството — може и те да започнат!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Организирай малък празник! Украса, музика, танци. Празнувайте, че детето завърши 30 дни Суперсила. Това е ГОЛЯМО постижение! 🎊'}
+  {emoji:'🎬',title:'Филм "Моите 30 дни"',tip:'Използвайте CapCut или InShot на телефона.',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Направи кратко видео с най-добрите моменти от предизвикателството. Добави музика. Това е твоят Оскар!'},
+  {emoji:'📜',title:'Супергеройски сертификат',tip:'Закачете сертификата на стената — напомняне за силата на детето!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Създай свой сертификат на телефона: "Аз завърших 30 дни Суперсила!" Украси го и го запази.'},
+  {emoji:'💌',title:'Писмо до родителите',tip:'Родители — пригответе кърпички. Това ще ви разплаче (в хубавия смисъл).',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Напиши писмо на мама и тати. Какво ти хареса най-много? Благодари им за нещо конкретно. Прочети го на глас.'},
+  {emoji:'🎉',title:'Парти на супергероите!',tip:'Поканете приятел или двама — може и те да започнат!',theme:'🏆 СУПЕРГЕРОЙСКИ ФИНАЛ',desc:'Организирай малък празник! Украса, музика, танци. Празнувайте, че завърши 30 дни Суперсила! 🎊'}
 ];
 
-const TOTAL_DAYS = 30;
-const THEMES = ['🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ','🔍 ДЕТЕКТИВСКИ МИСТЕРИИ','🎨 ТВОРЧЕСКА РАБОТИЛНИЦА','❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ','🔬 НАУЧНА ЛАБОРАТОРИЯ','🏆 СУПЕРГЕРОЙСКИ ФИНАЛ'];
+var TOTAL_DAYS = 30;
+var THEMES = ['🍳 ВКУСНИ ПРИКЛЮЧЕНИЯ','🔍 ДЕТЕКТИВСКИ МИСТЕРИИ','🎨 ТВОРЧЕСКА РАБОТИЛНИЦА','❤️ СЕМЕЙНА ЕКСПЕДИЦИЯ','🔬 НАУЧНА ЛАБОРАТОРИЯ','🏆 СУПЕРГЕРОЙСКИ ФИНАЛ'];
 
+// ===== STATE =====
 function loadState() {
   try {
-    const saved = localStorage.getItem('supersila_state');
+    var saved = localStorage.getItem('supersila_state');
     if (saved) return JSON.parse(saved);
   } catch(e) {}
   return { email: '', currentDay: 0, completedDays: [], streak: 0, referrals: 0, booksEarned: 0, shareUnlocked: false, lastCompletedDate: null };
 }
 
-function saveState(state) {
-  localStorage.setItem('supersila_state', JSON.stringify(state));
-  localStorage.setItem('supersila_email', state.email);
+function saveState(s) {
+  localStorage.setItem('supersila_state', JSON.stringify(s));
+  localStorage.setItem('supersila_email', s.email);
 }
 
-let state = loadState();
+var state = loadState();
+var selectedMissionDay = null;
 
+// ===== SCREENS =====
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(function(s) {
-    s.classList.remove('active');
-    s.style.display = 'none';
-  });
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++) {
+    screens[i].classList.remove('active');
+    screens[i].style.display = 'none';
+  }
   var el = document.getElementById(id);
   if (el) {
     el.classList.add('active');
     el.style.display = 'block';
-    console.log('Switched to:', id);
-  } else {
-    console.error('Screen not found:', id);
   }
 }
 
 function showLanding() { showScreen('screen-landing'); }
 function showApp() { showScreen('screen-app'); }
 
+// ===== START =====
 function startChallenge() {
-  const input = document.getElementById('email-input');
-  const email = input ? input.value.trim() : '';
-  if (!email || email.trim().length === 0) {
+  var input = document.getElementById('email-input');
+  var email = input ? input.value.trim() : '';
+  if (!email || email.length === 0) {
     showToast('Моля, въведи валиден имейл ✉️');
     return;
   }
@@ -400,17 +349,6 @@ function startChallenge() {
   renderApp();
 }
 
-function showToast(msg) {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
-  const t = document.createElement('div');
-  t.className = 'toast'; t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 2500);
-}
-
-var selectedMissionDay = null;
-
 function resetApp() {
   localStorage.removeItem('supersila_state');
   localStorage.removeItem('supersila_email');
@@ -418,16 +356,18 @@ function resetApp() {
   showLanding();
 }
 
+// ===== RENDER APP =====
 function renderApp() {
   var completed = state.completedDays.length;
-  var pct = (completed / TOTAL_DAYS) * 100;
+  var pct = Math.round((completed / TOTAL_DAYS) * 100);
   
-  document.getElementById('day-number').textContent = completed + '/30';
-  document.getElementById('day-theme').textContent = '✨ Избери своята мисия';
+  document.getElementById('completed-count').textContent = completed;
+  document.getElementById('remaining-count').textContent = TOTAL_DAYS - completed;
+  document.getElementById('pct-display').textContent = pct + '%';
   document.getElementById('streak-count').textContent = state.streak;
   document.getElementById('progress-bar').style.width = pct + '%';
   
-  // Build mission grid
+  // BUILD MISSION GRID
   var gridContainer = document.getElementById('mission-grid-container');
   var html = '';
   
@@ -437,8 +377,8 @@ function renderApp() {
     for (var d = 0; d < 5; d++) {
       var dayNum = w * 5 + d + 1;
       var mission = MISSIONS[dayNum - 1];
-      var isCompleted = state.completedDays.includes(dayNum);
-      html += '<div class="mission-cell' + (isCompleted ? ' completed' : '') + '" onclick="openMission(' + dayNum + ')" title="Ден ' + dayNum + ': ' + mission.title + '">';
+      var isCompleted = state.completedDays.indexOf(dayNum) !== -1;
+      html += '<div class="mission-cell' + (isCompleted ? ' completed' : '') + '" onclick="openMission(' + dayNum + ')">';
       html += '<span class="mc-emoji">' + mission.emoji + '</span>';
       html += '<span class="mc-day">Ден ' + dayNum + '</span>';
       html += '<span class="mc-title">' + mission.title + '</span>';
@@ -451,6 +391,7 @@ function renderApp() {
   // Book unlocked
   if (state.booksEarned > 0 || state.shareUnlocked) {
     document.getElementById('book-unlocked').classList.remove('hidden');
+    document.getElementById('books-count').textContent = state.booksEarned;
   }
   
   // Upsell after 5+ completed
@@ -458,27 +399,29 @@ function renderApp() {
     document.getElementById('upsell-free-card').classList.remove('hidden');
   }
   
-  // Completed chips (keep as summary)
+  // Completed chips
   var chipsContainer = document.getElementById('completed-chips');
   chipsContainer.innerHTML = '';
-  state.completedDays.forEach(function(d) {
+  for (var i = 0; i < state.completedDays.length; i++) {
+    var cd = state.completedDays[i];
     var chip = document.createElement('span');
     chip.className = 'completed-chip';
-    chip.textContent = '✅ Ден ' + d;
+    chip.textContent = '✅ Ден ' + cd;
     chipsContainer.appendChild(chip);
-  });
+  }
 }
 
+// ===== MISSION DETAIL =====
 function openMission(dayNum) {
   selectedMissionDay = dayNum;
   var mission = MISSIONS[dayNum - 1];
-  var isCompleted = state.completedDays.includes(dayNum);
+  var isCompleted = state.completedDays.indexOf(dayNum) !== -1;
   
   document.getElementById('md-emoji').textContent = mission.emoji;
   document.getElementById('md-day').textContent = 'Ден ' + dayNum + ' от 30';
   document.getElementById('md-title').textContent = mission.title;
   document.getElementById('md-desc').textContent = mission.desc;
-  document.getElementById('md-tip').innerHTML = '💡 ' + mission.tip;
+  document.getElementById('md-tip').innerHTML = '<span>💡</span> ' + mission.tip;
   
   var btn = document.getElementById('btn-done-detail');
   if (isCompleted) {
@@ -502,11 +445,11 @@ function closeMissionDetail() {
 function completeSelectedMission() {
   if (!selectedMissionDay) return;
   var day = selectedMissionDay;
-  if (state.completedDays.includes(day)) return;
+  if (state.completedDays.indexOf(day) !== -1) return;
   
   state.completedDays.push(day);
   
-  // Streak
+  // Streak logic
   var today = new Date().toDateString();
   if (state.lastCompletedDate) {
     var last = new Date(state.lastCompletedDate);
@@ -520,39 +463,24 @@ function completeSelectedMission() {
   state.currentDay = Math.max(state.currentDay, day);
   
   saveState(state);
-  
-  // Update grid
   renderApp();
-  
-  // Close detail
   closeMissionDetail();
-  
-  // Celebration
   showCelebration(day);
 }
 
+// ===== CELEBRATION =====
 function showCelebration(day) {
-  const mission = MISSIONS[day - 1];
-  const overlay = document.createElement('div');
+  var mission = MISSIONS[day - 1];
+  var overlay = document.createElement('div');
   overlay.className = 'celebration';
-  overlay.innerHTML = `
-    <div class="celebration-card">
-      <span class="celebration-emoji">🎉</span>
-      <h3>Мисия #${day} е изпълнена!</h3>
-      <p style="color:var(--muted);margin:8px 0">${mission.emoji} ${mission.title}</p>
-      
-      <div class="share-image" style="margin:16px 0">
-        <p style="font-size:12px;opacity:0.85;margin-bottom:6px">Сподели успеха на детето си с приятел<br>📖 и вземи подарък — специалната ни персонализирана книга!</p>
-        <p class="mission-name">${mission.emoji} ${mission.title}</p>
-        <p style="font-size:10px;opacity:0.7">Ден ${day} от 30 | #30дниСуперсила</p>
-      </div>
-      
-      <button class="btn btn-share" onclick="shareAndUnlock(${day}, this)">
-        📲 Сподели с приятел и вземи подарък — специалната ни персонализирана книга 🎁
-      </button>
-      <button class="btn btn-close" onclick="this.closest('.celebration').remove()">Затвори</button>
-    </div>
-  `;
+  overlay.innerHTML = '<div class="celebration-card">' +
+    '<span class="celebration-emoji">🎉</span>' +
+    '<h3>Мисия #' + day + ' е изпълнена!</h3>' +
+    '<p style="font-size:18px;margin:8px 0">' + mission.emoji + ' ' + mission.title + '</p>' +
+    '<div class="share-image"><div class="mission-name">' + mission.emoji + ' ' + mission.title + '</div><div style="font-size:12px;opacity:0.8">Ден ' + day + ' от 30 | #30дниСуперсила</div></div>' +
+    '<button class="btn btn-share" onclick="shareAndUnlock(' + day + ', this); this.closest(\'.celebration\').remove();">📲 Сподели с приятел и вземи подарък 🎁</button>' +
+    '<button class="btn btn-close" onclick="this.closest(\'.celebration\').remove()">Затвори</button>' +
+    '</div>';
   document.body.appendChild(overlay);
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) overlay.remove();
@@ -560,22 +488,23 @@ function showCelebration(day) {
   spawnConfetti();
 }
 
+// ===== SHARE =====
 function shareAndUnlock(day, btn) {
   var shareText;
   if (day === 0) {
     shareText = '🦸 30 дни Суперсила!\n\nПревърнахме телефона от враг в суперсила за 30 дни с дигитални мисии.\n\nПробвайте и вие безплатно: https://tvb1990.github.io/30-dni-supersila/\n\n#30дниСуперсила #родителство';
   } else {
-    const mission = MISSIONS[day - 1];
-    shareText = '🦸 ' + mission.emoji + ' ' + mission.title + ' — Ден ' + day + ' от 30 дни Суперсила!\n\nВместо да скролва, детето ми ' + mission.desc.toLowerCase().substring(0,50) + '...\n\nПробвайте и вие безплатно: https://tvb1990.github.io/30-dni-supersila/\n\n#30дниСуперсила #родителство #дигиталнимисии';
+    var mission = MISSIONS[day - 1];
+    shareText = '🦸 ' + mission.emoji + ' ' + mission.title + ' — Ден ' + day + ' от 30 дни Суперсила!\n\nВместо да скролва, детето ми изпълнява мисии!\n\nПробвайте и вие безплатно: https://tvb1990.github.io/30-dni-supersila/\n\n#30дниСуперсила #родителство';
   }
   
   if (navigator.share) {
     navigator.share({ title: '30 дни Суперсила', text: shareText })
-      .then(() => unlockBook(btn))
-      .catch(() => unlockBook(btn));
+      .then(function() { unlockBook(btn); })
+      .catch(function() { unlockBook(btn); });
   } else {
-    navigator.clipboard.writeText(shareText).then(() => {
-      showToast('📋 Копирано! Сподели с приятел и вземи своя подарък — персонализираната книга.');
+    navigator.clipboard.writeText(shareText).then(function() {
+      showToast('📋 Копирано! Сподели с приятел и вземи подарък.');
       unlockBook(btn);
     });
   }
@@ -592,99 +521,66 @@ function unlockBook(btn) {
   }
   document.getElementById('book-unlocked').classList.remove('hidden');
   document.getElementById('books-count').textContent = state.booksEarned;
-  document.getElementById('books-earned-mini').classList.remove('hidden');
-  setTimeout(() => { window.open('https://tvb1990.github.io/30-dni-supersila/storybook.html', '_blank'); }, 800);
+  setTimeout(function() { window.open('https://tvb1990.github.io/30-dni-supersila/storybook.html', '_blank'); }, 800);
 }
 
 function openBook() {
   window.open('https://tvb1990.github.io/30-dni-supersila/storybook.html', '_blank');
 }
 
-function copyRefLink() {
-  const refLink = 'https://tvb1990.github.io/30-dni-supersila/?ref=' + (state.email || 'user').replace(/[^a-zA-Z0-9]/g,'_');
-  document.getElementById('ref-link').textContent = refLink;
-  navigator.clipboard.writeText(refLink).then(() => showToast('📋 Линкът е копиран! Сподели го с приятел.'));
-}
-
-function showPremiumInfo() {
-  document.getElementById('premium-full-card').classList.toggle('hidden');
-}
-
 function buyPremium() {
   showToast('🎉 Благодаря! Ще получиш достъп веднага след плащане.');
 }
 
+// ===== TOAST =====
+function showToast(msg) {
+  var existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function() { t.remove(); }, 2500);
+}
+
+// ===== CONFETTI =====
 function spawnConfetti() {
-  const container = document.createElement('div');
+  var container = document.createElement('div');
   container.className = 'confetti-container';
   document.body.appendChild(container);
-  const colors = ['#7c3aed','#f97316','#22c55e','#ec4899','#fbbf24','#3b82f6'];
-  for (let i = 0; i < 60; i++) {
-    const piece = document.createElement('div');
+  var colors = ['#7c3aed','#f97316','#22c55e','#ec4899','#fbbf24','#3b82f6'];
+  for (var i = 0; i < 50; i++) {
+    var piece = document.createElement('div');
     piece.className = 'confetti-piece';
     piece.style.left = Math.random() * 100 + '%';
-    piece.style.top = -(Math.random() * 100) + 'px';
-    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    piece.style.animationDelay = Math.random() * 0.8 + 's';
+    piece.style.animationDelay = Math.random() * 1 + 's';
     piece.style.animationDuration = (1 + Math.random() * 2) + 's';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
     container.appendChild(piece);
   }
-  setTimeout(() => container.remove(), 2500);
+  setTimeout(function() { container.remove(); }, 2500);
 }
 
-// Init - wait for DOM
-document.addEventListener('DOMContentLoaded', function() {
-  try {
-    if (window.location.search.includes('reset=1')) {
+// ===== INIT =====
+function init() {
+  if (window.location.search.indexOf('reset=1') !== -1) {
     localStorage.removeItem('supersila_state');
     localStorage.removeItem('supersila_email');
     state = loadState();
   }
   if (state.email && state.currentDay > 0) {
-      showApp();
-      renderApp();
-    } else {
-      showLanding();
-    }
-    // share state loaded
-  } catch(e) {
-    console.error('Init error:', e);
+    showApp();
+    renderApp();
+  } else {
+    showLanding();
   }
-});
-
-// Fallback if DOM already loaded
-if (document.readyState !== 'loading') {
-  try {
-    if (window.location.search.includes('reset=1')) {
-    localStorage.removeItem('supersila_state');
-    localStorage.removeItem('supersila_email');
-    state = loadState();
-  }
-  if (window.location.search.includes('reset=1')) {
-    localStorage.removeItem('supersila_state');
-    localStorage.removeItem('supersila_email');
-    state = loadState();
-  }
-  if (state.email && state.currentDay > 0) {
-      showApp();
-      renderApp();
-    } else {
-      showLanding();
-    }
-  } catch(e) {}
 }
 
-
-// Backup: add event listener to start button
-document.addEventListener('DOMContentLoaded', function() {
-  var btn = document.querySelector('button[onclick*="startChallenge"]');
-  if (btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      startChallenge();
-    });
-  }
-});
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
