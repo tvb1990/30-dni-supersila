@@ -357,11 +357,27 @@ function startChallenge() {
     showToast('Моля, въведи валиден имейл ✉️');
     return;
   }
+  subscribeToMailerLite(email);
   state.email = email;
   if (state.currentDay === 0) state.currentDay = 1;
   saveState(state);
   showApp();
   renderApp();
+}
+
+// Изпраща имейла към MailerLite (не блокира старта на приложението)
+function subscribeToMailerLite(email) {
+  try {
+    var url = 'https://dashboard.mailerlite.com/jsonp/2578162/forms/195919748881450409/subscribe'
+      + '?fields%5Bemail%5D=' + encodeURIComponent(email)
+      + '&ml-submit=1&anticsrf=true&ajax=1&guid=' + Date.now();
+    if (window.fetch) {
+      fetch(url, { method: 'GET', mode: 'no-cors' }).catch(function(){});
+    } else {
+      var img = new Image();
+      img.src = url;
+    }
+  } catch (e) {}
 }
 
 function resetApp() {
