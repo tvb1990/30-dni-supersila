@@ -284,6 +284,33 @@ body {
   font-size: 1rem;
 }
 
+/* Parent letter */
+.parent-letter {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a0a2e 0%, #2d1b69 50%, #3b1a78 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+.parent-letter-inner {
+  max-width: 650px;
+  position: relative;
+}
+.parent-letter h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+}
+.parent-letter p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+  color: #cbd5e1;
+}
+
 /* Table of contents */
 .toc {
   min-height: 100vh;
@@ -410,6 +437,22 @@ body {
   <div class="value-badge">🎁 Стойност 19,90 €</div>
   <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
     <button onclick="document.querySelector('.toc').scrollIntoView({behavior:'smooth'})" style="background:var(--orange);color:white;border:none;padding:0.8rem 2rem;border-radius:50px;font-weight:700;font-size:1rem;cursor:pointer;font-family:'Nunito',sans-serif;">📖 Започни да четеш</button>
+  </div>
+</section>
+
+<!-- LETTER TO PARENTS -->
+<section class="parent-letter">
+  <div class="parent-letter-inner fade-in">
+    <div class="cover-badge" style="display:inline-block;margin-bottom:1.5rem;">💌 КЪМ РОДИТЕЛЯ</div>
+    <h2>Преди да започнем</h2>
+    <p>Ние <span class="highlight">не</span> искаме да заместим игрите на детето ти навън с приятели. Точно обратното.</p>
+    <p>Всички знаем проблема: времето пред телефона. Не говорим за социални мрежи — те са <span class="highlight">забранени</span> за деца. Говорим за игрите, детските филми и анимациите, които вече крадат часове.</p>
+    <p>Ако някой ти каже, че децата не използват телефони през 2026 — той те <span class="highlight">лъже</span>.</p>
+    <p>Тази книга е решение. Показва как да намалим вредното влияние на телефона и да го превърнем в нещо полезно. Защото след тези мисии детето ти <span class="highlight">само ще захвърли телефона.</span></p>
+    <div class="lesson-box">🦸 Телефонът не е враг. Скролването е. А решението не е забрана — решението е МИСИЯ.</div>
+    <div class="chapter-nav">
+      <button onclick="document.querySelector('.toc').scrollIntoView({behavior:'smooth'})">📖 Към съдържанието ↓</button>
+    </div>
   </div>
 </section>
 
