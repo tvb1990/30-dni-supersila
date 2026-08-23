@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Наръчник по HTML — за начинаещи</title>
+<style>
+  :root { --bg:#f4f7fb; --card:#ffffff; --accent:#2b6cb0; --accent2:#1a4a7a; --code:#1e2430; --text:#1f2733; --muted:#5a6572; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .wrap { max-width:720px; margin:0 auto; padding:16px 16px 60px; }
+  header { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; padding:28px 20px; border-radius:18px; margin-bottom:18px; }
+  header h1 { margin:0 0 6px; font-size:28px; }
+  header p { margin:0; opacity:.92; font-size:15px; }
+  .toc { background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:18px; box-shadow:0 2px 10px rgba(0,0,0,.05); }
+  .toc h2 { margin:0 0 10px; font-size:16px; color:var(--accent2); }
+  .toc a { display:block; padding:5px 0; color:var(--accent); text-decoration:none; font-size:15px; border-bottom:1px solid #eef1f5; }
+  .toc a:last-child { border-bottom:none; }
+  section { background:var(--card); border-radius:14px; padding:20px 18px; margin-bottom:16px; box-shadow:0 2px 10px rgba(0,0,0,.05); }
+  h2.sec { color:var(--accent2); font-size:21px; margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid #eef1f5; }
+  h3 { color:var(--accent); font-size:17px; margin:20px 0 8px; }
+  p { font-size:16px; margin:8px 0; }
+  .muted { color:var(--muted); }
+  .hint { background:#eef6ff; border-left:4px solid var(--accent); padding:10px 14px; border-radius:8px; margin:12px 0; font-size:15px; }
+  .warn { background:#fff7ed; border-left:4px solid #e07b1a; padding:10px 14px; border-radius:8px; margin:12px 0; font-size:15px; }
+  pre { background:var(--code); color:#e8eef7; padding:14px 16px; border-radius:10px; overflow-x:auto; font-size:14px; line-height:1.5; margin:10px 0; }
+  pre code { font-family: "SF Mono", Menlo, Consolas, monospace; }
+  .t { color:#7dd3fc; }  /* tag */
+  .a { color:#fbbf24; }  /* attribute */
+  .c { color:#6b7280; font-style:italic; } /* comment */
+  table { width:100%; border-collapse:collapse; margin:12px 0; font-size:14.5px; }
+  th { background:var(--accent); color:#fff; text-align:left; padding:9px 11px; }
+  th:first-child { border-radius:8px 0 0 0; }
+  th:last-child { border-radius:0 8px 0 0; }
+  td { padding:9px 11px; border-bottom:1px solid #eef1f5; vertical-align:top; }
+  tr:nth-child(even) td { background:#f8fafd; }
+  code.inline { background:#eef1f5; color:var(--accent2); padding:2px 6px; border-radius:5px; font-family:Menlo,Consolas,monospace; font-size:14px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media (max-width:480px){ .grid2{grid-template-columns:1fr;} }
+  .taglist { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; }
+  .tagchip { background:#eef6ff; color:var(--accent2); border:1px solid #d5e7fb; padding:4px 10px; border-radius:20px; font-size:13.5px; font-family:Menlo,monospace; }
+  footer { text-align:center; color:var(--muted); font-size:13px; margin-top:20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>📘 Наръчник по HTML</h1>
+  <p>За начинаещи — всичко, което ти трябва, за да строиш сам. Запази и се връщай когато ти потрябва.</p>
+</header>
+
+<div class="toc">
+  <h2>Съдържание</h2>
+  <a href="#s1">1. Какво е HTML</a>
+  <a href="#s2">2. Тагът — основната тухла</a>
+  <a href="#s3">3. Скелетът на страницата</a>
+  <a href="#s4">4. Атрибути</a>
+  <a href="#s5">5. Текст и заглавия</a>
+  <a href="#s6">6. Списъци</a>
+  <a href="#s7">7. Линкове и картинки</a>
+  <a href="#s8">8. Бутони</a>
+  <a href="#s9">9. Кутии (div и span)</a>
+  <a href="#s10">10. Коментари</a>
+  <a href="#s11">11. Златното правило (вмъкване)</a>
+  <a href="#s12">12. Чести грешки</a>
+  <a href="#s13">13. Бърза справка</a>
+</div>
+
+<section id="s1">
+  <h2 class="sec">1. Какво е HTML</h2>
+  <p>HTML е език, с който казваш на браузъра <strong>какво да покаже</strong> и <strong>в каква структура</strong>. Той само подрежда нещата — не прави нищо "умно".</p>
+  <div class="hint">🧠 <strong>Трите езика на един сайт:</strong><br>
+  • <strong>HTML</strong> — скелетът (какво има на страницата)<br>
+  • <strong>CSS</strong> — кожата (цветове, шрифтове, подредба)<br>
+  • <strong>JS</strong> — мускулите (действия, логика, интерактивност)</div>
+</section>
+
+<section id="s2">
+  <h2 class="sec">2. Тагът — основната тухла</h2>
+  <p>Всичко в HTML е <strong>таг</strong> — дума в остри скоби <code class="inline">&lt; &gt;</code>.</p>
+  <pre><code><span class="t">&lt;tagname&gt;</span>съдържание<span class="t">&lt;/tagname&gt;</span></code></pre>
+  <p>Три части:</p>
+  <table>
+    <tr><th>Част</th><th>Какво е</th></tr>
+    <tr><td><code class="inline">&lt;tagname&gt;</code></td><td>Отварящ таг (започва нещо)</td></tr>
+    <tr><td>съдържание</td><td>Това, което обвива</td></tr>
+    <tr><td><code class="inline">&lt;/tagname&gt;</code></td><td>Затварящ таг (има наклонена черта /)</td></tr>
+  </table>
+  <div class="warn">⚠️ <strong>Изключение:</strong> някои тагове нямат съдържание и се затварят сами — като <code class="inline">&lt;img&gt;</code> и <code class="inline">&lt;br&gt;</code>. За тях НЯМА <code class="inline">&lt;/img&gt;</code>.</div>
+</section>
+
+<section id="s3">
+  <h2 class="sec">3. Скелетът на страницата</h2>
+  <p>Всяка HTML страница има един и същ скелет:</p>
+  <pre><code><span class="t">&lt;!DOCTYPE html&gt;</span>
+<span class="t">&lt;html</span> <span class="a">lang</span>=<span class="a">"bg"</span><span class="t">&gt;</span>
+  <span class="t">&lt;head&gt;</span>
+    <span class="t">&lt;title&gt;</span>Заглавие на раздела<span class="t">&lt;/title&gt;</span>
+  <span class="t">&lt;/head&gt;</span>
+  <span class="t">&lt;body&gt;</span>
+    ...всичко, което се вижда...
+  <span class="t">&lt;/body&gt;</span>
+<span class="t">&lt;/html&gt;</span></code></pre>
+  <table>
+    <tr><th>Ред</th><th>Какво е</th><th>Вижда се?</th></tr>
+    <tr><td><code class="inline">&lt;!DOCTYPE html&gt;</code></td><td>Сигнал "това е съвременен HTML"</td><td>Не</td></tr>
+    <tr><td><code class="inline">&lt;html&gt;</code></td><td>Коренът — обвива всичко</td><td>Не</td></tr>
+    <tr><td><code class="inline">&lt;head&gt;</code></td><td>Шапка — настройки за браузъра</td><td>Не (само title в раздела)</td></tr>
+    <tr><td><code class="inline">&lt;body&gt;</code></td><td>Тяло — съдържанието</td><td><strong>Да — всичко</strong></td></tr>
+  </table>
+  <div class="hint">💡 <strong>Правило за живот:</strong> каквото сложиш в <code class="inline">&lt;body&gt;</code> → вижда се. Каквото в <code class="inline">&lt;head&gt;</code> → работи тихо в заден план.</div>
+</section>
+
+<section id="s4">
+  <h2 class="sec">4. Атрибути</h2>
+  <p>Атрибутът е допълнителна настройка, която слагаш <strong>вътре в отварящия таг</strong>. Винаги е във вида <code class="inline">име="стойност"</code>.</p>
+  <pre><code><span class="t">&lt;a</span> <span class="a">href</span>=<span class="a">"https://..."</span><span class="t">&gt;</span>Линк<span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;img</span> <span class="a">src</span>=<span class="a">"snimka.jpg"</span> <span class="a">alt</span>=<span class="a">"описание"</span><span class="t">&gt;</span>
+<span class="t">&lt;button</span> <span class="a">class</span>=<span class="a">"btn"</span><span class="t">&gt;</span>Натисни<span class="t">&lt;/button&gt;</span></code></pre>
+  <table>
+    <tr><th>Атрибут</th><th>Значение</th><th>Къде се ползва</th></tr>
+    <tr><td><code class="inline">href</code></td><td>Накъде води</td><td>Само при <code class="inline">&lt;a&gt;</code></td></tr>
+    <tr><td><code class="inline">src</code></td><td>Откъде да вземе файла (source)</td><td>При <code class="inline">&lt;img&gt;</code></td></tr>
+    <tr><td><code class="inline">class</code></td><td>"Етикет" за стилизиране с CSS</td><td>Почти навсякъде</td></tr>
+    <tr><td><code class="inline">id</code></td><td>Уникален етикет (само един на страница)</td><td>Почти навсякъде</td></tr>
+  </table>
+  <div class="hint">💡 <code class="inline">class</code> и <code class="inline">id</code> са като лепенки с имена. Слагаш етикет, за да можеш после с CSS да кажеш "всичко с клас <code class="inline">btn</code> да е синьо".</div>
+</section>
+
+<section id="s5">
+  <h2 class="sec">5. Текст и заглавия</h2>
+  <div class="taglist">
+    <span class="tagchip">&lt;h1&gt;</span><span class="tagchip">&lt;h2&gt;</span><span class="tagchip">&lt;h3&gt;</span><span class="tagchip">&lt;p&gt;</span><span class="tagchip">&lt;br&gt;</span><span class="tagchip">&lt;strong&gt;</span><span class="tagchip">&lt;em&gt;</span>
+  </div>
+  <table>
+    <tr><th>Таг</th><th>Какво е</th><th>Забележка</th></tr>
+    <tr><td><code class="inline">&lt;h1&gt;</code> до <code class="inline">&lt;h6&gt;</code></td><td>Заглавия — от най-голямо (h1) до най-малко (h6)</td><td>Само едно h1 на страница</td></tr>
+    <tr><td><code class="inline">&lt;p&gt;</code></td><td>Параграф (обикновен текст)</td><td>Най-използваният</td></tr>
+    <tr><td><code class="inline">&lt;br&gt;</code></td><td>Нов ред (прекъсване)</td><td>Сам, без затваряне</td></tr>
+    <tr><td><code class="inline">&lt;strong&gt;</code></td><td><strong>Удебелен текст</strong></td><td>За важни неща</td></tr>
+    <tr><td><code class="inline">&lt;em&gt;</code></td><td><em>Наклонен текст</em> (italic)</td><td>За акцент</td></tr>
+  </table>
+  <pre><code><span class="t">&lt;h1&gt;</span>Голямо заглавие<span class="t">&lt;/h1&gt;</span>
+<span class="t">&lt;p&gt;</span>Това е <span class="t">&lt;strong&gt;</span>важен<span class="t">&lt;/strong&gt;</span> текст.<span class="t">&lt;/p&gt;</span></code></pre>
+</section>
+
+<section id="s6">
+  <h2 class="sec">6. Списъци</h2>
+  <div class="taglist"><span class="tagchip">&lt;ul&gt;</span><span class="tagchip">&lt;ol&gt;</span><span class="tagchip">&lt;li&gt;</span></div>
+  <p><code class="inline">&lt;ul&gt;</code> = списък с <strong>точки</strong> (unordered). <code class="inline">&lt;ol&gt;</code> = <strong>номериран</strong> (ordered). Елементите и в двата случая са <code class="inline">&lt;li&gt;</code>.</p>
+  <pre><code><span class="t">&lt;ul&gt;</span>  <span class="c">&lt;!-- точки --&gt;</span>
+  <span class="t">&lt;li&gt;</span>Едно<span class="t">&lt;/li&gt;</span>
+  <span class="t">&lt;li&gt;</span>Две<span class="t">&lt;/li&gt;</span>
+<span class="t">&lt;/ul&gt;</span>
+
+<span class="t">&lt;ol&gt;</span>  <span class="c">&lt;!-- числа --&gt;</span>
+  <span class="t">&lt;li&gt;</span>Първо<span class="t">&lt;/li&gt;</span>
+  <span class="t">&lt;li&gt;</span>Второ<span class="t">&lt;/li&gt;</span>
+<span class="t">&lt;/ol&gt;</span></code></pre>
+</section>
+
+<section id="s7">
+  <h2 class="sec">7. Линкове и картинки</h2>
+  <div class="taglist"><span class="tagchip">&lt;a&gt;</span><span class="tagchip">&lt;img&gt;</span></div>
+  <pre><code><span class="t">&lt;a</span> <span class="a">href</span>=<span class="a">"https://сайт"</span><span class="t">&gt;</span>Кликни тук<span class="t">&lt;/a&gt;</span>
+
+<span class="t">&lt;img</span> <span class="a">src</span>=<span class="a">"snimka.jpg"</span> <span class="a">alt</span>=<span class="a">"описание"</span><span class="t">&gt;</span></code></pre>
+  <p>• <code class="inline">&lt;a&gt;</code> = кликваем линк.<br>
+  • <code class="inline">&lt;img&gt;</code> = картинка (самозатварящ се).<br>
+  • <code class="inline">alt</code> = текст, който се показва, ако снимката не зареди.</p>
+  <div class="hint">🔗 <strong>Два вида линк:</strong> към друг сайт → <code class="inline">href="https://..."</code>. Към своя страница → <code class="inline">href="moi-proba.html"</code> (просто името на файла).</div>
+</section>
+
+<section id="s8">
+  <h2 class="sec">8. Бутони</h2>
+  <div class="taglist"><span class="tagchip">&lt;button&gt;</span></div>
+  <pre><code><span class="t">&lt;button&gt;</span>Натисни ме<span class="t">&lt;/button&gt;</span></code></pre>
+  <p>Бутонът е като копче — после с JavaScript му казваш какво да прави при натискане (като бутона "ЗАПОЧНИ СЕГА" в твоя сайт).</p>
+</section>
+
+<section id="s9">
+  <h2 class="sec">9. Кутии (div и span)</h2>
+  <div class="taglist"><span class="tagchip">&lt;div&gt;</span><span class="tagchip">&lt;span&gt;</span></div>
+  <p><code class="inline">&lt;div&gt;</code> и <code class="inline">&lt;span&gt;</code> не показват нищо сами — те <strong>групират</strong> други неща, за да ги местиш и стилизираш заедно.</p>
+  <pre><code><span class="t">&lt;div</span> <span class="a">class</span>=<span class="a">"kartichka"</span><span class="t">&gt;</span>
+  <span class="t">&lt;h2&gt;</span>Заглавие<span class="t">&lt;/h2&gt;</span>
+  <span class="t">&lt;p&gt;</span>Текст<span class="t">&lt;/p&gt;</span>
+<span class="t">&lt;/div&gt;</span></code></pre>
+  <p>• <code class="inline">&lt;div&gt;</code> = <strong>голяма</strong> кутия (заема цял ред).<br>
+  • <code class="inline">&lt;span&gt;</code> = <strong>малка</strong> кутия (върху част от текст).</p>
+</section>
+
+<section id="s10">
+  <h2 class="sec">10. Коментари</h2>
+  <p>Коментарът е текст, който браузърът <strong>игнорира</strong>. Слагаш го, за да си помниш какво прави даден код.</p>
+  <pre><code><span class="c">&lt;!-- Това е бележка за мен, браузърът не я показва --&gt;</span>
+<span class="t">&lt;h1&gt;</span>Здравей<span class="t">&lt;/h1&gt;</span></code></pre>
+</section>
+
+<section id="s11">
+  <h2 class="sec">11. Златното правило (вмъкване)</h2>
+  <p>HTML работи като <strong>матрьошка</strong> — отваряш кутия, слагаш друга вътре, и затваряш в <strong>обратен ред</strong>.</p>
+  <pre><code><span class="t">&lt;div&gt;</span>
+  <span class="t">&lt;h2&gt;</span>Заглавие<span class="t">&lt;/h2&gt;</span>
+  <span class="t">&lt;p&gt;</span>Текст<span class="t">&lt;/p&gt;</span>
+<span class="t">&lt;/div&gt;</span></code></pre>
+  <div class="warn">⚠️ <strong>Най-честата грешка:</strong> затворени тагове в грешен ред. Помни: <strong>каквото си отворил последно, затваряш първо.</strong></div>
+  <pre><code><span class="c">❌ ГРЕШНО:</span>  <span class="t">&lt;div&gt;&lt;h2&gt;</span>Заглавие<span class="t">&lt;/div&gt;&lt;/h2&gt;</span>
+<span class="c">✅ ПРАВИЛНО:</span> <span class="t">&lt;div&gt;&lt;h2&gt;</span>Заглавие<span class="t">&lt;/h2&gt;&lt;/div&gt;</span></code></pre>
+</section>
+
+<section id="s12">
+  <h2 class="sec">12. Чести грешки</h2>
+  <table>
+    <tr><th>Грешка</th><th>Как да я избегнеш</th></tr>
+    <tr><td>Забравен затварящ таг <code class="inline">&lt;/tag&gt;</code></td><td>Винаги затваряй каквото отваряш</td></tr>
+    <tr><td>Затваряне в грешен ред</td><td>Последно отворено → първо затворено</td></tr>
+    <tr><td>Забравени кавички на атрибут</td><td>Винаги <code class="inline">име="стойност"</code></td></tr>
+    <tr><td>Неправилно изписано име на таг</td><td>Проверявай правописа (h1, не h1l)</td></tr>
+    <tr><td>Забравен <code class="inline">/</code> в затварящия таг</td><td><code class="inline">&lt;/p&gt;</code>, не <code class="inline">&lt;p&gt;</code></td></tr>
+  </table>
+</section>
+
+<section id="s13">
+  <h2 class="sec">13. Бърза справка</h2>
+  <table>
+    <tr><th>Искам да...</th><th>Използвай</th></tr>
+    <tr><td>Голямо заглавие</td><td><code class="inline">&lt;h1&gt;</code></td></tr>
+    <tr><td>Подзаглавие</td><td><code class="inline">&lt;h2&gt;</code> / <code class="inline">&lt;h3&gt;</code></td></tr>
+    <tr><td>Обикновен текст</td><td><code class="inline">&lt;p&gt;</code></td></tr>
+    <tr><td>Нов ред</td><td><code class="inline">&lt;br&gt;</code></td></tr>
+    <tr><td>Удебелен текст</td><td><code class="inline">&lt;strong&gt;</code></td></tr>
+    <tr><td>Наклонен текст</td><td><code class="inline">&lt;em&gt;</code></td></tr>
+    <tr><td>Списък с точки</td><td><code class="inline">&lt;ul&gt;</code> + <code class="inline">&lt;li&gt;</code></td></tr>
+    <tr><td>Номериран списък</td><td><code class="inline">&lt;ol&gt;</code> + <code class="inline">&lt;li&gt;</code></td></tr>
+    <tr><td>Линк</td><td><code class="inline">&lt;a href="..."&gt;</code></td></tr>
+    <tr><td>Картинка</td><td><code class="inline">&lt;img src="..."&gt;</code></td></tr>
+    <tr><td>Бутон</td><td><code class="inline">&lt;button&gt;</code></td></tr>
+    <tr><td>Кутия (групиране)</td><td><code class="inline">&lt;div&gt;</code></td></tr>
+    <tr><td>Бележка (не се показва)</td><td><code class="inline">&lt;!-- ... --&gt;</code></td></tr>
+  </table>
+</section>
+
+<footer>Наръчник по HTML · Създаден за Тодор · „30 дни Суперсила" 🚀</footer>
+
+</div>
+</body>
+</html>
