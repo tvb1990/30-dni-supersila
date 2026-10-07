@@ -165,7 +165,6 @@
     try {
       if (currentAudio) { currentAudio.pause(); currentAudio = null; }
       currentAudio = new Audio(AUDIO[key]);
-      currentAudio.playbackRate = 1.15;   // леко по-висок, приятелски за деца
       currentAudio.play();
     } catch (e) {}
   }
