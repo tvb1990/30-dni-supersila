@@ -45,6 +45,13 @@
   .menu-btn.c2 { background: linear-gradient(180deg, #8ee3a0, #4fae5f); border-bottom: 7px solid #378747; }
   .menu-btn.c3 { background: linear-gradient(180deg, #8ec5ff, #4a90d9); border-bottom: 7px solid #2f6ba8; }
   .menu-btn.c4 { background: linear-gradient(180deg, #c3a6ff, #9b6bff); border-bottom: 7px solid #7040cc; }
+  .big-start {
+    border: none; cursor: pointer; font-size: 1.7rem; font-weight: 800; color: #fff;
+    background: linear-gradient(180deg, #ff9ec4, #ff6b9d); border-radius: 26px;
+    padding: 22px 44px; box-shadow: 0 8px 0 #d14a78; font-family: inherit;
+    animation: bounce 2s ease infinite;
+  }
+  .big-start:active { transform: translateY(4px); box-shadow: 0 4px 0 #d14a78; }
   .card { background: #fff; border-radius: 26px; padding: 20px 16px; box-shadow: 0 10px 30px rgba(0,0,0,.1); text-align: center; border: 4px dashed #ffe08a; }
   .back-btn { border: none; cursor: pointer; background: #efe9ff; color: var(--ink); font-weight: 700; border-radius: 14px; padding: 10px 16px; font-size: .95rem; margin-bottom: 12px; font-family: inherit; }
   .question { font-size: 2.4rem; font-weight: 800; margin: 4px 0 12px; letter-spacing: 2px; }
@@ -87,7 +94,19 @@
     </div>
   </div>
 
-  <div id="screen-menu" class="screen active">
+  <div id="screen-start" class="screen active">
+    <div class="mascot">
+      <div class="mascot-emoji">🦊</div>
+      <div class="mascot-bubble">Здравей! Аз съм Фокси! 😊<br>Готов ли си да смятаме?</div>
+    </div>
+    <h2 class="menu-title">🧮 Забавна математика</h2>
+    <p class="menu-sub">За деца, които обичат да играят!</p>
+    <div style="text-align:center;">
+      <button class="big-start" onclick="startApp()">▶ Да играем!</button>
+    </div>
+  </div>
+
+  <div id="screen-menu" class="screen">
     <div class="mascot">
       <div class="mascot-emoji">🦊</div>
       <div class="mascot-bubble">Здравей! Аз съм Фокси! 😊<br>Избери игра и нека смятаме заедно!</div>
@@ -159,7 +178,7 @@
 
 <script>
   // ---------- аудио (гласови съобщения) ----------
-  const AUDIO = {"intro_count": "audio/intro_count.mp3?v=4", "intro_add": "audio/intro_add.mp3?v=4", "intro_sub": "audio/intro_sub.mp3?v=4", "intro_compare": "audio/intro_compare.mp3?v=4", "praise1": "audio/praise1.mp3?v=4", "praise2": "audio/praise2.mp3?v=4", "praise3": "audio/praise3.mp3?v=4", "retry": "audio/retry.mp3?v=4", "hello": "audio/hello.mp3?v=4", "how_much": "audio/how_much.mp3?v=4", "plus": "audio/plus.mp3?v=4", "minus": "audio/minus.mp3?v=4", "level_up": "audio/level_up.mp3?v=4", "n0": "audio/n0.mp3?v=4", "n1": "audio/n1.mp3?v=4", "n2": "audio/n2.mp3?v=4", "n3": "audio/n3.mp3?v=4", "n4": "audio/n4.mp3?v=4", "n5": "audio/n5.mp3?v=4", "n6": "audio/n6.mp3?v=4", "n7": "audio/n7.mp3?v=4", "n8": "audio/n8.mp3?v=4", "n9": "audio/n9.mp3?v=4", "n10": "audio/n10.mp3?v=4", "lv1": "audio/lv1.mp3?v=4", "lv2": "audio/lv2.mp3?v=4", "lv3": "audio/lv3.mp3?v=4", "lv4": "audio/lv4.mp3?v=4", "lv5": "audio/lv5.mp3?v=4"};
+  const AUDIO = {"intro_count": "audio/intro_count.mp3?v=5", "intro_add": "audio/intro_add.mp3?v=5", "intro_sub": "audio/intro_sub.mp3?v=5", "intro_compare": "audio/intro_compare.mp3?v=5", "praise1": "audio/praise1.mp3?v=5", "praise2": "audio/praise2.mp3?v=5", "praise3": "audio/praise3.mp3?v=5", "retry": "audio/retry.mp3?v=5", "hello": "audio/hello.mp3?v=5", "how_much": "audio/how_much.mp3?v=5", "plus": "audio/plus.mp3?v=5", "minus": "audio/minus.mp3?v=5", "level_up": "audio/level_up.mp3?v=5", "n0": "audio/n0.mp3?v=5", "n1": "audio/n1.mp3?v=5", "n2": "audio/n2.mp3?v=5", "n3": "audio/n3.mp3?v=5", "n4": "audio/n4.mp3?v=5", "n5": "audio/n5.mp3?v=5", "n6": "audio/n6.mp3?v=5", "n7": "audio/n7.mp3?v=5", "n8": "audio/n8.mp3?v=5", "n9": "audio/n9.mp3?v=5", "n10": "audio/n10.mp3?v=5", "lv1": "audio/lv1.mp3?v=5", "lv2": "audio/lv2.mp3?v=5", "lv3": "audio/lv3.mp3?v=5", "lv4": "audio/lv4.mp3?v=5", "lv5": "audio/lv5.mp3?v=5"};
   let currentAudio = null;
   function playAudio(key) {
     try {
@@ -254,7 +273,8 @@
     for (const s of screens) s.classList.remove('active');
     document.getElementById(id).classList.add('active');
   }
-  function goMenu() { showScreen('screen-menu'); playAudio('hello'); }
+  function goMenu() { showScreen('screen-menu'); }
+  function startApp() { playAudio('hello'); showScreen('screen-menu'); }
   function resetNext(btnId) { document.getElementById(btnId).classList.remove('show'); }
 
   function goodEnd(feedbackId, nextId, answersId) {
