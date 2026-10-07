@@ -159,13 +159,27 @@
 
 <script>
   // ---------- аудио (гласови съобщения) ----------
-  const AUDIO = {"intro_count": "audio/intro_count.mp3?v=2", "intro_add": "audio/intro_add.mp3?v=2", "intro_sub": "audio/intro_sub.mp3?v=2", "intro_compare": "audio/intro_compare.mp3?v=2", "praise1": "audio/praise1.mp3?v=2", "praise2": "audio/praise2.mp3?v=2", "praise3": "audio/praise3.mp3?v=2", "retry": "audio/retry.mp3?v=2"};
+  const AUDIO = {"intro_count": "audio/intro_count.mp3?v=3", "intro_add": "audio/intro_add.mp3?v=3", "intro_sub": "audio/intro_sub.mp3?v=3", "intro_compare": "audio/intro_compare.mp3?v=3", "praise1": "audio/praise1.mp3?v=3", "praise2": "audio/praise2.mp3?v=3", "praise3": "audio/praise3.mp3?v=3", "retry": "audio/retry.mp3?v=3", "hello": "audio/hello.mp3?v=3", "how_much": "audio/how_much.mp3?v=3", "plus": "audio/plus.mp3?v=3", "minus": "audio/minus.mp3?v=3", "level_up": "audio/level_up.mp3?v=3", "n0": "audio/n0.mp3?v=3", "n1": "audio/n1.mp3?v=3", "n2": "audio/n2.mp3?v=3", "n3": "audio/n3.mp3?v=3", "n4": "audio/n4.mp3?v=3", "n5": "audio/n5.mp3?v=3", "n6": "audio/n6.mp3?v=3", "n7": "audio/n7.mp3?v=3", "n8": "audio/n8.mp3?v=3", "n9": "audio/n9.mp3?v=3", "n10": "audio/n10.mp3?v=3", "lv1": "audio/lv1.mp3?v=3", "lv2": "audio/lv2.mp3?v=3", "lv3": "audio/lv3.mp3?v=3", "lv4": "audio/lv4.mp3?v=3", "lv5": "audio/lv5.mp3?v=3"};
   let currentAudio = null;
   function playAudio(key) {
     try {
       if (currentAudio) { currentAudio.pause(); currentAudio = null; }
       currentAudio = new Audio(AUDIO[key]);
       currentAudio.play();
+    } catch (e) {}
+  }
+  function playSequence(keys) {
+    try {
+      if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+      let i = 0;
+      function next() {
+        if (i >= keys.length) { currentAudio = null; return; }
+        currentAudio = new Audio(AUDIO[keys[i]]);
+        currentAudio.onended = next;
+        currentAudio.play();
+        i++;
+      }
+      next();
     } catch (e) {}
   }
 
@@ -177,29 +191,30 @@
   function rnd(n) { return Math.floor(Math.random() * n); }
   function pick(arr) { return arr[rnd(arr.length)]; }
 
-  function levelInfo() {
-    if (stars >= 35) return 'Гений 🚀';
-    if (stars >= 20) return 'Шампион 🏆';
-    if (stars >= 10) return 'Супер брояч ⭐';
-    if (stars >= 5)  return 'Млад математик 🌱';
-    return 'Начинаещ 🐣';
+  function levelData() {
+    if (stars >= 35) return { text: 'Гений 🚀', key: 'lv5' };
+    if (stars >= 20) return { text: 'Шампион 🏆', key: 'lv4' };
+    if (stars >= 10) return { text: 'Супер брояч ⭐', key: 'lv3' };
+    if (stars >= 5)  return { text: 'Млад математик 🌱', key: 'lv2' };
+    return { text: 'Начинаещ 🐣', key: 'lv1' };
   }
   function showStars() {
     document.getElementById('starCount').textContent = stars;
-    document.getElementById('levelName').textContent = levelInfo();
+    document.getElementById('levelName').textContent = levelData().text;
   }
   function addStar() {
     stars++;
-    const before = levelInfo();
+    const before = levelData().key;
     showStars();
-    const after = levelInfo();
+    const after = levelData().key;
     if (before !== after) showLevelUp(after);
   }
-  function showLevelUp(name) {
+  function showLevelUp(key) {
     const d = document.createElement('div');
     d.className = 'levelup';
-    d.innerHTML = '<div class="box"><div class="big">🎉</div><h3>Ново ниво!</h3><p>Ти стана: ' + name + '</p><button onclick="this.parentNode.parentNode.remove()">Супер! 😄</button></div>';
+    d.innerHTML = '<div class="box"><div class="big">🎉</div><h3>Ново ниво!</h3><p>Ти стана: ' + levelData().text + '</p><button onclick="this.parentNode.parentNode.remove()">Супер! 😄</button></div>';
     document.body.appendChild(d);
+    playSequence(['level_up', key]);
   }
 
   function emojiRow(em, n) {
@@ -239,7 +254,7 @@
     for (const s of screens) s.classList.remove('active');
     document.getElementById(id).classList.add('active');
   }
-  function goMenu() { showScreen('screen-menu'); }
+  function goMenu() { showScreen('screen-menu'); playAudio('hello'); }
   function resetNext(btnId) { document.getElementById(btnId).classList.remove('show'); }
 
   function goodEnd(feedbackId, nextId, answersId) {
@@ -292,7 +307,7 @@
     let html = '';
     for (const x of makeAnswers(addCorrect, 0, 10)) html += '<button class="ans-btn" onclick="answerAdd(' + x + ', this)">' + x + '</button>';
     document.getElementById('addAnswers').innerHTML = html;
-    playAudio('intro_add');
+    playSequence(['how_much', 'n' + a, 'plus', 'n' + b]);
   }
   function answerAdd(x, btn) {
     if (x === addCorrect) { btn.classList.add('correct'); goodEnd('addFeedback','addNext','addAnswers'); }
@@ -312,7 +327,7 @@
     let html = '';
     for (const x of makeAnswers(subCorrect, 0, 10)) html += '<button class="ans-btn" onclick="answerSub(' + x + ', this)">' + x + '</button>';
     document.getElementById('subAnswers').innerHTML = html;
-    playAudio('intro_sub');
+    playSequence(['how_much', 'n' + a, 'minus', 'n' + b]);
   }
   function answerSub(x, btn) {
     if (x === subCorrect) { btn.classList.add('correct'); goodEnd('subFeedback','subNext','subAnswers'); }
