@@ -1,18 +1,18 @@
-const CACHE = 'zabavna-matematika-v1';
+const CACHE = 'zabavna-matematika-v2';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  './audio/intro_count.mp3',
-  './audio/intro_add.mp3',
-  './audio/intro_sub.mp3',
-  './audio/intro_compare.mp3',
-  './audio/praise1.mp3',
-  './audio/praise2.mp3',
-  './audio/praise3.mp3',
-  './audio/retry.mp3'
+  './audio/intro_count.mp3?v=2',
+  './audio/intro_add.mp3?v=2',
+  './audio/intro_sub.mp3?v=2',
+  './audio/intro_compare.mp3?v=2',
+  './audio/praise1.mp3?v=2',
+  './audio/praise2.mp3?v=2',
+  './audio/praise3.mp3?v=2',
+  './audio/retry.mp3?v=2'
 ];
 
 self.addEventListener('install', function(e) {
