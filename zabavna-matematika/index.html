@@ -365,7 +365,7 @@
     const idx = rnd(ITEMS.length);
     const em = ITEMS[idx];
     document.getElementById('subQuestion').textContent = a + ' - ' + b + ' = ?';
-    document.getElementById('subEmojis').innerHTML = emojiRow(em, a);
+    document.getElementById('subEmojis').innerHTML = emojiRow(em, a) + '<span style="font-size:2rem;align-self:center;">➖</span>' + emojiRow(em, b);
     let html = '';
     for (const x of makeAnswers(subCorrect, 0, 10)) html += '<button class="ans-btn" onclick="answerSub(' + x + ', this)">' + x + '</button>';
     document.getElementById('subAnswers').innerHTML = html;
