@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧮 Забавна математика</title>
+<meta name="theme-color" content="#ff6b9d">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root {
+    --pink: #ff6b9d; --orange: #ff9f43; --yellow: #ffc93c;
+    --green: #6bcb77; --blue: #4a90d9; --purple: #9b6bff; --ink: #3a2d5c;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', system-ui, sans-serif;
+    background: linear-gradient(160deg, #fff0e6 0%, #ffe9f3 30%, #eaf3ff 70%, #f3ecff 100%);
+    color: var(--ink); min-height: 100vh; overflow-x: hidden;
+  }
+  .floaty { position: fixed; z-index: 0; pointer-events: none; animation: floatUp linear infinite; opacity: .55; }
+  @keyframes floatUp { 0% { transform: translateY(105vh) rotate(0); opacity: 0; } 10% { opacity: .55; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+  .app { position: relative; z-index: 1; max-width: 660px; margin: 0 auto; padding: 14px; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; background: #fff; border-radius: 22px; padding: 12px 16px; box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .topbar .title { font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: 6px; }
+  .topbar .right { text-align: right; }
+  .topbar .stars { font-size: 1.25rem; font-weight: 800; color: #f5a623; }
+  .topbar .level { font-size: .8rem; font-weight: 700; color: #8a7ab8; margin-top: 2px; }
+  .screen { display: none; margin-top: 18px; animation: pop .35s ease; }
+  .screen.active { display: block; }
+  @keyframes pop { from { transform: scale(.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .mascot { text-align: center; margin: 6px 0 14px; }
+  .mascot-emoji { display: inline-block; font-size: 4.2rem; animation: bounce 2s ease infinite; }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  .mascot-bubble { display: inline-block; background: #fff; border-radius: 18px; padding: 10px 16px; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 14px rgba(0,0,0,.1); position: relative; max-width: 90%; line-height: 1.4; }
+  .mascot-bubble::after { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); border: 8px solid transparent; border-bottom-color: #fff; border-top: none; }
+  h2.menu-title { text-align: center; font-size: 1.7rem; margin: 0 0 4px; color: var(--ink); }
+  p.menu-sub { text-align: center; color: #8a7ab8; margin: 0 0 16px; font-weight: 600; }
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .menu-btn { border: none; cursor: pointer; border-radius: 24px; padding: 22px 12px; font-size: 1.05rem; font-weight: 800; color: #fff; box-shadow: 0 7px 18px rgba(0,0,0,.16); transition: transform .12s; font-family: inherit; text-shadow: 0 1px 2px rgba(0,0,0,.15); }
+  .menu-btn:active { transform: scale(.94); }
+  .menu-btn .emoji { display: block; font-size: 2.3rem; margin-bottom: 8px; animation: bounce 2.4s ease infinite; line-height: 1.2; }
+  .menu-btn.c1 { background: linear-gradient(180deg, #ff9ec4, #ff6b9d); border-bottom: 7px solid #d14a78; }
+  .menu-btn.c2 { background: linear-gradient(180deg, #8ee3a0, #4fae5f); border-bottom: 7px solid #378747; }
+  .menu-btn.c3 { background: linear-gradient(180deg, #8ec5ff, #4a90d9); border-bottom: 7px solid #2f6ba8; }
+  .menu-btn.c4 { background: linear-gradient(180deg, #c3a6ff, #9b6bff); border-bottom: 7px solid #7040cc; }
+  .card { background: #fff; border-radius: 26px; padding: 20px 16px; box-shadow: 0 10px 30px rgba(0,0,0,.1); text-align: center; border: 4px dashed #ffe08a; }
+  .back-btn { border: none; cursor: pointer; background: #efe9ff; color: var(--ink); font-weight: 700; border-radius: 14px; padding: 10px 16px; font-size: .95rem; margin-bottom: 12px; font-family: inherit; }
+  .question { font-size: 2.4rem; font-weight: 800; margin: 4px 0 12px; letter-spacing: 2px; }
+  .hint { color: #8a7ab8; font-size: 1.15rem; margin-bottom: 8px; font-weight: 700; }
+  .emojis { font-size: 2.4rem; line-height: 1.4; margin: 4px 0 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; min-height: 52px; }
+  .emojis .e { animation: bounce 1.4s ease infinite; }
+  .compare-wrap { display: flex; gap: 14px; margin: 4px 0 14px; }
+  .compare-box { flex: 1; border-radius: 22px; padding: 14px 8px; cursor: pointer; background: #fdf6ff; border: 5px solid #e6d8ff; transition: transform .12s, border-color .12s; }
+  .compare-box:active { transform: scale(.95); }
+  .compare-box .label { font-weight: 800; font-size: 1rem; margin-bottom: 6px; color: #8a7ab8; }
+  .compare-box .emojis { font-size: 2rem; margin: 0; }
+  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
+  .ans-btn { border: none; cursor: pointer; font-size: 1.8rem; font-weight: 800; background: linear-gradient(180deg, #6aa8ff 0%, #4a90d9 100%); color: #fff; border-radius: 20px; padding: 18px; box-shadow: 0 6px 0 #2f6ba8; transition: transform .1s; font-family: inherit; }
+  .ans-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #2f6ba8; }
+  .ans-btn.correct { background: linear-gradient(180deg, #7fdb8d 0%, #4fae5f 100%) !important; box-shadow: 0 6px 0 #3f9e50; }
+  .feedback { font-size: 1.5rem; font-weight: 800; min-height: 42px; margin-top: 14px; }
+  .feedback.good { color: var(--green); }
+  .feedback.bad { color: var(--pink); }
+  .next-btn { display: none; margin: 12px auto 0; border: none; cursor: pointer; background: linear-gradient(180deg, #ffd75e 0%, var(--yellow) 100%); color: #5b4300; font-weight: 800; font-size: 1.15rem; border-radius: 18px; padding: 14px 32px; box-shadow: 0 6px 0 #d99a00; font-family: inherit; }
+  .next-btn.show { display: inline-block; }
+  .next-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #d99a00; }
+  .confetti { position: fixed; width: 11px; height: 15px; z-index: 200; pointer-events: none; border-radius: 2px; animation: confettiFall 1.6s ease-out forwards; }
+  @keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0); opacity: 1; } 100% { transform: translateY(105vh) rotate(720deg); opacity: 0; } }
+  .levelup { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.45); }
+  .levelup .box { background: #fff; border-radius: 28px; padding: 30px 26px; text-align: center; animation: pop .4s ease; max-width: 82%; }
+  .levelup .box .big { font-size: 3.5rem; }
+  .levelup .box h3 { margin: 8px 0 4px; font-size: 1.6rem; }
+  .levelup .box p { color: #8a7ab8; margin: 0 0 16px; font-weight: 600; }
+  .levelup .box button { border: none; cursor: pointer; background: var(--yellow); color: #5b4300; font-weight: 800; font-size: 1.05rem; border-radius: 14px; padding: 12px 26px; box-shadow: 0 5px 0 #d99a00; font-family: inherit; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <div class="title">🦊 Забавна математика</div>
+    <div class="right">
+      <div class="stars">⭐ <span id="starCount">0</span></div>
+      <div class="level" id="levelName">Начинаещ 🐣</div>
+    </div>
+  </div>
+
+  <div id="screen-menu" class="screen active">
+    <div class="mascot">
+      <div class="mascot-emoji">🦊</div>
+      <div class="mascot-bubble">Здравей! Аз съм Фокси! 😊<br>Избери игра и нека смятаме заедно!</div>
+    </div>
+    <h2 class="menu-title">Какво ще играем? 🎉</h2>
+    <p class="menu-sub">Правилни отговори = звезди! ⭐</p>
+    <div class="menu-grid">
+      <button class="menu-btn c1" onclick="startCount()"><span class="emoji">🔢</span>Броене</button>
+      <button class="menu-btn c2" onclick="startAdd()"><span class="emoji">🍎➕🍎</span>Събиране</button>
+      <button class="menu-btn c3" onclick="startSub()"><span class="emoji">🍪➖🍪</span>Изваждане</button>
+      <button class="menu-btn c4" onclick="startCompare()"><span class="emoji">🐘🐁</span>Повече?</button>
+    </div>
+  </div>
+
+  <div id="screen-count" class="screen">
+    <button class="back-btn" onclick="goMenu()">← Назад</button>
+    <div class="card">
+      <div class="hint">🔢 Преброй колко са! 👇</div>
+      <div id="countEmojis" class="emojis"></div>
+      <div id="countAnswers" class="answers"></div>
+      <div id="countFeedback" class="feedback"></div>
+      <button id="countNext" class="next-btn" onclick="startCount()">Следваща ▶</button>
+    </div>
+  </div>
+
+  <div id="screen-add" class="screen">
+    <button class="back-btn" onclick="goMenu()">← Назад</button>
+    <div class="card">
+      <div class="hint">🍎 Колко е заедно? 👇</div>
+      <div class="question" id="addQuestion"></div>
+      <div id="addEmojis" class="emojis"></div>
+      <div id="addAnswers" class="answers"></div>
+      <div id="addFeedback" class="feedback"></div>
+      <button id="addNext" class="next-btn" onclick="startAdd()">Следваща ▶</button>
+    </div>
+  </div>
+
+  <div id="screen-sub" class="screen">
+    <button class="back-btn" onclick="goMenu()">← Назад</button>
+    <div class="card">
+      <div class="hint">🍪 Колко остава? 👇</div>
+      <div class="question" id="subQuestion"></div>
+      <div id="subEmojis" class="emojis"></div>
+      <div id="subAnswers" class="answers"></div>
+      <div id="subFeedback" class="feedback"></div>
+      <button id="subNext" class="next-btn" onclick="startSub()">Следваща ▶</button>
+    </div>
+  </div>
+
+  <div id="screen-compare" class="screen">
+    <button class="back-btn" onclick="goMenu()">← Назад</button>
+    <div class="card">
+      <div class="hint">🐘 Докосни кутията с ПОВЕЧЕ! 👇</div>
+      <div class="compare-wrap">
+        <div class="compare-box" id="cmpLeft" onclick="checkCompare('left')">
+          <div class="label">⬅ Ляво</div>
+          <div class="emojis" id="cmpLeftEmojis"></div>
+        </div>
+        <div class="compare-box" id="cmpRight" onclick="checkCompare('right')">
+          <div class="label">Дясно ➡</div>
+          <div class="emojis" id="cmpRightEmojis"></div>
+        </div>
+      </div>
+      <div id="cmpFeedback" class="feedback"></div>
+      <button id="cmpNext" class="next-btn" onclick="startCompare()">Следваща ▶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- аудио (гласови съобщения) ----------
+  const AUDIO = const AUDIO = {"intro_count": "audio/intro_count.mp3", "intro_add": "audio/intro_add.mp3", "intro_sub": "audio/intro_sub.mp3", "intro_compare": "audio/intro_compare.mp3", "praise1": "audio/praise1.mp3", "praise2": "audio/praise2.mp3", "praise3": "audio/praise3.mp3", "retry": "audio/retry.mp3"};;
+  let currentAudio = null;
+  function playAudio(key) {
+    try {
+      if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+      currentAudio = new Audio(AUDIO[key]);
+      currentAudio.playbackRate = 1.15;   // леко по-висок, приятелски за деца
+      currentAudio.play();
+    } catch (e) {}
+  }
+
+  // ---------- помощни ----------
+  const ITEMS = ['🍎','🍌','🍓','🐶','🐱','🦋','⭐','🎈','🌸','🚗','🐸','🍪'];
+  const PRAISE_KEYS = ['praise1','praise2','praise3'];
+  let stars = 0;
+
+  function rnd(n) { return Math.floor(Math.random() * n); }
+  function pick(arr) { return arr[rnd(arr.length)]; }
+
+  function levelInfo() {
+    if (stars >= 35) return 'Гений 🚀';
+    if (stars >= 20) return 'Шампион 🏆';
+    if (stars >= 10) return 'Супер брояч ⭐';
+    if (stars >= 5)  return 'Млад математик 🌱';
+    return 'Начинаещ 🐣';
+  }
+  function showStars() {
+    document.getElementById('starCount').textContent = stars;
+    document.getElementById('levelName').textContent = levelInfo();
+  }
+  function addStar() {
+    stars++;
+    const before = levelInfo();
+    showStars();
+    const after = levelInfo();
+    if (before !== after) showLevelUp(after);
+  }
+  function showLevelUp(name) {
+    const d = document.createElement('div');
+    d.className = 'levelup';
+    d.innerHTML = '<div class="box"><div class="big">🎉</div><h3>Ново ниво!</h3><p>Ти стана: ' + name + '</p><button onclick="this.parentNode.parentNode.remove()">Супер! 😄</button></div>';
+    document.body.appendChild(d);
+  }
+
+  function emojiRow(em, n) {
+    let s = '';
+    for (let i = 0; i < n; i++) s += '<span class="e">' + em + '</span>';
+    return s;
+  }
+  function makeAnswers(correct, min, max) {
+    const set = new Set([correct]);
+    let guard = 0;
+    while (set.size < 4 && guard < 200) {
+      guard++;
+      let c = correct + rnd(5) - 2;
+      if (c < min) c = min + rnd(2);
+      if (c > max) c = max - rnd(2);
+      if (c < min) c = min;
+      if (c > max) c = max;
+      set.add(c);
+    }
+    return Array.from(set).sort(function(){ return Math.random() - .5; });
+  }
+  function burstConfetti() {
+    const colors = ['#ff6b9d','#ffc93c','#6bcb77','#4a90d9','#9b6bff','#ff9f43','#ff6b6b'];
+    for (let i = 0; i < 40; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.top = Math.random() * 25 + 'vh';
+      c.style.background = pick(colors);
+      c.style.animationDelay = (Math.random() * 0.35) + 's';
+      document.body.appendChild(c);
+      setTimeout(function(){ c.remove(); }, 2200);
+    }
+  }
+  function showScreen(id) {
+    const screens = document.querySelectorAll('.screen');
+    for (const s of screens) s.classList.remove('active');
+    document.getElementById(id).classList.add('active');
+  }
+  function goMenu() { showScreen('screen-menu'); }
+  function resetNext(btnId) { document.getElementById(btnId).classList.remove('show'); }
+
+  function goodEnd(feedbackId, nextId, answersId) {
+    document.getElementById(feedbackId).textContent = 'Чудесна работа! 🌟';
+    document.getElementById(feedbackId).className = 'feedback good';
+    playAudio(pick(PRAISE_KEYS));
+    addStar(); burstConfetti();
+    document.getElementById(nextId).classList.add('show');
+    disable(answersId);
+  }
+  function badTry(feedbackId) {
+    document.getElementById(feedbackId).textContent = 'Опитай пак! 💪';
+    document.getElementById(feedbackId).className = 'feedback bad';
+    playAudio('retry');
+  }
+  function disable(containerId) {
+    const btns = document.querySelectorAll('#' + containerId + ' .ans-btn');
+    for (const b of btns) b.style.pointerEvents = 'none';
+  }
+
+  // ---------- БРОЕНЕ ----------
+  let countCorrect = 0;
+  function startCount() {
+    showScreen('screen-count'); resetNext('countNext');
+    const fb = document.getElementById('countFeedback');
+    fb.textContent = ''; fb.className = 'feedback';
+    const n = 1 + rnd(10); countCorrect = n;
+    const em = pick(ITEMS);
+    document.getElementById('countEmojis').innerHTML = emojiRow(em, n);
+    let html = '';
+    for (const a of makeAnswers(n, 1, 10)) html += '<button class="ans-btn" onclick="answerCount(' + a + ', this)">' + a + '</button>';
+    document.getElementById('countAnswers').innerHTML = html;
+    playAudio('intro_count');
+  }
+  function answerCount(a, btn) {
+    if (a === countCorrect) { btn.classList.add('correct'); goodEnd('countFeedback','countNext','countAnswers'); }
+    else { btn.style.opacity = '.5'; badTry('countFeedback'); }
+  }
+
+  // ---------- СЪБИРАНЕ ----------
+  let addCorrect = 0;
+  function startAdd() {
+    showScreen('screen-add'); resetNext('addNext');
+    const fb = document.getElementById('addFeedback');
+    fb.textContent = ''; fb.className = 'feedback';
+    const a = rnd(6), b = rnd(6); addCorrect = a + b;
+    const em = pick(ITEMS);
+    document.getElementById('addQuestion').textContent = a + ' + ' + b + ' = ?';
+    document.getElementById('addEmojis').innerHTML = emojiRow(em, a) + '<span style="font-size:2rem;align-self:center;">➕</span>' + emojiRow(em, b);
+    let html = '';
+    for (const x of makeAnswers(addCorrect, 0, 10)) html += '<button class="ans-btn" onclick="answerAdd(' + x + ', this)">' + x + '</button>';
+    document.getElementById('addAnswers').innerHTML = html;
+    playAudio('intro_add');
+  }
+  function answerAdd(x, btn) {
+    if (x === addCorrect) { btn.classList.add('correct'); goodEnd('addFeedback','addNext','addAnswers'); }
+    else { btn.style.opacity = '.5'; badTry('addFeedback'); }
+  }
+
+  // ---------- ИЗВАЖДАНЕ ----------
+  let subCorrect = 0;
+  function startSub() {
+    showScreen('screen-sub'); resetNext('subNext');
+    const fb = document.getElementById('subFeedback');
+    fb.textContent = ''; fb.className = 'feedback';
+    const a = 2 + rnd(9), b = rnd(a + 1); subCorrect = a - b;
+    const em = pick(ITEMS);
+    document.getElementById('subQuestion').textContent = a + ' - ' + b + ' = ?';
+    document.getElementById('subEmojis').innerHTML = emojiRow(em, a);
+    let html = '';
+    for (const x of makeAnswers(subCorrect, 0, 10)) html += '<button class="ans-btn" onclick="answerSub(' + x + ', this)">' + x + '</button>';
+    document.getElementById('subAnswers').innerHTML = html;
+    playAudio('intro_sub');
+  }
+  function answerSub(x, btn) {
+    if (x === subCorrect) { btn.classList.add('correct'); goodEnd('subFeedback','subNext','subAnswers'); }
+    else { btn.style.opacity = '.5'; badTry('subFeedback'); }
+  }
+
+  // ---------- СРАВНЕНИЕ ----------
+  let cmpMore = 'left';
+  function startCompare() {
+    showScreen('screen-compare'); resetNext('cmpNext');
+    const fb = document.getElementById('cmpFeedback');
+    fb.textContent = ''; fb.className = 'feedback';
+    let l = 1 + rnd(9), r = 1 + rnd(9);
+    while (l === r) r = 1 + rnd(9);
+    cmpMore = l > r ? 'left' : 'right';
+    const em = pick(ITEMS);
+    document.getElementById('cmpLeftEmojis').innerHTML = emojiRow(em, l);
+    document.getElementById('cmpRightEmojis').innerHTML = emojiRow(em, r);
+    document.getElementById('cmpLeft').style.borderColor = '#e6d8ff';
+    document.getElementById('cmpRight').style.borderColor = '#e6d8ff';
+    playAudio('intro_compare');
+  }
+  function checkCompare(choice) {
+    if (choice === cmpMore) {
+      document.getElementById(choice === 'left' ? 'cmpLeft' : 'cmpRight').style.borderColor = '#6bcb77';
+      document.getElementById('cmpFeedback').textContent = 'Чудесна работа! 🌟';
+      document.getElementById('cmpFeedback').className = 'feedback good';
+      playAudio(pick(PRAISE_KEYS));
+      addStar(); burstConfetti();
+      document.getElementById('cmpNext').classList.add('show');
+    } else {
+      badTry('cmpFeedback');
+    }
+  }
+
+  (function makeBackground() {
+    const emojis = ['⭐','🎈','🎉','✨','🍎','🌈','🔢','➕','➖','🍌'];
+    for (let i = 0; i < 16; i++) {
+      const s = document.createElement('div');
+      s.className = 'floaty';
+      s.textContent = pick(emojis);
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.top = Math.random() * 100 + 'vh';
+      s.style.fontSize = (16 + Math.random() * 28) + 'px';
+      s.style.animationDuration = (9 + Math.random() * 9) + 's';
+      s.style.animationDelay = Math.random() * 6 + 's';
+      document.body.appendChild(s);
+    }
+  })();
+
+  showStars();
+</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js');}</script></body>
+</html>
