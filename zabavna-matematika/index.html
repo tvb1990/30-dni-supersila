@@ -178,7 +178,7 @@
 
 <script>
   // ---------- аудио (гласови съобщения) ----------
-  const AUDIO = {"hello": "audio/hello.mp3?v=7", "kolko": "audio/kolko.mp3?v=7", "vijhdash": "audio/vijhdash.mp3?v=7", "prebroi": "audio/prebroi.mp3?v=7", "neka_sabirame": "audio/neka_sabirame.mp3?v=7", "neka_izvajdame": "audio/neka_izvajdame.mp3?v=7", "kade_poveche": "audio/kade_poveche.mp3?v=7", "it0": "audio/it0.mp3?v=7", "it1": "audio/it1.mp3?v=7", "it2": "audio/it2.mp3?v=7", "it3": "audio/it3.mp3?v=7", "it4": "audio/it4.mp3?v=7", "it5": "audio/it5.mp3?v=7", "it6": "audio/it6.mp3?v=7", "it7": "audio/it7.mp3?v=7", "it8": "audio/it8.mp3?v=7", "it9": "audio/it9.mp3?v=7", "it10": "audio/it10.mp3?v=7", "it11": "audio/it11.mp3?v=7", "how_much": "audio/how_much.mp3?v=7", "plus": "audio/plus.mp3?v=7", "minus": "audio/minus.mp3?v=7", "n0": "audio/n0.mp3?v=7", "n1": "audio/n1.mp3?v=7", "n2": "audio/n2.mp3?v=7", "n3": "audio/n3.mp3?v=7", "n4": "audio/n4.mp3?v=7", "n5": "audio/n5.mp3?v=7", "n6": "audio/n6.mp3?v=7", "n7": "audio/n7.mp3?v=7", "n8": "audio/n8.mp3?v=7", "n9": "audio/n9.mp3?v=7", "n10": "audio/n10.mp3?v=7", "praise1": "audio/praise1.mp3?v=7", "praise2": "audio/praise2.mp3?v=7", "praise3": "audio/praise3.mp3?v=7", "retry": "audio/retry.mp3?v=7", "level_up": "audio/level_up.mp3?v=7", "lv1": "audio/lv1.mp3?v=7", "lv2": "audio/lv2.mp3?v=7", "lv3": "audio/lv3.mp3?v=7", "lv4": "audio/lv4.mp3?v=7", "lv5": "audio/lv5.mp3?v=7"};
+  const AUDIO = {"hello": "audio/hello.mp3?v=8", "kolko": "audio/kolko.mp3?v=8", "vijhdash": "audio/vijhdash.mp3?v=8", "prebroi": "audio/prebroi.mp3?v=8", "neka_sabirame": "audio/neka_sabirame.mp3?v=8", "neka_izvajdame": "audio/neka_izvajdame.mp3?v=8", "kade_poveche": "audio/kade_poveche.mp3?v=8", "it0": "audio/it0.mp3?v=8", "it1": "audio/it1.mp3?v=8", "it2": "audio/it2.mp3?v=8", "it3": "audio/it3.mp3?v=8", "it4": "audio/it4.mp3?v=8", "it5": "audio/it5.mp3?v=8", "it6": "audio/it6.mp3?v=8", "it7": "audio/it7.mp3?v=8", "it8": "audio/it8.mp3?v=8", "it9": "audio/it9.mp3?v=8", "it10": "audio/it10.mp3?v=8", "it11": "audio/it11.mp3?v=8", "how_much": "audio/how_much.mp3?v=8", "plus": "audio/plus.mp3?v=8", "minus": "audio/minus.mp3?v=8", "n0": "audio/n0.mp3?v=8", "n1": "audio/n1.mp3?v=8", "n2": "audio/n2.mp3?v=8", "n3": "audio/n3.mp3?v=8", "n4": "audio/n4.mp3?v=8", "n5": "audio/n5.mp3?v=8", "n6": "audio/n6.mp3?v=8", "n7": "audio/n7.mp3?v=8", "n8": "audio/n8.mp3?v=8", "n9": "audio/n9.mp3?v=8", "n10": "audio/n10.mp3?v=8", "praise1": "audio/praise1.mp3?v=8", "praise2": "audio/praise2.mp3?v=8", "praise3": "audio/praise3.mp3?v=8", "retry": "audio/retry.mp3?v=8", "level_up": "audio/level_up.mp3?v=8", "lv1": "audio/lv1.mp3?v=8", "lv2": "audio/lv2.mp3?v=8", "lv3": "audio/lv3.mp3?v=8", "lv4": "audio/lv4.mp3?v=8", "lv5": "audio/lv5.mp3?v=8"};
   let currentAudio = null;
   function playAudio(key) {
     try {
@@ -277,14 +277,23 @@
   let greeted = false;
   function playHello() {
     if (greeted) return;
-    greeted = true;
-    playAudio('hello');
+    try {
+      const a = new Audio(AUDIO['hello']);
+      const p = a.play();
+      if (p && p.then) {
+        p.then(function() { greeted = true; }).catch(function() {});
+      } else {
+        greeted = true;
+      }
+    } catch (e) {}
   }
   function startApp() {
     playHello();
     showScreen('screen-menu');
   }
   window.addEventListener('load', playHello);
+  document.addEventListener('touchstart', playHello);
+  document.addEventListener('click', playHello);
   function resetNext(btnId) { document.getElementById(btnId).classList.remove('show'); }
 
   function goodEnd(feedbackId, nextId, answersId) {
