@@ -178,7 +178,7 @@
 
 <script>
   // ---------- аудио (гласови съобщения) ----------
-  const AUDIO = {"intro_count": "audio/intro_count.mp3?v=6", "intro_add": "audio/intro_add.mp3?v=6", "intro_sub": "audio/intro_sub.mp3?v=6", "intro_compare": "audio/intro_compare.mp3?v=6", "praise1": "audio/praise1.mp3?v=6", "praise2": "audio/praise2.mp3?v=6", "praise3": "audio/praise3.mp3?v=6", "retry": "audio/retry.mp3?v=6", "hello": "audio/hello.mp3?v=6", "how_much": "audio/how_much.mp3?v=6", "plus": "audio/plus.mp3?v=6", "minus": "audio/minus.mp3?v=6", "level_up": "audio/level_up.mp3?v=6", "n0": "audio/n0.mp3?v=6", "n1": "audio/n1.mp3?v=6", "n2": "audio/n2.mp3?v=6", "n3": "audio/n3.mp3?v=6", "n4": "audio/n4.mp3?v=6", "n5": "audio/n5.mp3?v=6", "n6": "audio/n6.mp3?v=6", "n7": "audio/n7.mp3?v=6", "n8": "audio/n8.mp3?v=6", "n9": "audio/n9.mp3?v=6", "n10": "audio/n10.mp3?v=6", "lv1": "audio/lv1.mp3?v=6", "lv2": "audio/lv2.mp3?v=6", "lv3": "audio/lv3.mp3?v=6", "lv4": "audio/lv4.mp3?v=6", "lv5": "audio/lv5.mp3?v=6"};
+  const AUDIO = {"hello": "audio/hello.mp3?v=7", "kolko": "audio/kolko.mp3?v=7", "vijhdash": "audio/vijhdash.mp3?v=7", "prebroi": "audio/prebroi.mp3?v=7", "neka_sabirame": "audio/neka_sabirame.mp3?v=7", "neka_izvajdame": "audio/neka_izvajdame.mp3?v=7", "kade_poveche": "audio/kade_poveche.mp3?v=7", "it0": "audio/it0.mp3?v=7", "it1": "audio/it1.mp3?v=7", "it2": "audio/it2.mp3?v=7", "it3": "audio/it3.mp3?v=7", "it4": "audio/it4.mp3?v=7", "it5": "audio/it5.mp3?v=7", "it6": "audio/it6.mp3?v=7", "it7": "audio/it7.mp3?v=7", "it8": "audio/it8.mp3?v=7", "it9": "audio/it9.mp3?v=7", "it10": "audio/it10.mp3?v=7", "it11": "audio/it11.mp3?v=7", "how_much": "audio/how_much.mp3?v=7", "plus": "audio/plus.mp3?v=7", "minus": "audio/minus.mp3?v=7", "n0": "audio/n0.mp3?v=7", "n1": "audio/n1.mp3?v=7", "n2": "audio/n2.mp3?v=7", "n3": "audio/n3.mp3?v=7", "n4": "audio/n4.mp3?v=7", "n5": "audio/n5.mp3?v=7", "n6": "audio/n6.mp3?v=7", "n7": "audio/n7.mp3?v=7", "n8": "audio/n8.mp3?v=7", "n9": "audio/n9.mp3?v=7", "n10": "audio/n10.mp3?v=7", "praise1": "audio/praise1.mp3?v=7", "praise2": "audio/praise2.mp3?v=7", "praise3": "audio/praise3.mp3?v=7", "retry": "audio/retry.mp3?v=7", "level_up": "audio/level_up.mp3?v=7", "lv1": "audio/lv1.mp3?v=7", "lv2": "audio/lv2.mp3?v=7", "lv3": "audio/lv3.mp3?v=7", "lv4": "audio/lv4.mp3?v=7", "lv5": "audio/lv5.mp3?v=7"};
   let currentAudio = null;
   function playAudio(key) {
     try {
@@ -312,12 +312,13 @@
     const fb = document.getElementById('countFeedback');
     fb.textContent = ''; fb.className = 'feedback';
     const n = 1 + rnd(10); countCorrect = n;
-    const em = pick(ITEMS);
+    const idx = rnd(ITEMS.length);
+    const em = ITEMS[idx];
     document.getElementById('countEmojis').innerHTML = emojiRow(em, n);
     let html = '';
     for (const a of makeAnswers(n, 1, 10)) html += '<button class="ans-btn" onclick="answerCount(' + a + ', this)">' + a + '</button>';
     document.getElementById('countAnswers').innerHTML = html;
-    playAudio('intro_count');
+    playSequence(['kolko', 'it' + idx, 'vijhdash', 'prebroi']);
   }
   function answerCount(a, btn) {
     if (a === countCorrect) { btn.classList.add('correct'); goodEnd('countFeedback','countNext','countAnswers'); }
@@ -331,13 +332,14 @@
     const fb = document.getElementById('addFeedback');
     fb.textContent = ''; fb.className = 'feedback';
     const a = rnd(6), b = rnd(6); addCorrect = a + b;
-    const em = pick(ITEMS);
+    const idx = rnd(ITEMS.length);
+    const em = ITEMS[idx];
     document.getElementById('addQuestion').textContent = a + ' + ' + b + ' = ?';
     document.getElementById('addEmojis').innerHTML = emojiRow(em, a) + '<span style="font-size:2rem;align-self:center;">➕</span>' + emojiRow(em, b);
     let html = '';
     for (const x of makeAnswers(addCorrect, 0, 10)) html += '<button class="ans-btn" onclick="answerAdd(' + x + ', this)">' + x + '</button>';
     document.getElementById('addAnswers').innerHTML = html;
-    playSequence(['how_much', 'n' + a, 'plus', 'n' + b]);
+    playSequence(['neka_sabirame', 'how_much', 'n' + a, 'plus', 'n' + b]);
   }
   function answerAdd(x, btn) {
     if (x === addCorrect) { btn.classList.add('correct'); goodEnd('addFeedback','addNext','addAnswers'); }
@@ -351,13 +353,14 @@
     const fb = document.getElementById('subFeedback');
     fb.textContent = ''; fb.className = 'feedback';
     const a = 2 + rnd(9), b = rnd(a + 1); subCorrect = a - b;
-    const em = pick(ITEMS);
+    const idx = rnd(ITEMS.length);
+    const em = ITEMS[idx];
     document.getElementById('subQuestion').textContent = a + ' - ' + b + ' = ?';
     document.getElementById('subEmojis').innerHTML = emojiRow(em, a);
     let html = '';
     for (const x of makeAnswers(subCorrect, 0, 10)) html += '<button class="ans-btn" onclick="answerSub(' + x + ', this)">' + x + '</button>';
     document.getElementById('subAnswers').innerHTML = html;
-    playSequence(['how_much', 'n' + a, 'minus', 'n' + b]);
+    playSequence(['neka_izvajdame', 'how_much', 'n' + a, 'minus', 'n' + b]);
   }
   function answerSub(x, btn) {
     if (x === subCorrect) { btn.classList.add('correct'); goodEnd('subFeedback','subNext','subAnswers'); }
@@ -373,12 +376,13 @@
     let l = 1 + rnd(9), r = 1 + rnd(9);
     while (l === r) r = 1 + rnd(9);
     cmpMore = l > r ? 'left' : 'right';
-    const em = pick(ITEMS);
+    const idx = rnd(ITEMS.length);
+    const em = ITEMS[idx];
     document.getElementById('cmpLeftEmojis').innerHTML = emojiRow(em, l);
     document.getElementById('cmpRightEmojis').innerHTML = emojiRow(em, r);
     document.getElementById('cmpLeft').style.borderColor = '#e6d8ff';
     document.getElementById('cmpRight').style.borderColor = '#e6d8ff';
-    playAudio('intro_compare');
+    playAudio('kade_poveche');
   }
   function checkCompare(choice) {
     if (choice === cmpMore) {
