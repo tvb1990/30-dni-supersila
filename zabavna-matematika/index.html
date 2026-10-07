@@ -184,6 +184,7 @@
     try {
       if (currentAudio) { currentAudio.pause(); currentAudio = null; }
       currentAudio = new Audio(AUDIO[key]);
+      currentAudio.playbackRate = 1.1;
       currentAudio.play();
     } catch (e) {}
   }
@@ -194,6 +195,7 @@
       function next() {
         if (i >= keys.length) { currentAudio = null; return; }
         currentAudio = new Audio(AUDIO[keys[i]]);
+        currentAudio.playbackRate = 1.1;
         currentAudio.onended = next;
         currentAudio.play();
         i++;
