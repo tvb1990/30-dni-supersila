@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Коледата Невъзможна — книга, в която детето ти е героят</title>
+<style>
+  :root{
+    --red:#c62828;
+    --red-dark:#8e1b1b;
+    --green:#1b5e20;
+    --green-light:#2e7d32;
+    --gold:#f9a825;
+    --cream:#fff8f0;
+    --ink:#2b1a12;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+
+  /* HERO */
+  .hero{
+    background:linear-gradient(160deg,#7f1d1d 0%,#c62828 60%,#b71c1c 100%);
+    color:#fff;
+    text-align:center;
+    padding:70px 20px 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .snow{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;font-size:22px;opacity:.6;}
+  .hero .tag{
+    display:inline-block;background:rgba(255,255,255,.15);
+    padding:6px 16px;border-radius:30px;font-size:13px;
+    letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem,7vw,4.2rem);
+    font-weight:900;line-height:1.05;margin-bottom:18px;
+    text-shadow:0 4px 20px rgba(0,0,0,.25);
+  }
+  .hero h1 span{color:var(--gold);}
+  .hero .sub{
+    font-size:clamp(1.05rem,2.6vw,1.3rem);
+    max-width:640px;margin:0 auto 34px;opacity:.95;
+  }
+  .cta{
+    display:inline-block;background:var(--gold);color:#3e2500;
+    font-weight:800;font-size:1.15rem;padding:16px 38px;border-radius:50px;
+    text-decoration:none;box-shadow:0 8px 25px rgba(0,0,0,.3);
+    transition:transform .15s ease;
+  }
+  .cta:hover{transform:translateY(-3px);}
+  .hero .note{margin-top:16px;font-size:.9rem;opacity:.8;}
+
+  /* PROBLEM */
+  .problem{text-align:center;padding:60px 20px;background:#fff;}
+  .problem h2{font-size:clamp(1.6rem,4vw,2.2rem);margin-bottom:14px;}
+  .problem p{font-size:1.15rem;max-width:620px;margin:0 auto;color:#5a4a40;}
+
+  /* STEPS */
+  .steps{background:var(--cream);padding:60px 20px;}
+  .steps h2{text-align:center;font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:40px;}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
+  .step{
+    background:#fff;border-radius:18px;padding:28px 22px;text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.06);border-top:4px solid var(--red);
+  }
+  .step .num{
+    width:52px;height:52px;line-height:52px;border-radius:50%;
+    background:var(--red);color:#fff;font-weight:900;font-size:1.4rem;
+    margin:0 auto 16px;
+  }
+  .step h3{margin-bottom:8px;font-size:1.15rem;}
+  .step p{color:#6a5a50;font-size:.98rem;}
+
+  /* PRICING */
+  .pricing{background:#fff;padding:60px 20px;}
+  .pricing h2{text-align:center;font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:14px;}
+  .pricing .lead{text-align:center;color:#6a5a50;margin-bottom:40px;}
+  .prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;align-items:stretch;}
+  .plan{
+    border:2px solid #eee;border-radius:20px;padding:32px 24px;
+    display:flex;flex-direction:column;text-align:center;position:relative;
+    transition:transform .15s ease,box-shadow .15s ease;
+  }
+  .plan:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(0,0,0,.1);}
+  .plan.featured{border-color:var(--red);background:#fffafa;}
+  .plan .badge{
+    position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+    background:var(--red);color:#fff;font-size:.78rem;font-weight:700;
+    padding:4px 16px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;
+  }
+  .plan .name{font-size:1.05rem;font-weight:700;color:#6a5a50;text-transform:uppercase;letter-spacing:1px;}
+  .plan .price{font-size:2.6rem;font-weight:900;color:var(--red);margin:10px 0 4px;}
+  .plan .price small{font-size:1rem;font-weight:600;}
+  .plan ul{list-style:none;text-align:left;margin:20px 0 26px;flex:1;}
+  .plan ul li{padding:7px 0;border-bottom:1px dashed #eee;font-size:.95rem;}
+  .plan ul li::before{content:"✔ ";color:var(--green-light);font-weight:900;}
+  .plan .buy{
+    display:block;background:var(--red);color:#fff;font-weight:700;
+    padding:14px;border-radius:40px;text-decoration:none;font-size:1.02rem;
+  }
+  .plan.featured .buy{background:var(--gold);color:#3e2500;}
+
+  /* SOCIAL PROOF */
+  .proof{background:var(--cream);padding:60px 20px;text-align:center;}
+  .proof h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:30px;}
+  .quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+  .q{background:#fff;border-radius:16px;padding:24px;box-shadow:0 3px 14px rgba(0,0,0,.05);}
+  .q p{font-style:italic;color:#4a3a30;font-size:.98rem;}
+  .q .who{margin-top:12px;font-weight:700;color:var(--red);font-size:.9rem;}
+
+  /* ORDER FORM */
+  .order{background:linear-gradient(160deg,#1b5e20,#2e7d32);color:#fff;padding:60px 20px;}
+  .order h2{text-align:center;font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:14px;}
+  .order .lead{text-align:center;opacity:.9;margin-bottom:34px;}
+  .order form{max-width:560px;margin:0 auto;background:#fff;color:var(--ink);border-radius:20px;padding:30px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-weight:700;margin-bottom:6px;font-size:.95rem;}
+  .field input,.field textarea{
+    width:100%;padding:12px 14px;border:2px solid #e0d5cc;border-radius:10px;
+    font-size:1rem;font-family:inherit;
+  }
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--green-light);}
+  .field textarea{min-height:90px;resize:vertical;}
+  .submit{
+    width:100%;background:var(--green-light);color:#fff;border:none;
+    font-size:1.1rem;font-weight:800;padding:16px;border-radius:40px;cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .submit:hover{transform:translateY(-2px);}
+  .order .guarantee{margin-top:22px;text-align:center;font-size:.9rem;opacity:.9;}
+
+  footer{background:#1a0f0a;color:#cbb8a8;text-align:center;padding:30px 20px;font-size:.9rem;}
+  @media(max-width:600px){.plan .price{font-size:2.2rem;}}
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="snow">❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄</div>
+    <span class="tag">Персонализирана книга за деца</span>
+    <h1>„Коледата <span>Невъзможна</span>“</h1>
+    <p class="sub">Книга, в която ТВОЕТО дете — и цялото ти семейство — спасявате Коледа. С 3D илюстрации, направени от вашите снимки.</p>
+    <a href="#order" class="cta">Създай книгата →</a>
+    <p class="note">Готов за изтегляне като PDF още същия ден</p>
+  </div>
+
+  <div class="problem">
+    <h2>Подаръците се забравят.<br>Книгата, в която детето е герой — никога.</h2>
+    <p>Не подаряваш просто книга. Подаряваш мига, в който детето отваря страница и вижда себе си — и мама, и татко, и братчето — да спасявате Коледа заедно.</p>
+  </div>
+
+  <div class="steps">
+    <h2>Как работи — за 3 стъпки</h2>
+    <div class="grid3">
+      <div class="step"><div class="num">1</div><h3>Разкажи ни</h3><p>Казваш имената на детето и семейството и какво обичат.</p></div>
+      <div class="step"><div class="num">2</div><h3>Качи снимки</h3><p>Пращаш снимките — ние правим 3D героите, които приличат на вас.</p></div>
+      <div class="step"><div class="num">3</div><h3>Получи книгата</h3><p>Изтегляш PDF-а. Ако ти хареса — поръчваш печат и видео поздрав.</p></div>
+    </div>
+  </div>
+
+  <div class="pricing">
+    <h2>Избери своята магия</h2>
+    <p class="lead">Започни с PDF-а — виж резултата, преди да платиш повече.</p>
+    <div class="prices">
+      <div class="plan">
+        <div class="name">PDF книга</div>
+        <div class="price">€10</div>
+        <ul>
+          <li>Уникална история „Коледата Невъзможна“</li>
+          <li>Детето + семейството като 3D герои</li>
+          <li>Изтегляш веднага</li>
+          <li>Виж резултата преди печат</li>
+        </ul>
+        <a href="#order" class="buy">Създай PDF →</a>
+      </div>
+      <div class="plan featured">
+        <div class="badge">Най-предпочитан</div>
+        <div class="name">Книга + писмо</div>
+        <div class="price">€29</div>
+        <ul>
+          <li>Всичко от PDF-а</li>
+          <li>Физическа книга с твърда корица</li>
+          <li>Писмо с лично послание на гърба</li>
+          <li>Доставка до вратата</li>
+        </ul>
+        <a href="#order" class="buy">Поръчай печат →</a>
+      </div>
+      <div class="plan">
+        <div class="name">Пълна магия</div>
+        <div class="price">€49</div>
+        <ul>
+          <li>Всичко от книгата + писмо</li>
+          <li>Видеоклип — Дядо Коледа поздравява детето по име</li>
+          <li>Снимано от „работилницата“</li>
+          <li>Най-споделяемият подарък</li>
+        </ul>
+        <a href="#order" class="buy">Поръчай всичко →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="proof">
+    <h2>Какво казват родителите</h2>
+    <div class="quotes">
+      <div class="q"><p>„Дъщеря ми се разплака, като видя себе си и татко си в книгата. Не мога да го обясня.“</p><div class="who">— Мария, София</div></div>
+      <div class="q"><p>„Видеото с Дядо Коледа, който казва името му… това беше най-силният момент от Коледа.“</p><div class="who">— Георги, Пловдив</div></div>
+      <div class="q"><p>„Купих PDF за 10 евро, а накрая взех и книгата, и видеото. Струваше си всяка стотинка.“</p><div class="who">— Елена, Варна</div></div>
+    </div>
+  </div>
+
+  <div class="order" id="order">
+    <h2>Създай книгата сега</h2>
+    <p class="lead">Попълни данните — ще се свържем с теб за снимките и плащането.</p>
+    <form onsubmit="return submitOrder(event)">
+      <div class="field">
+        <label>Име на детето</label>
+        <input type="text" id="childName" placeholder="напр. Алекс" required>
+      </div>
+      <div class="field">
+        <label>Кои са в историята? (семейството)</label>
+        <input type="text" id="family" placeholder="напр. мама, татко, братче Иван" required>
+      </div>
+      <div class="field">
+        <label>Какво обича детето? (хобита, мечти, любимо животно)</label>
+        <textarea id="details" placeholder="напр. обича кучета, мечтае да лети"></textarea>
+      </div>
+      <div class="field">
+        <label>Твоят имейл</label>
+        <input type="email" id="email" placeholder="nапр. tvoqt@email.com" required>
+      </div>
+      <div class="field">
+        <label>Кой пакет избираш?</label>
+        <select id="package" style="width:100%;padding:12px;border:2px solid #e0d5cc;border-radius:10px;font-size:1rem;">
+          <option value="PDF — €10">PDF книга — €10</option>
+          <option value="Книга + писмо — €29">Книга + писмо — €29</option>
+          <option value="Пълна магия — €49">Пълна магия — €49</option>
+        </select>
+      </div>
+      <button class="submit" type="submit">Изпрати поръчката</button>
+      <p id="formMsg" style="margin-top:14px;text-align:center;font-weight:700;color:var(--green-light);display:none;">✔ Благодарим! Ще се свържем с теб скоро.</p>
+    </form>
+    <p class="guarantee">🔒 Гаранция: ако не харесаш PDF-а, връщаме парите ти.</p>
+  </div>
+
+  <footer>
+    © 2026 „Коледата Невъзможна“ — създадено с ♥ за семействата.
+  </footer>
+
+<script>
+  function submitOrder(e){
+    e.preventDefault();
+    var data = {
+      child: document.getElementById('childName').value,
+      family: document.getElementById('family').value,
+      details: document.getElementById('details').value,
+      email: document.getElementById('email').value,
+      pkg: document.getElementById('package').value
+    };
+    // Тук ще се свърже с твоя имейл/платформа за поръчки.
+    console.log('Поръчка:', data);
+    document.getElementById('formMsg').style.display = 'block';
+    return false;
+  }
+</script>
+</body>
+</html>
